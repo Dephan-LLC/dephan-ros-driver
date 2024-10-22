@@ -4,9 +4,11 @@
 
 
 namespace dephan_ros { 
-    Driver::Driver(ros::NodeHandle nh, std::string cloud_topic) {
+    Driver::Driver(ros::NodeHandle nh, std::string ip_addr, unsigned port, std::string cloud_topic):
+        ip_addr(ip_addr), port(port) {
         // socket.reset(new receiver_socket("192.168.0.101", 9101));
-        socket.reset(new receiver_socket("192.168.0.120", 51551));
+        // socket.reset(new receiver_socket("192.168.0.120", 51551));
+        socket.reset(new receiver_socket(ip_addr, port));
 
         rawdata_publihser = 
             nh.advertise<std_msgs::UInt8MultiArray>("raw_data", 10);
