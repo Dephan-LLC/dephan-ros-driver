@@ -27,6 +27,7 @@ namespace dephan_ros {
         Driver(ros::NodeHandle, std::string topic_name); 
 
         void poll();
+        void poll_full();
     };
 }
 

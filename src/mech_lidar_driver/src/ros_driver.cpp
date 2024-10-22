@@ -17,7 +17,31 @@ namespace dephan_ros {
     }
 
     void 
-    Driver::poll() { 
+    Driver::poll() {
+        pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
+
+        dephan::packet::raw_packet_t raw_pkt(new uint8_t[1016]);
+
+        while (socket->get_packet(raw_pkt.get(), 1016)); 
+
+        dephan::pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
+
+        for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) 
+            msg->points.push_back(
+                pcl::PointXYZ(
+                    hdl_pkt.ranges[chnl] * cosf(hdl_pkt.angles[chnl]) / 1000, 
+                    hdl_pkt.ranges[chnl] * sinf(hdl_pkt.angles[chnl]) / 1000, 
+                    0.0
+                )
+            );
+        
+        msg->header.frame_id = "map";
+
+        pointcloud2_publisher.publish(msg);
+    }
+
+    void 
+    Driver::poll_full() { 
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
 
         for (size_t i = 0; i < 18; i++) { 
