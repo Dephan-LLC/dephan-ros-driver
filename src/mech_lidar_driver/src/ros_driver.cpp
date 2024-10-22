@@ -37,6 +37,7 @@ namespace dephan_ros {
                 )
             );
         
+        pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
         msg->header.frame_id = "map";
 
         pointcloud2_publisher.publish(msg);
@@ -63,6 +64,7 @@ namespace dephan_ros {
                 );
         }
         
+        pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
         msg->header.frame_id = "map";
 
         pointcloud2_publisher.publish(msg);
