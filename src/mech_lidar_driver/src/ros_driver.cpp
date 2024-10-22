@@ -67,4 +67,9 @@ namespace dephan_ros {
 
         pointcloud2_publisher.publish(msg);
     }
+
+    std::pair<std::string, unsigned> 
+    Driver::get_network_params() {
+        return {ip_addr, port};
+    }
 }

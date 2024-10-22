@@ -27,8 +27,14 @@ namespace dephan_ros {
     public:
         Driver(ros::NodeHandle nh, std::string ip_addr, unsigned port, std::string topic_name); 
 
-        void poll();
-        void poll_full();
+        void 
+        poll();
+
+        void 
+        poll_full();
+
+        std::pair<std::string, unsigned> 
+        get_network_params(); 
     };
 }
 
