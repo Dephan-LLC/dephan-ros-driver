@@ -22,11 +22,11 @@ namespace dephan_ros {
     Driver::poll() {
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
 
-        dephan::packet::raw_packet_t raw_pkt(new uint8_t[1016]);
+        packet::raw_packet_t raw_pkt(new uint8_t[packet::PKT_LEN]);
 
-        while (socket->get_packet(raw_pkt.get(), 1016)); 
+        while (socket->get_packet(raw_pkt.get(), packet::PKT_LEN)); 
 
-        dephan::pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
+        pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
 
         for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) 
             msg->points.push_back(
@@ -48,11 +48,11 @@ namespace dephan_ros {
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
 
         for (size_t i = 0; i < 18; i++) { 
-            dephan::packet::raw_packet_t raw_pkt(new uint8_t[1016]);
+            packet::raw_packet_t raw_pkt(new uint8_t[packet::PKT_LEN]);
 
-            while (socket->get_packet(raw_pkt.get(), 1016)); 
+            while (socket->get_packet(raw_pkt.get(), packet::PKT_LEN)); 
 
-            dephan::pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
+            pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
 
             for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) 
                 msg->points.push_back(

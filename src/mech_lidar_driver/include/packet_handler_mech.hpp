@@ -4,7 +4,7 @@
 #include "packet_raw.hpp"
 
 
-namespace dephan {
+namespace dephan_ros {
     class pkt_hdl_Mech: public packet { 
 
     public:
