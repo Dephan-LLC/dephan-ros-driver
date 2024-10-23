@@ -1,3 +1,13 @@
+/** 
+ * Copyright (c) 2024, DEPHAN LLC, Anton Ledrov
+ * All rights reserved.
+ */
+
+/**
+ * @file ros_driver.hpp
+ * @brief ROS driver for DEPHAN LLC LiDars
+ */
+
 #include "ros_driver.hpp"
 #include <std_msgs/UInt8MultiArray.h>
 #include <vector>

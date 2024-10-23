@@ -1,3 +1,13 @@
+/** 
+ * Copyright (c) 2024, DEPHAN LLC, Anton Ledrov
+ * All rights reserved.
+ */
+
+/**
+ * @file ros_driver.hpp
+ * @brief ROS driver for DEPHAN LLC LiDars
+ */
+
 #ifndef DRIVER_HPP
 #define DRIVER_HPP
 
@@ -14,6 +24,9 @@
 
 
 namespace dephan_ros { 
+    /**
+     * Base class for driver.
+     */
     class Driver {
     private:
         std::string ip_addr; 

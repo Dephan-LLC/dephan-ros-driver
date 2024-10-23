@@ -1,3 +1,13 @@
+/** 
+ * Copyright (c) 2024, DEPHAN LLC, Anton Ledrov, Aleksandr Plukchi
+ * All rights reserved.
+ */
+
+/**
+ * @file packet_handler_mech.hpp
+ * @brief Raw packets handler class for mechanical LiDar
+ */
+
 #ifndef PCK_HDL_MECH_HPP
 #define PCK_HDL_MECH_HPP
 
@@ -5,13 +15,25 @@
 
 
 namespace dephan_ros {
+    /**
+     * Class for handle raw packet derived from base packet class
+     */
     class pkt_hdl_Mech: public packet { 
 
     public:
+        /**
+         * Constructor for handled packet.
+         */
         pkt_hdl_Mech(raw_packet_t pkt); 
 
+        /**
+         * Disabled copy constructor.
+         */
         pkt_hdl_Mech(const pkt_hdl_Mech &) = delete; 
 
+        /**
+         * Disabled copy assign operator.
+         */
         pkt_hdl_Mech& operator=(const pkt_hdl_Mech &) = delete;
 
         static const uint8_t magic = 0x68;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024, DEPHAN LLC, Aleksandr Plukchi
+ * Copyright (c) 2024, DEPHAN LLC, Aleksandr Plukchi, Anton Ledrov
  * All rights reserved.
  */
 

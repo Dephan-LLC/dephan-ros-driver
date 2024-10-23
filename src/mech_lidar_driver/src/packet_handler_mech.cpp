@@ -1,3 +1,13 @@
+/** 
+ * Copyright (c) 2024, DEPHAN LLC, Anton Ledrov, Aleksandr Plukchi
+ * All rights reserved.
+ */
+
+/**
+ * @file packet_handler_mech.hpp
+ * @brief Raw packets handler class for mechanical LiDar
+ */
+
 #include "packet_handler_mech.hpp"
 #include <iostream>
 

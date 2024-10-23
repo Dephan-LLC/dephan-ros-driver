@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2024, DEPHAN LLC, Aleksandr Plukchi
+ * Copyright (c) 2024, DEPHAN LLC, Aleksandr Plukchi, Anton Ledrov
  * All rights reserved.
  */
 
 /**
- * @file receiver_socket.cpp
+ * @file receiver_socket.hpp
  * @brief UDP socket for receiving data packets from lidar
  */
 

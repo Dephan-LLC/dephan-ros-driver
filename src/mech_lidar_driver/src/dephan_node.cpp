@@ -1,3 +1,13 @@
+/** 
+ * Copyright (c) 2024, DEPHAN LLC, Anton Ledrov
+ * All rights reserved.
+ */
+
+/**
+ * @file dephan_node.hpp
+ * @brief ROS node for mechanical LiDar data
+ */
+
 #include "ros_driver.hpp"
 
 
