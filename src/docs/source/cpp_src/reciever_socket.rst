@@ -9,3 +9,4 @@ Class Documentation
 
 .. doxygenclass:: dephan_ros::receiver_socket
     :members:
+    :private-members:

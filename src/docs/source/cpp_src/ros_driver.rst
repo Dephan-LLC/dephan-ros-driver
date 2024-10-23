@@ -9,3 +9,4 @@ Class Documentation
 
 .. doxygenclass:: dephan_ros::Driver
     :members:
+    :private-members:

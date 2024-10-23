@@ -26,7 +26,7 @@ namespace dephan_ros {
             typedef std::unique_ptr<uint8_t[]> raw_packet_t; 
 
             /**
-             * Mechanical LiDar's one packet length. 
+             * Mechanical LiDar's single packet length. 
              */
             static const unsigned PKT_LEN = 1016; 
     };

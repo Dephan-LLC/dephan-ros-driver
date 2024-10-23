@@ -152,7 +152,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/ros_driver.hpp" line="71" column="9" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/ros_driver.cpp" bodystart="17" bodyend="29"/>
+        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/ros_driver.hpp" line="71" column="9" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/ros_driver.cpp" bodystart="17" bodyend="32"/>
       </memberdef>
       <memberdef kind="function" id="classdephan__ros_1_1Driver_1aad0258b16b35e5ab8391a26f7c6f2b65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -166,7 +166,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/ros_driver.hpp" line="77" column="9" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/ros_driver.cpp" bodystart="32" bodyend="54"/>
+        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/ros_driver.hpp" line="77" column="9" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/ros_driver.cpp" bodystart="35" bodyend="66"/>
       </memberdef>
       <memberdef kind="function" id="classdephan__ros_1_1Driver_1af1875e61040f8cc114d8523d74642988" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -180,7 +180,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/ros_driver.hpp" line="83" column="9" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/ros_driver.cpp" bodystart="57" bodyend="81"/>
+        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/ros_driver.hpp" line="83" column="9" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/ros_driver.cpp" bodystart="69" bodyend="103"/>
       </memberdef>
       <memberdef kind="function" id="classdephan__ros_1_1Driver_1a93e57a1f004ffb7b48547bb5a60aa80b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::pair&lt; std::string, unsigned &gt;</type>
@@ -194,7 +194,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/ros_driver.hpp" line="89" column="9" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/ros_driver.cpp" bodystart="84" bodyend="86"/>
+        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/ros_driver.hpp" line="89" column="9" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/ros_driver.cpp" bodystart="106" bodyend="108"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

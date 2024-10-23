@@ -67,6 +67,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classdephan__ros_1_1receiver__socket-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">dephan_ros::receiver_socket Class Reference</div>  </div>
@@ -81,6 +83,39 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab3d8005665a274427520b73445dd2a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98255dbd3da277d775dd1462d6b1f613"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1receiver__socket.html#a98255dbd3da277d775dd1462d6b1f613">get_packet</a> (uint8_t *buf, int len)</td></tr>
 <tr class="separator:a98255dbd3da277d775dd1462d6b1f613"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aa6a02e458c53dd3cd3a9ef225c5c4a44"><td class="memItemLeft" align="right" valign="top"><a id="aa6a02e458c53dd3cd3a9ef225c5c4a44"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>receiver_socket</b> (const <a class="el" href="classdephan__ros_1_1receiver__socket.html">receiver_socket</a> &amp;)</td></tr>
+<tr class="separator:aa6a02e458c53dd3cd3a9ef225c5c4a44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6effccb0d4d42e789ca55efe4b81601"><td class="memItemLeft" align="right" valign="top"><a id="ab6effccb0d4d42e789ca55efe4b81601"></a>
+<a class="el" href="classdephan__ros_1_1receiver__socket.html">receiver_socket</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classdephan__ros_1_1receiver__socket.html">receiver_socket</a> &amp;)</td></tr>
+<tr class="separator:ab6effccb0d4d42e789ca55efe4b81601"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a2752feb2087d2676639f83633c337d71"><td class="memItemLeft" align="right" valign="top"><a id="a2752feb2087d2676639f83633c337d71"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_ip_addr</b></td></tr>
+<tr class="separator:a2752feb2087d2676639f83633c337d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e1a903a551422daf1c0825e5aaf49bc"><td class="memItemLeft" align="right" valign="top"><a id="a4e1a903a551422daf1c0825e5aaf49bc"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_sock_port</b></td></tr>
+<tr class="separator:a4e1a903a551422daf1c0825e5aaf49bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2352a077183118137b7502d15f2ea7e"><td class="memItemLeft" align="right" valign="top"><a id="ad2352a077183118137b7502d15f2ea7e"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>udp_socket</b></td></tr>
+<tr class="separator:ad2352a077183118137b7502d15f2ea7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae28976459b44f3515f668942367e6df2"><td class="memItemLeft" align="right" valign="top"><a id="ae28976459b44f3515f668942367e6df2"></a>
+struct sockaddr_in si_me&#160;</td><td class="memItemRight" valign="bottom"><b>si_from</b></td></tr>
+<tr class="separator:ae28976459b44f3515f668942367e6df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4557c69a82a1a8ea83214a07f771d00e"><td class="memItemLeft" align="right" valign="top"><a id="a4557c69a82a1a8ea83214a07f771d00e"></a>
+socklen_t&#160;</td><td class="memItemRight" valign="bottom"><b>si_from_len</b> = sizeof(si_from)</td></tr>
+<tr class="separator:a4557c69a82a1a8ea83214a07f771d00e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5070403887e243999c375fff46f73725"><td class="memItemLeft" align="right" valign="top"><a id="a5070403887e243999c375fff46f73725"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>POLL_TIMEOUT</b> = 500</td></tr>
+<tr class="separator:a5070403887e243999c375fff46f73725"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a481e5033ffee0225b3811e5c1145a3d2"><td class="memItemLeft" align="right" valign="top"><a id="a481e5033ffee0225b3811e5c1145a3d2"></a>
+struct pollfd&#160;</td><td class="memItemRight" valign="bottom"><b>m_fds</b> [1]</td></tr>
+<tr class="separator:a481e5033ffee0225b3811e5c1145a3d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac36569003029d126d8106477208cca26"></a>

@@ -9,3 +9,4 @@ Struct Documentation
 
 .. doxygenstruct:: dephan_ros::packet
     :members:
+    :private-members:
