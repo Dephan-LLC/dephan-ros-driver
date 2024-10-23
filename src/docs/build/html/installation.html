@@ -51,6 +51,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#supported-platfrorms">Supported platfrorms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-and-run">Build and run</a></li>
 </ul>
 </li>
 </ul>
@@ -90,21 +91,57 @@
 <h1>Dephan ROS driver installation<a class="headerlink" href="#dephan-ros-driver-installation" title="Link to this heading"></a></h1>
 <section id="supported-platfrorms">
 <h2>Supported platfrorms<a class="headerlink" href="#supported-platfrorms" title="Link to this heading"></a></h2>
-<p>Driver was tested under the <code class="docutils literal notranslate"><span class="pre">Ubuntu</span> <span class="pre">20.04</span></code>.</p>
+<p>Driver was tested under the <code class="docutils literal notranslate"><span class="pre">Ubuntu</span> <span class="pre">20.04</span></code> and <code class="docutils literal notranslate"><span class="pre">ROS</span> <span class="pre">Noetic</span></code> distribution.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This driver was tested only for <a class="reference external" href="https://hub.docker.com/_/ros">ros:noetic dockerhub image</a>.</p>
+<p>It is not recommended to use this driver under the other ros distribution.</p>
+</div>
 </section>
 <section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">cmake</span></code> for building project (version 3.16 or higher)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fmt</span></code> for C++ string formatting</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nlohmann_json</span></code> for reading .yaml configuration files</p></li>
-</ul>
-<p>You can install it via commands:</p>
+<p>Only the installed ros noetic package is enough.</p>
+</section>
+<section id="build-and-run">
+<h2>Build and run<a class="headerlink" href="#build-and-run" title="Link to this heading"></a></h2>
+<p>For run and build driver please run the following commands:</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-VWJ1bnR1" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-VWJ1bnR1" name="VWJ1bnR1" role="tab" tabindex="0">Ubuntu</button></div><div aria-labelledby="tab-0-VWJ1bnR1" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-VWJ1bnR1" name="VWJ1bnR1" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install cmake libfmt-dev nlohmann-json3-dev</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-VWJ1bnR1" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-VWJ1bnR1" name="VWJ1bnR1" role="tab" tabindex="0">Ubuntu</button></div><div aria-labelledby="tab-0-VWJ1bnR1" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-VWJ1bnR1" name="VWJ1bnR1" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/Dephan-LLC/dephan-ros-driver.git</span>
+
+<span class="go">cd dephan-ros-driver</span>
+
+<span class="go">catkin_make</span>
+
+<span class="go">source devel/setup.bash</span>
 </pre></div>
 </div>
 </div></div>
+<p>Now you are ready to run the testing node:</p>
+<ol class="arabic simple">
+<li><p>In tetminal 1:</p></li>
+</ol>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-VWJ1bnR1" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-VWJ1bnR1" name="VWJ1bnR1" role="tab" tabindex="0">Ubuntu</button></div><div aria-labelledby="tab-1-VWJ1bnR1" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-VWJ1bnR1" name="VWJ1bnR1" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roscore</span>
+</pre></div>
+</div>
+</div></div>
+<ol class="arabic simple" start="2">
+<li><p>In terminal 2:</p></li>
+</ol>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-VWJ1bnR1" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-VWJ1bnR1" name="VWJ1bnR1" role="tab" tabindex="0">Ubuntu</button></div><div aria-labelledby="tab-2-VWJ1bnR1" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-VWJ1bnR1" name="VWJ1bnR1" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosrun mech_lidar_driver mech_driver</span>
+</pre></div>
+</div>
+</div></div>
+<ol class="arabic simple" start="3">
+<li><p>In terminal 3:</p></li>
+</ol>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-VWJ1bnR1" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-VWJ1bnR1" name="VWJ1bnR1" role="tab" tabindex="0">Ubuntu</button></div><div aria-labelledby="tab-3-VWJ1bnR1" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-VWJ1bnR1" name="VWJ1bnR1" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic echo point_cloud2_data</span>
+</pre></div>
+</div>
+</div></div>
+<p>Now you should see data stream in the terminal 3.</p>
 </section>
 </section>
 

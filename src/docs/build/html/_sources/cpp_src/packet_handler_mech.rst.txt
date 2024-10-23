@@ -9,3 +9,4 @@ Class Documentation
 
 .. doxygenclass:: dephan_ros::pkt_hdl_Mech
     :members:
+    :private-members:
