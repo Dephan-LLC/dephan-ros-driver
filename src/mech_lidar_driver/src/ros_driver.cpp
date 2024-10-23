@@ -4,7 +4,7 @@
  */
 
 /**
- * @file ros_driver.hpp
+ * @file ros_driver.cpp
  * @brief ROS driver for DEPHAN LLC LiDars
  */
 

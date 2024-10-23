@@ -1,0 +1,22 @@
+\hypertarget{dephan__node_8cpp}{}\doxysection{mech\+\_\+lidar\+\_\+driver/src/dephan\+\_\+node.cpp File Reference}
+\label{dephan__node_8cpp}\index{mech\_lidar\_driver/src/dephan\_node.cpp@{mech\_lidar\_driver/src/dephan\_node.cpp}}
+
+
+ROS node for mechanical Li\+Dar data.  
+
+
+{\ttfamily \#include \char`\"{}ros\+\_\+driver.\+hpp\char`\"{}}\newline
+Include dependency graph for dephan\+\_\+node.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{dephan__node_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{dephan__node_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+ROS node for mechanical Li\+Dar data. 
+
+Copyright (c) 2024, DEPHAN LLC, Anton Ledrov All rights reserved. 

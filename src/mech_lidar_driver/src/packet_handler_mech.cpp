@@ -4,7 +4,7 @@
  */
 
 /**
- * @file packet_handler_mech.hpp
+ * @file packet_handler_mech.cpp
  * @brief Raw packets handler class for mechanical LiDar
  */
 

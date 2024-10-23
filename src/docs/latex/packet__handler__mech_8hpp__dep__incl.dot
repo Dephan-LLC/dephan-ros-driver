@@ -1,0 +1,15 @@
+digraph "mech_lidar_driver/include/packet_handler_mech.hpp"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="mech_lidar_driver/include\l/packet_handler_mech.hpp",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Raw packets handler class for mechanical LiDar."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="mech_lidar_driver/include\l/ros_driver.hpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ros__driver_8hpp.html",tooltip="ROS driver for DEPHAN LLC LiDars."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="mech_lidar_driver/src\l/dephan_node.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dephan__node_8cpp.html",tooltip="ROS node for mechanical LiDar data."];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="mech_lidar_driver/src\l/ros_driver.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ros__driver_8cpp.html",tooltip="ROS driver for DEPHAN LLC LiDars."];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="mech_lidar_driver/src\l/packet_handler_mech.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$packet__handler__mech_8cpp.html",tooltip="Raw packets handler class for mechanical LiDar."];
+}

@@ -4,7 +4,7 @@
  */
 
 /**
- * @file dephan_node.hpp
+ * @file dephan_node.cpp
  * @brief ROS node for mechanical LiDar data
  */
 

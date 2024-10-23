@@ -7,24 +7,63 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classdephan__ros_1_1Driver_a353f3280e31977b8be7dad15313807ab}\label{classdephan__ros_1_1Driver_a353f3280e31977b8be7dad15313807ab}} 
-{\bfseries Driver} (ros\+::\+Node\+Handle nh, std\+::string ip\+\_\+addr, unsigned port, std\+::string topic\+\_\+name)
+\mbox{\hyperlink{classdephan__ros_1_1Driver_a353f3280e31977b8be7dad15313807ab}{Driver}} (ros\+::\+Node\+Handle nh, std\+::string ip\+\_\+addr, unsigned port, std\+::string topic\+\_\+name)
 \item 
-\mbox{\Hypertarget{classdephan__ros_1_1Driver_aad0258b16b35e5ab8391a26f7c6f2b65}\label{classdephan__ros_1_1Driver_aad0258b16b35e5ab8391a26f7c6f2b65}} 
-void {\bfseries poll} ()
+void \mbox{\hyperlink{classdephan__ros_1_1Driver_aad0258b16b35e5ab8391a26f7c6f2b65}{poll}} ()
 \item 
-\mbox{\Hypertarget{classdephan__ros_1_1Driver_af1875e61040f8cc114d8523d74642988}\label{classdephan__ros_1_1Driver_af1875e61040f8cc114d8523d74642988}} 
-void {\bfseries poll\+\_\+full} ()
+void \mbox{\hyperlink{classdephan__ros_1_1Driver_af1875e61040f8cc114d8523d74642988}{poll\+\_\+full}} ()
 \item 
-\mbox{\Hypertarget{classdephan__ros_1_1Driver_a93e57a1f004ffb7b48547bb5a60aa80b}\label{classdephan__ros_1_1Driver_a93e57a1f004ffb7b48547bb5a60aa80b}} 
-std\+::pair$<$ std\+::string, unsigned $>$ {\bfseries get\+\_\+network\+\_\+params} ()
+std\+::pair$<$ std\+::string, unsigned $>$ \mbox{\hyperlink{classdephan__ros_1_1Driver_a93e57a1f004ffb7b48547bb5a60aa80b}{get\+\_\+network\+\_\+params}} ()
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Base class for driver. 
 
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classdephan__ros_1_1Driver_a353f3280e31977b8be7dad15313807ab}\label{classdephan__ros_1_1Driver_a353f3280e31977b8be7dad15313807ab}} 
+\index{dephan\_ros::Driver@{dephan\_ros::Driver}!Driver@{Driver}}
+\index{Driver@{Driver}!dephan\_ros::Driver@{dephan\_ros::Driver}}
+\doxysubsubsection{\texorpdfstring{Driver()}{Driver()}}
+{\footnotesize\ttfamily dephan\+\_\+ros\+::\+Driver\+::\+Driver (\begin{DoxyParamCaption}\item[{ros\+::\+Node\+Handle}]{nh,  }\item[{std\+::string}]{ip\+\_\+addr,  }\item[{unsigned}]{port,  }\item[{std\+::string}]{topic\+\_\+name }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{classdephan__ros_1_1Driver}{Driver}} constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em nh} & Ros handle node. \\
+\hline
+\mbox{\texttt{ in}}  & {\em ip\+\_\+addr} & Ip address of the Li\+Dar device. \\
+\hline
+\mbox{\texttt{ in}}  & {\em port} & Network port of the Li\+Dar device. \\
+\hline
+\mbox{\texttt{ in}}  & {\em topic\+\_\+name} & Name of the topic for pointcloud v2 messages. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classdephan__ros_1_1Driver_a93e57a1f004ffb7b48547bb5a60aa80b}\label{classdephan__ros_1_1Driver_a93e57a1f004ffb7b48547bb5a60aa80b}} 
+\index{dephan\_ros::Driver@{dephan\_ros::Driver}!get\_network\_params@{get\_network\_params}}
+\index{get\_network\_params@{get\_network\_params}!dephan\_ros::Driver@{dephan\_ros::Driver}}
+\doxysubsubsection{\texorpdfstring{get\_network\_params()}{get\_network\_params()}}
+{\footnotesize\ttfamily std\+::pair$<$ std\+::string, unsigned $>$ dephan\+\_\+ros\+::\+Driver\+::get\+\_\+network\+\_\+params (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter for the network parameters of the Li\+Dar device. \mbox{\Hypertarget{classdephan__ros_1_1Driver_aad0258b16b35e5ab8391a26f7c6f2b65}\label{classdephan__ros_1_1Driver_aad0258b16b35e5ab8391a26f7c6f2b65}} 
+\index{dephan\_ros::Driver@{dephan\_ros::Driver}!poll@{poll}}
+\index{poll@{poll}!dephan\_ros::Driver@{dephan\_ros::Driver}}
+\doxysubsubsection{\texorpdfstring{poll()}{poll()}}
+{\footnotesize\ttfamily void dephan\+\_\+ros\+::\+Driver\+::poll (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Polling function for the one packet from the Li\+Dar. \mbox{\Hypertarget{classdephan__ros_1_1Driver_af1875e61040f8cc114d8523d74642988}\label{classdephan__ros_1_1Driver_af1875e61040f8cc114d8523d74642988}} 
+\index{dephan\_ros::Driver@{dephan\_ros::Driver}!poll\_full@{poll\_full}}
+\index{poll\_full@{poll\_full}!dephan\_ros::Driver@{dephan\_ros::Driver}}
+\doxysubsubsection{\texorpdfstring{poll\_full()}{poll\_full()}}
+{\footnotesize\ttfamily void dephan\+\_\+ros\+::\+Driver\+::poll\+\_\+full (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Polling function for the 18 packets from the Li\+Dar. 
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
 mech\+\_\+lidar\+\_\+driver/include/\mbox{\hyperlink{ros__driver_8hpp}{ros\+\_\+driver.\+hpp}}\item 
-mech\+\_\+lidar\+\_\+driver/src/ros\+\_\+driver.\+cpp\end{DoxyCompactItemize}
+mech\+\_\+lidar\+\_\+driver/src/\mbox{\hyperlink{ros__driver_8cpp}{ros\+\_\+driver.\+cpp}}\end{DoxyCompactItemize}

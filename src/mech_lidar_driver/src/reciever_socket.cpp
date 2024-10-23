@@ -4,7 +4,7 @@
  */
 
 /**
- * @file receiver_socket.hpp
+ * @file receiver_socket.cpp
  * @brief UDP socket for receiving data packets from lidar
  */
 
