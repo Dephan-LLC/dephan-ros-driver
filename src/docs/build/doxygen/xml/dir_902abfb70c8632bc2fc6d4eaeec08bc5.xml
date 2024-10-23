@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_902abfb70c8632bc2fc6d4eaeec08bc5" kind="dir">
+    <compoundname>/home/anton/dephan-ros-driver/src/mech_lidar_driver/src</compoundname>
+    <innerfile refid="dephan__node_8cpp">dephan_node.cpp</innerfile>
+    <innerfile refid="packet__handler__mech_8cpp">packet_handler_mech.cpp</innerfile>
+    <innerfile refid="reciever__socket_8cpp">reciever_socket.cpp</innerfile>
+    <innerfile refid="ros__driver_8cpp">ros_driver.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/"/>
+  </compounddef>
+</doxygen>

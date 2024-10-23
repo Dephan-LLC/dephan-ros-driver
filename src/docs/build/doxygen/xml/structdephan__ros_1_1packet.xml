@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structdephan__ros_1_1packet" kind="struct" language="C++" prot="public">
+    <compoundname>dephan_ros::packet</compoundname>
+    <derivedcompoundref refid="classdephan__ros_1_1pkt__hdl__Mech" prot="public" virt="non-virtual">dephan_ros::pkt_hdl_Mech</derivedcompoundref>
+    <includes refid="packet__raw_8hpp" local="no">packet_raw.hpp</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structdephan__ros_1_1packet_1a617f9aacf5177ff70513e57fa22a72e8" prot="public" static="no">
+        <type>std::unique_ptr&lt; uint8_t[]&gt;</type>
+        <definition>typedef std::unique_ptr&lt;uint8_t[]&gt; dephan_ros::packet::raw_packet_t</definition>
+        <argsstring></argsstring>
+        <name>raw_packet_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>typedef for the raw_packet_t. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" line="26" column="37" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structdephan__ros_1_1packet_1a6ff7d366d3cd2c0d904d52827674cb34" prot="public" static="yes" mutable="no">
+        <type>const unsigned</type>
+        <definition>const unsigned dephan_ros::packet::PKT_LEN</definition>
+        <argsstring></argsstring>
+        <name>PKT_LEN</name>
+        <initializer>= 1016</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Mechanical LiDar&apos;s one packet length. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" line="31" column="35" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Base Packet class </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>dephan_ros::packet</label>
+        <link refid="structdephan__ros_1_1packet"/>
+      </node>
+      <node id="2">
+        <label>dephan_ros::pkt_hdl_Mech</label>
+        <link refid="classdephan__ros_1_1pkt__hdl__Mech"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" line="21" column="5" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" bodystart="21" bodyend="32"/>
+    <listofallmembers>
+      <member refid="structdephan__ros_1_1packet_1a6ff7d366d3cd2c0d904d52827674cb34" prot="public" virt="non-virtual"><scope>dephan_ros::packet</scope><name>PKT_LEN</name></member>
+      <member refid="structdephan__ros_1_1packet_1a617f9aacf5177ff70513e57fa22a72e8" prot="public" virt="non-virtual"><scope>dephan_ros::packet</scope><name>raw_packet_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,11 @@
+digraph "/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/ros_driver.hpp"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="/home/anton/dephan\l-ros-driver/src/mech\l_lidar_driver/include\l/ros_driver.hpp",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="ROS driver for DEPHAN LLC LiDars."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="/home/anton/dephan\l-ros-driver/src/mech\l_lidar_driver/src/dephan\l_node.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dephan__node_8cpp.html",tooltip="ROS node for mechanical LiDar data."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="/home/anton/dephan\l-ros-driver/src/mech\l_lidar_driver/src/ros\l_driver.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ros__driver_8cpp.html",tooltip="ROS driver for DEPHAN LLC LiDars."];
+}
