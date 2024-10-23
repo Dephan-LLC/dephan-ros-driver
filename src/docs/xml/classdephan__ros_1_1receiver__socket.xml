@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classdephan__ros_1_1receiver__socket" kind="class" language="C++" prot="public">
+    <compoundname>dephan_ros::receiver_socket</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classdephan__ros_1_1receiver__socket_1a2752feb2087d2676639f83633c337d71" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string dephan_ros::receiver_socket::m_ip_addr</definition>
+        <argsstring></argsstring>
+        <name>m_ip_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="mech_lidar_driver/include/reciever_socket.hpp" line="50" column="21" bodyfile="mech_lidar_driver/include/reciever_socket.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classdephan__ros_1_1receiver__socket_1a4e1a903a551422daf1c0825e5aaf49bc" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int dephan_ros::receiver_socket::m_sock_port</definition>
+        <argsstring></argsstring>
+        <name>m_sock_port</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="mech_lidar_driver/include/reciever_socket.hpp" line="51" column="13" bodyfile="mech_lidar_driver/include/reciever_socket.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classdephan__ros_1_1receiver__socket_1ad2352a077183118137b7502d15f2ea7e" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int dephan_ros::receiver_socket::udp_socket</definition>
+        <argsstring></argsstring>
+        <name>udp_socket</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="mech_lidar_driver/include/reciever_socket.hpp" line="52" column="13" bodyfile="mech_lidar_driver/include/reciever_socket.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classdephan__ros_1_1receiver__socket_1ae28976459b44f3515f668942367e6df2" prot="private" static="no" mutable="no">
+        <type>struct sockaddr_in si_me</type>
+        <definition>struct sockaddr_in si_me dephan_ros::receiver_socket::si_from</definition>
+        <argsstring></argsstring>
+        <name>si_from</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="mech_lidar_driver/include/reciever_socket.hpp" line="52" column="13" bodyfile="mech_lidar_driver/include/reciever_socket.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classdephan__ros_1_1receiver__socket_1a4557c69a82a1a8ea83214a07f771d00e" prot="private" static="no" mutable="no">
+        <type>socklen_t</type>
+        <definition>socklen_t dephan_ros::receiver_socket::si_from_len</definition>
+        <argsstring></argsstring>
+        <name>si_from_len</name>
+        <initializer>= sizeof(si_from)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="mech_lidar_driver/include/reciever_socket.hpp" line="56" column="19" bodyfile="mech_lidar_driver/include/reciever_socket.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classdephan__ros_1_1receiver__socket_1a5070403887e243999c375fff46f73725" prot="private" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int dephan_ros::receiver_socket::POLL_TIMEOUT</definition>
+        <argsstring></argsstring>
+        <name>POLL_TIMEOUT</name>
+        <initializer>= 500</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="mech_lidar_driver/include/reciever_socket.hpp" line="58" column="19" bodyfile="mech_lidar_driver/include/reciever_socket.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classdephan__ros_1_1receiver__socket_1a481e5033ffee0225b3811e5c1145a3d2" prot="private" static="no" mutable="no">
+        <type>struct pollfd</type>
+        <definition>struct pollfd dephan_ros::receiver_socket::m_fds[1]</definition>
+        <argsstring>[1]</argsstring>
+        <name>m_fds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="mech_lidar_driver/include/reciever_socket.hpp" line="58" column="19" bodyfile="mech_lidar_driver/include/reciever_socket.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classdephan__ros_1_1receiver__socket_1ac36569003029d126d8106477208cca26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>dephan_ros::receiver_socket::receiver_socket</definition>
+        <argsstring>(std::string ip_addr, int port)</argsstring>
+        <name>receiver_socket</name>
+        <param>
+          <type>std::string</type>
+          <declname>ip_addr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>port</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructs and opens a socket with specific IP address and port.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>device configuration (include ip and port). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="mech_lidar_driver/include/reciever_socket.hpp" line="28" column="9" bodyfile="mech_lidar_driver/src/reciever_socket.cpp" bodystart="20" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classdephan__ros_1_1receiver__socket_1ab3d8005665a274427520b73445dd2a2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>dephan_ros::receiver_socket::~receiver_socket</definition>
+        <argsstring>()</argsstring>
+        <name>~receiver_socket</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Destructs the UDP server - closes the socket. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="mech_lidar_driver/include/reciever_socket.hpp" line="33" column="9" bodyfile="mech_lidar_driver/src/reciever_socket.cpp" bodystart="74" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classdephan__ros_1_1receiver__socket_1a98255dbd3da277d775dd1462d6b1f613" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int dephan_ros::receiver_socket::get_packet</definition>
+        <argsstring>(uint8_t *buf, int len)</argsstring>
+        <name>get_packet</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get single data packet.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer for packet. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>packet lenght. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="mech_lidar_driver/include/reciever_socket.hpp" line="41" column="13" bodyfile="mech_lidar_driver/src/reciever_socket.cpp" bodystart="80" bodyend="131"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classdephan__ros_1_1receiver__socket_1aa6a02e458c53dd3cd3a9ef225c5c4a44" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>dephan_ros::receiver_socket::receiver_socket</definition>
+        <argsstring>(const receiver_socket &amp;)</argsstring>
+        <name>receiver_socket</name>
+        <param>
+          <type>const <ref refid="classdephan__ros_1_1receiver__socket" kindref="compound">receiver_socket</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="mech_lidar_driver/include/reciever_socket.hpp" line="45" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classdephan__ros_1_1receiver__socket_1ab6effccb0d4d42e789ca55efe4b81601" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classdephan__ros_1_1receiver__socket" kindref="compound">receiver_socket</ref> &amp;</type>
+        <definition>receiver_socket&amp; dephan_ros::receiver_socket::operator=</definition>
+        <argsstring>(const receiver_socket &amp;)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="classdephan__ros_1_1receiver__socket" kindref="compound">receiver_socket</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="mech_lidar_driver/include/reciever_socket.hpp" line="48" column="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="mech_lidar_driver/include/reciever_socket.hpp" line="21" column="5" bodyfile="mech_lidar_driver/include/reciever_socket.hpp" bodystart="21" bodyend="60"/>
+    <listofallmembers>
+      <member refid="classdephan__ros_1_1receiver__socket_1a98255dbd3da277d775dd1462d6b1f613" prot="public" virt="non-virtual"><scope>dephan_ros::receiver_socket</scope><name>get_packet</name></member>
+      <member refid="classdephan__ros_1_1receiver__socket_1a481e5033ffee0225b3811e5c1145a3d2" prot="private" virt="non-virtual"><scope>dephan_ros::receiver_socket</scope><name>m_fds</name></member>
+      <member refid="classdephan__ros_1_1receiver__socket_1a2752feb2087d2676639f83633c337d71" prot="private" virt="non-virtual"><scope>dephan_ros::receiver_socket</scope><name>m_ip_addr</name></member>
+      <member refid="classdephan__ros_1_1receiver__socket_1a4e1a903a551422daf1c0825e5aaf49bc" prot="private" virt="non-virtual"><scope>dephan_ros::receiver_socket</scope><name>m_sock_port</name></member>
+      <member refid="classdephan__ros_1_1receiver__socket_1ab6effccb0d4d42e789ca55efe4b81601" prot="private" virt="non-virtual"><scope>dephan_ros::receiver_socket</scope><name>operator=</name></member>
+      <member refid="classdephan__ros_1_1receiver__socket_1a5070403887e243999c375fff46f73725" prot="private" virt="non-virtual"><scope>dephan_ros::receiver_socket</scope><name>POLL_TIMEOUT</name></member>
+      <member refid="classdephan__ros_1_1receiver__socket_1ac36569003029d126d8106477208cca26" prot="public" virt="non-virtual"><scope>dephan_ros::receiver_socket</scope><name>receiver_socket</name></member>
+      <member refid="classdephan__ros_1_1receiver__socket_1aa6a02e458c53dd3cd3a9ef225c5c4a44" prot="private" virt="non-virtual"><scope>dephan_ros::receiver_socket</scope><name>receiver_socket</name></member>
+      <member refid="classdephan__ros_1_1receiver__socket_1ae28976459b44f3515f668942367e6df2" prot="private" virt="non-virtual"><scope>dephan_ros::receiver_socket</scope><name>si_from</name></member>
+      <member refid="classdephan__ros_1_1receiver__socket_1a4557c69a82a1a8ea83214a07f771d00e" prot="private" virt="non-virtual"><scope>dephan_ros::receiver_socket</scope><name>si_from_len</name></member>
+      <member refid="classdephan__ros_1_1receiver__socket_1ad2352a077183118137b7502d15f2ea7e" prot="private" virt="non-virtual"><scope>dephan_ros::receiver_socket</scope><name>udp_socket</name></member>
+      <member refid="classdephan__ros_1_1receiver__socket_1ab3d8005665a274427520b73445dd2a2e" prot="public" virt="non-virtual"><scope>dephan_ros::receiver_socket</scope><name>~receiver_socket</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

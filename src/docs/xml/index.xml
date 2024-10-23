@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.1" xml:lang="en-US">
+  <compound refid="classdephan__ros_1_1Driver" kind="class"><name>dephan_ros::Driver</name>
+    <member refid="classdephan__ros_1_1Driver_1a27fb94c2dd8eacfb4542137e5fde3dbb" kind="variable"><name>ip_addr</name></member>
+    <member refid="classdephan__ros_1_1Driver_1ad244ce8832f99f8cc75768b50356b755" kind="variable"><name>port</name></member>
+    <member refid="classdephan__ros_1_1Driver_1ac2a50e8d7caf661cadd9baae239af1b6" kind="variable"><name>socket</name></member>
+    <member refid="classdephan__ros_1_1Driver_1ae39e0c4996a2d2154f476a9b98571883" kind="variable"><name>rawdata_publihser</name></member>
+    <member refid="classdephan__ros_1_1Driver_1aedbd3a54b9de392a2a96ef272d8ff713" kind="variable"><name>pointcloud_publisher</name></member>
+    <member refid="classdephan__ros_1_1Driver_1aef3d8b4a87c1f0dda85572664ec24bf1" kind="variable"><name>pointcloud2_publisher</name></member>
+    <member refid="classdephan__ros_1_1Driver_1a353f3280e31977b8be7dad15313807ab" kind="function"><name>Driver</name></member>
+    <member refid="classdephan__ros_1_1Driver_1aad0258b16b35e5ab8391a26f7c6f2b65" kind="function"><name>poll</name></member>
+    <member refid="classdephan__ros_1_1Driver_1af1875e61040f8cc114d8523d74642988" kind="function"><name>poll_full</name></member>
+    <member refid="classdephan__ros_1_1Driver_1a93e57a1f004ffb7b48547bb5a60aa80b" kind="function"><name>get_network_params</name></member>
+  </compound>
+  <compound refid="structdephan__ros_1_1packet" kind="struct"><name>dephan_ros::packet</name>
+    <member refid="structdephan__ros_1_1packet_1a617f9aacf5177ff70513e57fa22a72e8" kind="typedef"><name>raw_packet_t</name></member>
+    <member refid="structdephan__ros_1_1packet_1a6ff7d366d3cd2c0d904d52827674cb34" kind="variable"><name>PKT_LEN</name></member>
+  </compound>
+  <compound refid="classdephan__ros_1_1pkt__hdl__Mech" kind="class"><name>dephan_ros::pkt_hdl_Mech</name>
+    <member refid="classdephan__ros_1_1pkt__hdl__Mech_1a552283555284f9e3382fca954d847407" kind="variable"><name>magic</name></member>
+    <member refid="classdephan__ros_1_1pkt__hdl__Mech_1a60570aafaa06a39aa4eb8fe4064db25d" kind="variable"><name>CHANELLS</name></member>
+    <member refid="classdephan__ros_1_1pkt__hdl__Mech_1afd684586a3211a968b730caf69199f59" kind="variable"><name>protocol_version</name></member>
+    <member refid="classdephan__ros_1_1pkt__hdl__Mech_1a3be7194427c5a1b38e563025aff639f2" kind="variable"><name>RAD_RESOLUTION</name></member>
+    <member refid="classdephan__ros_1_1pkt__hdl__Mech_1a56bebfe0b40638133f2a058c373d2589" kind="variable"><name>ranges</name></member>
+    <member refid="classdephan__ros_1_1pkt__hdl__Mech_1af772d73b353ad3a6a4497b67a74a64c7" kind="variable"><name>angles</name></member>
+    <member refid="classdephan__ros_1_1pkt__hdl__Mech_1a8fbbc22068f6ee661cd5d83f91eda643" kind="variable"><name>raw_pkt</name></member>
+    <member refid="classdephan__ros_1_1pkt__hdl__Mech_1a7ef14066c8331d7bc2117a9b318b674b" kind="variable"><name>enc_signal</name></member>
+    <member refid="classdephan__ros_1_1pkt__hdl__Mech_1a0ebd1b1c380eb96b2486678eddb0937b" kind="function"><name>pkt_hdl_Mech</name></member>
+    <member refid="classdephan__ros_1_1pkt__hdl__Mech_1a3ecf908dc21efc2871074957200904fd" kind="function"><name>pkt_hdl_Mech</name></member>
+    <member refid="classdephan__ros_1_1pkt__hdl__Mech_1a38b0bb0ea2cbaf21a0e339f4b2a61067" kind="function"><name>operator=</name></member>
+  </compound>
+  <compound refid="classdephan__ros_1_1receiver__socket" kind="class"><name>dephan_ros::receiver_socket</name>
+    <member refid="classdephan__ros_1_1receiver__socket_1a2752feb2087d2676639f83633c337d71" kind="variable"><name>m_ip_addr</name></member>
+    <member refid="classdephan__ros_1_1receiver__socket_1a4e1a903a551422daf1c0825e5aaf49bc" kind="variable"><name>m_sock_port</name></member>
+    <member refid="classdephan__ros_1_1receiver__socket_1ad2352a077183118137b7502d15f2ea7e" kind="variable"><name>udp_socket</name></member>
+    <member refid="classdephan__ros_1_1receiver__socket_1ae28976459b44f3515f668942367e6df2" kind="variable"><name>si_from</name></member>
+    <member refid="classdephan__ros_1_1receiver__socket_1a4557c69a82a1a8ea83214a07f771d00e" kind="variable"><name>si_from_len</name></member>
+    <member refid="classdephan__ros_1_1receiver__socket_1a5070403887e243999c375fff46f73725" kind="variable"><name>POLL_TIMEOUT</name></member>
+    <member refid="classdephan__ros_1_1receiver__socket_1a481e5033ffee0225b3811e5c1145a3d2" kind="variable"><name>m_fds</name></member>
+    <member refid="classdephan__ros_1_1receiver__socket_1ac36569003029d126d8106477208cca26" kind="function"><name>receiver_socket</name></member>
+    <member refid="classdephan__ros_1_1receiver__socket_1ab3d8005665a274427520b73445dd2a2e" kind="function"><name>~receiver_socket</name></member>
+    <member refid="classdephan__ros_1_1receiver__socket_1a98255dbd3da277d775dd1462d6b1f613" kind="function"><name>get_packet</name></member>
+    <member refid="classdephan__ros_1_1receiver__socket_1aa6a02e458c53dd3cd3a9ef225c5c4a44" kind="function"><name>receiver_socket</name></member>
+    <member refid="classdephan__ros_1_1receiver__socket_1ab6effccb0d4d42e789ca55efe4b81601" kind="function"><name>operator=</name></member>
+  </compound>
+  <compound refid="namespacedephan__ros" kind="namespace"><name>dephan_ros</name>
+  </compound>
+  <compound refid="CMakeLists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="packet__handler__mech_8hpp" kind="file"><name>packet_handler_mech.hpp</name>
+  </compound>
+  <compound refid="packet__raw_8hpp" kind="file"><name>packet_raw.hpp</name>
+  </compound>
+  <compound refid="reciever__socket_8hpp" kind="file"><name>reciever_socket.hpp</name>
+  </compound>
+  <compound refid="ros__driver_8hpp" kind="file"><name>ros_driver.hpp</name>
+  </compound>
+  <compound refid="dephan__node_8cpp" kind="file"><name>dephan_node.cpp</name>
+    <member refid="dephan__node_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="packet__handler__mech_8cpp" kind="file"><name>packet_handler_mech.cpp</name>
+  </compound>
+  <compound refid="reciever__socket_8cpp" kind="file"><name>reciever_socket.cpp</name>
+  </compound>
+  <compound refid="ros__driver_8cpp" kind="file"><name>ros_driver.cpp</name>
+  </compound>
+  <compound refid="dir_9cfeb176b067ea347e615aa2f3f09dfe" kind="dir"><name>mech_lidar_driver/include</name>
+  </compound>
+  <compound refid="dir_09d78c59b483aea9cf20ece9b4b3153b" kind="dir"><name>mech_lidar_driver</name>
+  </compound>
+  <compound refid="dir_902abfb70c8632bc2fc6d4eaeec08bc5" kind="dir"><name>mech_lidar_driver/src</name>
+  </compound>
+</doxygenindex>

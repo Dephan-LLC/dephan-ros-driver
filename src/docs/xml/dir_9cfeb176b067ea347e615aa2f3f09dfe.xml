@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_9cfeb176b067ea347e615aa2f3f09dfe" kind="dir">
+    <compoundname>mech_lidar_driver/include</compoundname>
+    <innerfile refid="packet__handler__mech_8hpp">packet_handler_mech.hpp</innerfile>
+    <innerfile refid="packet__raw_8hpp">packet_raw.hpp</innerfile>
+    <innerfile refid="reciever__socket_8hpp">reciever_socket.hpp</innerfile>
+    <innerfile refid="ros__driver_8hpp">ros_driver.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="mech_lidar_driver/include/"/>
+  </compounddef>
+</doxygen>

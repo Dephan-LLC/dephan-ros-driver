@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="packet__raw_8hpp" kind="file" language="C++">
+    <compoundname>packet_raw.hpp</compoundname>
+    <includes local="no">memory</includes>
+    <includedby refid="packet__handler__mech_8hpp" local="yes">mech_lidar_driver/include/packet_handler_mech.hpp</includedby>
+    <includedby refid="ros__driver_8hpp" local="yes">mech_lidar_driver/include/ros_driver.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>mech_lidar_driver/include/packet_raw.hpp</label>
+        <link refid="packet__raw_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>mech_lidar_driver/include/packet_handler_mech.hpp</label>
+        <link refid="packet__handler__mech_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>mech_lidar_driver/include/packet_raw.hpp</label>
+        <link refid="packet__raw_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>mech_lidar_driver/include/ros_driver.hpp</label>
+        <link refid="ros__driver_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>mech_lidar_driver/src/ros_driver.cpp</label>
+        <link refid="ros__driver_8cpp"/>
+      </node>
+      <node id="4">
+        <label>mech_lidar_driver/src/dephan_node.cpp</label>
+        <link refid="dephan__node_8cpp"/>
+      </node>
+      <node id="6">
+        <label>mech_lidar_driver/src/packet_handler_mech.cpp</label>
+        <link refid="packet__handler__mech_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structdephan__ros_1_1packet" prot="public">dephan_ros::packet</innerclass>
+    <innernamespace refid="namespacedephan__ros">dephan_ros</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PACKET_RAW_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PACKET_RAW_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">dephan_ros<sp/>{</highlight></codeline>
+<codeline lineno="21" refid="structdephan__ros_1_1packet" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdephan__ros_1_1packet" kindref="compound">packet</ref><sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="26" refid="structdephan__ros_1_1packet_1a617f9aacf5177ff70513e57fa22a72e8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;uint8_t[]&gt;<sp/><ref refid="structdephan__ros_1_1packet_1a617f9aacf5177ff70513e57fa22a72e8" kindref="member">raw_packet_t</ref>;<sp/></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="structdephan__ros_1_1packet_1a6ff7d366d3cd2c0d904d52827674cb34" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="structdephan__ros_1_1packet_1a6ff7d366d3cd2c0d904d52827674cb34" kindref="member">PKT_LEN</ref><sp/>=<sp/>1016;<sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="mech_lidar_driver/include/packet_raw.hpp"/>
+  </compounddef>
+</doxygen>
