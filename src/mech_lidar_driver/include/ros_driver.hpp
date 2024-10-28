@@ -32,7 +32,6 @@ namespace dephan_ros {
      */
     class Driver {
     private:
-        std::string ip_addr;    
         /**
          * IP address of the LiDar device.
          */
