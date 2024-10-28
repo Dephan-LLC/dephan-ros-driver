@@ -4,7 +4,7 @@
  */
 
 /**
- * @file ros_driver.hpp
+ * @file ros_driver.cpp
  * @brief ROS driver for DEPHAN LLC LiDars
  */
 
@@ -18,8 +18,11 @@ namespace dephan_ros {
         ip_addr(ip_addr), port(port) {
         // socket.reset(new receiver_socket("192.168.0.101", 9101));
         // socket.reset(new receiver_socket("192.168.0.120", 51551));
+
+        // setup socket for receiving data
         socket.reset(new receiver_socket(ip_addr, port));
 
+        // setup ROS publising routine
         rawdata_publihser = 
             nh.advertise<std_msgs::UInt8MultiArray>("raw_data", 10);
         pointcloud_publisher = 
@@ -136,12 +139,16 @@ namespace dephan_ros {
     Driver::_poll_udp() {
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
 
+        // initialize raw packet collection
         packet::raw_packet_t raw_pkt(new uint8_t[packet::PKT_LEN]);
 
+        // wait until we are receive data
         while (socket->get_packet(raw_pkt.get(), packet::PKT_LEN)); 
 
+        // transform raw packet to handled packet
         pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
 
+        // fill ros message by data from the handled packet
         for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) 
             msg->points.push_back(
                 pcl::PointXYZ(
@@ -151,9 +158,13 @@ namespace dephan_ros {
                 )
             );
         
+        // add timestamp to ros message
         pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
+
+        // add frame id to ros message
         msg->header.frame_id = "map";
 
+        // publish ros message to topic
         pointcloud2_publisher.publish(msg);
     }
 
@@ -184,6 +195,7 @@ namespace dephan_ros {
 
             pkt_hdl_Mech hdl_pkt(std::move(raw_pkt)); 
 
+            // fill ros message by data from the handled packet
             for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) 
                 msg->points.push_back(
                     pcl::PointXYZ(
@@ -193,10 +205,12 @@ namespace dephan_ros {
                     )
                 );
         }
-
         pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
+
+        // add frame id to ros message
         msg->header.frame_id = "map";
 
+        // publish ros message to topic
         pointcloud2_publisher.publish(msg);
     }
 }

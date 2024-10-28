@@ -4,7 +4,7 @@
  */
 
 /**
- * @file dephan_node.hpp
+ * @file dephan_node.cpp
  * @brief ROS node for mechanical LiDar data
  */
 
@@ -12,7 +12,10 @@
 
 
 int main(int argc, char *argv[]) { 
+    // init ROS
     ros::init(argc, argv, "ss_lidar");
+
+    // init ros handle node
     ros::NodeHandle nh; 
     // ros::NodeHandle nh_pcap; 
 
@@ -22,6 +25,7 @@ int main(int argc, char *argv[]) {
     dephan_ros::Driver driver_pcap(nh, "/root/test.pcap", "point_cloud2_data_pcap");
     ROS_INFO("Started PCAP");
 
+    // polling device via driver
     while(ros::ok()) {
         // driver.poll_full();
         // driver_pcap.poll();

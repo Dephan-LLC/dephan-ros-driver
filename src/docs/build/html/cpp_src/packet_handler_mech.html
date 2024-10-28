@@ -1,0 +1,199 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class pkt_hdl_Mech &mdash; Dephan ROS driver 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct packet" href="packet_raw.html" />
+    <link rel="prev" title="Class receiver_socket" href="reciever_socket.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Dephan ROS driver
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ros_driver.html">Class Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reciever_socket.html">Class receiver_socket</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Class pkt_hdl_Mech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packet_raw.html">Struct packet</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Dephan ROS driver</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Class pkt_hdl_Mech</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/cpp_src/packet_handler_mech.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-pkt-hdl-mech">
+<h1>Class pkt_hdl_Mech<a class="headerlink" href="#class-pkt-hdl-mech" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined ad <code class="docutils literal notranslate"><span class="pre">mech_lidar_driver/include/packet_handler_mech.hpp</span></code></p></li>
+</ul>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12pkt_hdl_MechE">
+<span id="_CPPv3N10dephan_ros12pkt_hdl_MechE"></span><span id="_CPPv2N10dephan_ros12pkt_hdl_MechE"></span><span id="dephan_ros::pkt_hdl_Mech"></span><span class="target" id="classdephan__ros_1_1pkt__hdl__Mech"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pkt_hdl_Mech</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">dephan_ros</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="packet_raw.html#_CPPv4N10dephan_ros6packetE" title="dephan_ros::packet"><span class="n"><span class="pre">packet</span></span></a><a class="headerlink" href="#_CPPv4N10dephan_ros12pkt_hdl_MechE" title="Link to this definition"></a><br /></dt>
+<dd><p>Class for handle raw packet derived from base packet class. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12pkt_hdl_Mech12pkt_hdl_MechE12raw_packet_t">
+<span id="_CPPv3N10dephan_ros12pkt_hdl_Mech12pkt_hdl_MechE12raw_packet_t"></span><span id="_CPPv2N10dephan_ros12pkt_hdl_Mech12pkt_hdl_MechE12raw_packet_t"></span><span id="dephan_ros::pkt_hdl_Mech::pkt_hdl_Mech__raw_packet_t"></span><span class="target" id="classdephan__ros_1_1pkt__hdl__Mech_1a0ebd1b1c380eb96b2486678eddb0937b"></span><span class="sig-name descname"><span class="n"><span class="pre">pkt_hdl_Mech</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">raw_packet_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pkt</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros12pkt_hdl_Mech12pkt_hdl_MechE12raw_packet_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructor for handled packet. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12pkt_hdl_Mech12pkt_hdl_MechERK12pkt_hdl_Mech">
+<span id="_CPPv3N10dephan_ros12pkt_hdl_Mech12pkt_hdl_MechERK12pkt_hdl_Mech"></span><span id="_CPPv2N10dephan_ros12pkt_hdl_Mech12pkt_hdl_MechERK12pkt_hdl_Mech"></span><span id="dephan_ros::pkt_hdl_Mech::pkt_hdl_Mech__pkt_hdl_MechCR"></span><span class="target" id="classdephan__ros_1_1pkt__hdl__Mech_1a3ecf908dc21efc2871074957200904fd"></span><span class="sig-name descname"><span class="n"><span class="pre">pkt_hdl_Mech</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N10dephan_ros12pkt_hdl_Mech12pkt_hdl_MechERK12pkt_hdl_Mech" title="dephan_ros::pkt_hdl_Mech::pkt_hdl_Mech"><span class="n"><span class="pre">pkt_hdl_Mech</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12pkt_hdl_Mech12pkt_hdl_MechERK12pkt_hdl_Mech" title="Link to this definition"></a><br /></dt>
+<dd><p>Disabled copy constructor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12pkt_hdl_MechaSERK12pkt_hdl_Mech">
+<span id="_CPPv3N10dephan_ros12pkt_hdl_MechaSERK12pkt_hdl_Mech"></span><span id="_CPPv2N10dephan_ros12pkt_hdl_MechaSERK12pkt_hdl_Mech"></span><span id="dephan_ros::pkt_hdl_Mech::assign-operator__pkt_hdl_MechCR"></span><span class="target" id="classdephan__ros_1_1pkt__hdl__Mech_1a38b0bb0ea2cbaf21a0e339f4b2a61067"></span><a class="reference internal" href="#_CPPv4N10dephan_ros12pkt_hdl_MechE" title="dephan_ros::pkt_hdl_Mech"><span class="n"><span class="pre">pkt_hdl_Mech</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N10dephan_ros12pkt_hdl_MechE" title="dephan_ros::pkt_hdl_Mech"><span class="n"><span class="pre">pkt_hdl_Mech</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12pkt_hdl_MechaSERK12pkt_hdl_Mech" title="Link to this definition"></a><br /></dt>
+<dd><p>Disabled copy assign operator. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12pkt_hdl_Mech6rangesE">
+<span id="_CPPv3N10dephan_ros12pkt_hdl_Mech6rangesE"></span><span id="_CPPv2N10dephan_ros12pkt_hdl_Mech6rangesE"></span><span id="dephan_ros::pkt_hdl_Mech::ranges__floatA"></span><span class="target" id="classdephan__ros_1_1pkt__hdl__Mech_1a56bebfe0b40638133f2a058c373d2589"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ranges</span></span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4N10dephan_ros12pkt_hdl_Mech8CHANELLSE" title="dephan_ros::pkt_hdl_Mech::CHANELLS"><span class="n"><span class="pre">CHANELLS</span></span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12pkt_hdl_Mech6rangesE" title="Link to this definition"></a><br /></dt>
+<dd><p>Ranges to the points within one scan packet. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12pkt_hdl_Mech6anglesE">
+<span id="_CPPv3N10dephan_ros12pkt_hdl_Mech6anglesE"></span><span id="_CPPv2N10dephan_ros12pkt_hdl_Mech6anglesE"></span><span id="dephan_ros::pkt_hdl_Mech::angles__floatA"></span><span class="target" id="classdephan__ros_1_1pkt__hdl__Mech_1af772d73b353ad3a6a4497b67a74a64c7"></span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">angles</span></span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4N10dephan_ros12pkt_hdl_Mech8CHANELLSE" title="dephan_ros::pkt_hdl_Mech::CHANELLS"><span class="n"><span class="pre">CHANELLS</span></span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0.0</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12pkt_hdl_Mech6anglesE" title="Link to this definition"></a><br /></dt>
+<dd><p>Angles of the points within one scan packet. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12pkt_hdl_Mech7raw_pktE">
+<span id="_CPPv3N10dephan_ros12pkt_hdl_Mech7raw_pktE"></span><span id="_CPPv2N10dephan_ros12pkt_hdl_Mech7raw_pktE"></span><span id="dephan_ros::pkt_hdl_Mech::raw_pkt__raw_packet_t"></span><span class="target" id="classdephan__ros_1_1pkt__hdl__Mech_1a8fbbc22068f6ee661cd5d83f91eda643"></span><span class="n"><span class="pre">raw_packet_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">raw_pkt</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12pkt_hdl_Mech7raw_pktE" title="Link to this definition"></a><br /></dt>
+<dd><p>Raw packet that have to be handeled </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12pkt_hdl_Mech5magicE">
+<span id="_CPPv3N10dephan_ros12pkt_hdl_Mech5magicE"></span><span id="_CPPv2N10dephan_ros12pkt_hdl_Mech5magicE"></span><span id="dephan_ros::pkt_hdl_Mech::magic__uint8_tC"></span><span class="target" id="classdephan__ros_1_1pkt__hdl__Mech_1a552283555284f9e3382fca954d847407"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">magic</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0x68</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12pkt_hdl_Mech5magicE" title="Link to this definition"></a><br /></dt>
+<dd><p>Packet’s magic byte. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12pkt_hdl_Mech8CHANELLSE">
+<span id="_CPPv3N10dephan_ros12pkt_hdl_Mech8CHANELLSE"></span><span id="_CPPv2N10dephan_ros12pkt_hdl_Mech8CHANELLSE"></span><span id="dephan_ros::pkt_hdl_Mech::CHANELLS__iC"></span><span class="target" id="classdephan__ros_1_1pkt__hdl__Mech_1a60570aafaa06a39aa4eb8fe4064db25d"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHANELLS</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">125</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12pkt_hdl_Mech8CHANELLSE" title="Link to this definition"></a><br /></dt>
+<dd><p>Number of chanells of the photodetection unit. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12pkt_hdl_Mech16protocol_versionE">
+<span id="_CPPv3N10dephan_ros12pkt_hdl_Mech16protocol_versionE"></span><span id="_CPPv2N10dephan_ros12pkt_hdl_Mech16protocol_versionE"></span><span id="dephan_ros::pkt_hdl_Mech::protocol_version__uint8_tC"></span><span class="target" id="classdephan__ros_1_1pkt__hdl__Mech_1afd684586a3211a968b730caf69199f59"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">protocol_version</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0x00</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12pkt_hdl_Mech16protocol_versionE" title="Link to this definition"></a><br /></dt>
+<dd><p>Version of the communications protocol. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12pkt_hdl_Mech14RAD_RESOLUTIONE">
+<span id="_CPPv3N10dephan_ros12pkt_hdl_Mech14RAD_RESOLUTIONE"></span><span id="_CPPv2N10dephan_ros12pkt_hdl_Mech14RAD_RESOLUTIONE"></span><span id="dephan_ros::pkt_hdl_Mech::RAD_RESOLUTION__float"></span><span class="target" id="classdephan__ros_1_1pkt__hdl__Mech_1a3be7194427c5a1b38e563025aff639f2"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RAD_RESOLUTION</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">2</span></span><span class="w"> </span><span class="o"><span class="pre">*</span></span><span class="w"> </span><span class="m"><span class="pre">3.1415</span></span><span class="w"> </span><span class="o"><span class="pre">/</span></span><span class="w"> </span><span class="m"><span class="pre">2250</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12pkt_hdl_Mech14RAD_RESOLUTIONE" title="Link to this definition"></a><br /></dt>
+<dd><p>Angle resolution of the photodetection unit. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="reciever_socket.html" class="btn btn-neutral float-left" title="Class receiver_socket" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="packet_raw.html" class="btn btn-neutral float-right" title="Struct packet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Anton Ledrov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
