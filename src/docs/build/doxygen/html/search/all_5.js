@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['magic_7',['magic',['../classdephan__ros_1_1pkt__hdl__Mech.html#a552283555284f9e3382fca954d847407',1,'dephan_ros::pkt_hdl_Mech']]]
+  ['ip_5faddr_11',['ip_addr',['../classdephan__ros_1_1Driver.html#a27fb94c2dd8eacfb4542137e5fde3dbb',1,'dephan_ros::Driver']]]
 ];

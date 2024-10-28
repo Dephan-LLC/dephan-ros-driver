@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['operator_3d_42',['operator=',['../classdephan__ros_1_1pkt__hdl__Mech.html#a38b0bb0ea2cbaf21a0e339f4b2a61067',1,'dephan_ros::pkt_hdl_Mech']]]
+  ['get_5fnetwork_5fparams_51',['get_network_params',['../classdephan__ros_1_1Driver.html#a93e57a1f004ffb7b48547bb5a60aa80b',1,'dephan_ros::Driver']]],
+  ['get_5fpacket_52',['get_packet',['../classdephan__ros_1_1receiver__socket.html#a98255dbd3da277d775dd1462d6b1f613',1,'dephan_ros::receiver_socket']]]
 ];

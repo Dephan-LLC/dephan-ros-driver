@@ -22,7 +22,7 @@ namespace dephan_ros {
         // setup socket for receiving data
         socket.reset(new receiver_socket(ip_addr, port));
 
-        // setup ROS publising routine
+        // ROS publising routine
         rawdata_publihser = 
             nh.advertise<std_msgs::UInt8MultiArray>("raw_data", 10);
         pointcloud_publisher = 
@@ -31,43 +31,58 @@ namespace dephan_ros {
             nh.advertise<pcl::PointCloud<pcl::PointXYZ>>(cloud_topic, 10); 
     }
 
-    Driver::Driver(ros::NodeHandle nh, std::string pcap_path, std::string cloud_topic): pcap_path(pcap_path) {
+    Driver::Driver(ros::NodeHandle nh, std::string pcap_path, std::string cloud_topic): 
+        pcap_path(pcap_path) {
+        
+        // setup libtins sniffer for reading data
         pcap_sniffer.reset(new Tins::FileSniffer {pcap_path});
 
+        // get the first packet's timestamp for time-correct packets reading 
         Tins::Packet _pkt(pcap_sniffer->next_packet());
         _prev_pkt_tmstmp = _pkt.timestamp().microseconds();
 
+        // ROS publising routine
         pointcloud2_publisher = 
             nh.advertise<pcl::PointCloud<pcl::PointXYZ>>(cloud_topic, 10); 
     }
 
     void 
     Driver::poll() {
+        // pcap_sniffer provided?
         if (pcap_sniffer)
             _poll_pcap(); 
+        // UDP mode otherwise
         else    
             _poll_udp();
     }
 
     void 
     Driver::poll_full() {
+        // pcap_sniffer provided? 
         if (pcap_sniffer)
             _poll_full_pcap();
+        // UDP mode otherwise
         else
             _poll_full_udp();
     }
 
     void 
     Driver::_poll_full_udp() {
+        // initialzie ros pointcloud v2 message
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
 
+        // wait until 18 packeges are recieved
         for (size_t i = 0; i < 18; i++) { 
+            // initialize raw packet collection
             packet::raw_packet_t raw_pkt(new uint8_t[packet::PKT_LEN]);
 
+            // wait until we are receive data
             while (socket->get_packet(raw_pkt.get(), packet::PKT_LEN)); 
 
+            // transform raw packet to handled packet
             pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
 
+            // fill ros message by data from the handled packet
             for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) 
                 msg->points.push_back(
                     pcl::PointXYZ(
@@ -77,15 +92,19 @@ namespace dephan_ros {
                     )
                 );
         }
-        
+        // add timestamp to ros message
         pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
+
+        // add frame id to ros message
         msg->header.frame_id = "map";
 
+        // publish ros message to topic
         pointcloud2_publisher.publish(msg);
     }
 
     void 
     Driver::_poll_full_pcap() {
+        // initialzie ros pointcloud v2 message
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
 
         for (size_t i = 0; i < 18; i++) {
@@ -137,6 +156,7 @@ namespace dephan_ros {
 
     void 
     Driver::_poll_udp() {
+        // initialize ros pointcloud v2 message
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
 
         // initialize raw packet collection
@@ -170,17 +190,20 @@ namespace dephan_ros {
 
     void 
     Driver::_poll_pcap() {
+        // initialzie ros pointcloud v2 message
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
 
+        // get the next packet from the target PCAP file
         Tins::Packet pkt(pcap_sniffer->next_packet());
 
+        // is packet extracted with problems?
         if (!pkt) {
             ROS_INFO("Starting over...");
             pcap_sniffer.reset(new Tins::FileSniffer {pcap_path});
             Tins::Packet _pkt(pcap_sniffer->next_packet());
             _prev_pkt_tmstmp = _pkt.timestamp().microseconds();
         }
-
+        // normal operation otherwise
         else {
             auto _cur_pkt_tmstmp = pkt.timestamp().microseconds();
             std::this_thread::sleep_for(

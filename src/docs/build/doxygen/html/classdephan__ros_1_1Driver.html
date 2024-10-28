@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classdephan__ros_1_1Driver-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -80,12 +81,25 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a353f3280e31977b8be7dad15313807ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#a353f3280e31977b8be7dad15313807ab">Driver</a> (ros::NodeHandle nh, std::string <a class="el" href="classdephan__ros_1_1Driver.html#a27fb94c2dd8eacfb4542137e5fde3dbb">ip_addr</a>, unsigned <a class="el" href="classdephan__ros_1_1Driver.html#ad244ce8832f99f8cc75768b50356b755">port</a>, std::string topic_name)</td></tr>
 <tr class="separator:a353f3280e31977b8be7dad15313807ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5bdf691b9f7bb8684509f656aef9474"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#ae5bdf691b9f7bb8684509f656aef9474">Driver</a> (ros::NodeHandle nh, std::string <a class="el" href="classdephan__ros_1_1Driver.html#a16b560815004ee5a3c2e0f6142da1e31">pcap_path</a>, std::string topic_name)</td></tr>
+<tr class="separator:ae5bdf691b9f7bb8684509f656aef9474"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad0258b16b35e5ab8391a26f7c6f2b65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#aad0258b16b35e5ab8391a26f7c6f2b65">poll</a> ()</td></tr>
 <tr class="separator:aad0258b16b35e5ab8391a26f7c6f2b65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1875e61040f8cc114d8523d74642988"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#af1875e61040f8cc114d8523d74642988">poll_full</a> ()</td></tr>
 <tr class="separator:af1875e61040f8cc114d8523d74642988"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93e57a1f004ffb7b48547bb5a60aa80b"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::string, unsigned &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#a93e57a1f004ffb7b48547bb5a60aa80b">get_network_params</a> ()</td></tr>
 <tr class="separator:a93e57a1f004ffb7b48547bb5a60aa80b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ab7a6ebeae633bb22c80ca10465eead71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#ab7a6ebeae633bb22c80ca10465eead71">_poll_udp</a> ()</td></tr>
+<tr class="separator:ab7a6ebeae633bb22c80ca10465eead71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b2251b92ee3664600ba6756315d5a3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#a6b2251b92ee3664600ba6756315d5a3d">_poll_pcap</a> ()</td></tr>
+<tr class="separator:a6b2251b92ee3664600ba6756315d5a3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4f2d43594008ad9880f80a6222ceee6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#ad4f2d43594008ad9880f80a6222ceee6">_poll_full_udp</a> ()</td></tr>
+<tr class="separator:ad4f2d43594008ad9880f80a6222ceee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a754788757f3c0d88b24839bef6c5ffe6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#a754788757f3c0d88b24839bef6c5ffe6">_poll_full_pcap</a> ()</td></tr>
+<tr class="separator:a754788757f3c0d88b24839bef6c5ffe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -95,6 +109,12 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ad244ce8832f99f8cc75768b50356b755"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2a50e8d7caf661cadd9baae239af1b6"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classdephan__ros_1_1receiver__socket.html">receiver_socket</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#ac2a50e8d7caf661cadd9baae239af1b6">socket</a></td></tr>
 <tr class="separator:ac2a50e8d7caf661cadd9baae239af1b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16b560815004ee5a3c2e0f6142da1e31"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#a16b560815004ee5a3c2e0f6142da1e31">pcap_path</a></td></tr>
+<tr class="separator:a16b560815004ee5a3c2e0f6142da1e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fbcbc450e2a8160142467a76eb71ccf"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; Tins::FileSniffer &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#a6fbcbc450e2a8160142467a76eb71ccf">pcap_sniffer</a></td></tr>
+<tr class="separator:a6fbcbc450e2a8160142467a76eb71ccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a483cb781522e93b80197d794f04c8b18"><td class="memItemLeft" align="right" valign="top">long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#a483cb781522e93b80197d794f04c8b18">_prev_pkt_tmstmp</a></td></tr>
+<tr class="separator:a483cb781522e93b80197d794f04c8b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae39e0c4996a2d2154f476a9b98571883"><td class="memItemLeft" align="right" valign="top">ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#ae39e0c4996a2d2154f476a9b98571883">rawdata_publihser</a></td></tr>
 <tr class="separator:ae39e0c4996a2d2154f476a9b98571883"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedbd3a54b9de392a2a96ef272d8ff713"><td class="memItemLeft" align="right" valign="top">ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdephan__ros_1_1Driver.html#aedbd3a54b9de392a2a96ef272d8ff713">pointcloud_publisher</a></td></tr>
@@ -106,7 +126,7 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p>Base class for driver. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a353f3280e31977b8be7dad15313807ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a353f3280e31977b8be7dad15313807ab">&#9670;&nbsp;</a></span>Driver()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a353f3280e31977b8be7dad15313807ab">&#9670;&nbsp;</a></span>Driver() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,13 +162,56 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classdephan__ros_1_1Driver.html">Driver</a> constructor.</p>
+<p><a class="el" href="classdephan__ros_1_1Driver.html">Driver</a> UDP mode constructor.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">nh</td><td>Ros handle node. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">ip_addr</td><td>Ip address of the LiDar device. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">port</td><td>Network port of the LiDar device. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">topic_name</td><td>Name of the topic for pointcloud v2 messages. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">topic_name</td><td>Name of the topic for pointcloud v2 messages generated by the <a class="el" href="classdephan__ros_1_1Driver.html">Driver</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae5bdf691b9f7bb8684509f656aef9474"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5bdf691b9f7bb8684509f656aef9474">&#9670;&nbsp;</a></span>Driver() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dephan_ros::Driver::Driver </td>
+          <td>(</td>
+          <td class="paramtype">ros::NodeHandle&#160;</td>
+          <td class="paramname"><em>nh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>pcap_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>topic_name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a class="el" href="classdephan__ros_1_1Driver.html">Driver</a> PCAP mode construcror.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nh</td><td>Ros handle node. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pcap_path</td><td>Path to the target PCAP file. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">topic_name</td><td>Name of the topic for pointcloud v2 messages generated by the <a class="el" href="classdephan__ros_1_1Driver.html">Driver</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -156,6 +219,110 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a754788757f3c0d88b24839bef6c5ffe6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a754788757f3c0d88b24839bef6c5ffe6">&#9670;&nbsp;</a></span>_poll_full_pcap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dephan_ros::Driver::_poll_full_pcap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pill 18 packets (2 pi rad segment per packet) in PCAP mode. </p>
+
+</div>
+</div>
+<a id="ad4f2d43594008ad9880f80a6222ceee6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4f2d43594008ad9880f80a6222ceee6">&#9670;&nbsp;</a></span>_poll_full_udp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dephan_ros::Driver::_poll_full_udp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Poll 18 packets (2 pi rad segment per packet) in UPD mode. </p>
+
+</div>
+</div>
+<a id="a6b2251b92ee3664600ba6756315d5a3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b2251b92ee3664600ba6756315d5a3d">&#9670;&nbsp;</a></span>_poll_pcap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dephan_ros::Driver::_poll_pcap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Poll one packet (2 pi / 18 rad segment per packet) in PCAP mode. </p>
+
+</div>
+</div>
+<a id="ab7a6ebeae633bb22c80ca10465eead71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7a6ebeae633bb22c80ca10465eead71">&#9670;&nbsp;</a></span>_poll_udp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dephan_ros::Driver::_poll_udp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Poll one packet (2 pi / 18 rad segment per packet) in UDP mode. </p>
+
+</div>
+</div>
 <a id="a93e57a1f004ffb7b48547bb5a60aa80b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a93e57a1f004ffb7b48547bb5a60aa80b">&#9670;&nbsp;</a></span>get_network_params()</h2>
 
@@ -211,6 +378,29 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a483cb781522e93b80197d794f04c8b18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a483cb781522e93b80197d794f04c8b18">&#9670;&nbsp;</a></span>_prev_pkt_tmstmp</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">long long dephan_ros::Driver::_prev_pkt_tmstmp</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Stored packet's timestamp for time correct reading from the pcap file. </p>
+
+</div>
+</div>
 <a id="a27fb94c2dd8eacfb4542137e5fde3dbb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a27fb94c2dd8eacfb4542137e5fde3dbb">&#9670;&nbsp;</a></span>ip_addr</h2>
 
@@ -231,6 +421,52 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>IP address of the LiDar device. </p>
+
+</div>
+</div>
+<a id="a16b560815004ee5a3c2e0f6142da1e31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16b560815004ee5a3c2e0f6142da1e31">&#9670;&nbsp;</a></span>pcap_path</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string dephan_ros::Driver::pcap_path</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Path to pcap file that will be readed by driver. </p>
+
+</div>
+</div>
+<a id="a6fbcbc450e2a8160142467a76eb71ccf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fbcbc450e2a8160142467a76eb71ccf">&#9670;&nbsp;</a></span>pcap_sniffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;Tins::FileSniffer&gt; dephan_ros::Driver::pcap_sniffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pointer in libtins' shiffer </p>
 
 </div>
 </div>
