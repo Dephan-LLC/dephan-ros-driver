@@ -15,6 +15,8 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
 )
 
+find_library(LIBTINS tins)
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 # find_package(PCL REQUIRED COMPONENTS)
@@ -220,4 +222,5 @@ target_link_libraries(mech_driver
   ${catkin_LIBRARIES}
   ${roslib_LIBRARIES}
   ${PCL_LIBRARIES}
+  ${LIBTINS}
 )

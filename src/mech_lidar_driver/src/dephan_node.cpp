@@ -14,12 +14,18 @@
 int main(int argc, char *argv[]) { 
     ros::init(argc, argv, "ss_lidar");
     ros::NodeHandle nh; 
+    // ros::NodeHandle nh_pcap; 
 
-    dephan_ros::Driver driver(nh, "192.168.0.120", 51551, "point_cloud2_data");  
-    ROS_INFO("Started"); 
+    // dephan_ros::Driver driver(nh, "192.168.0.120", 51551, "point_cloud2_data");  
+    // ROS_INFO("Started"); 
+
+    dephan_ros::Driver driver_pcap(nh, "/root/test.pcap", "point_cloud2_data_pcap");
+    ROS_INFO("Started PCAP");
 
     while(ros::ok()) {
-        driver.poll();
+        // driver.poll_full();
+        // driver_pcap.poll();
+        driver_pcap.poll_full();
         ros::spinOnce();
     }
 

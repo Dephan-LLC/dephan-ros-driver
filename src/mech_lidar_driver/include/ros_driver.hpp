@@ -17,6 +17,9 @@
 #include <sensor_msgs/PointCloud.h>
 #include <std_msgs/UInt8MultiArray.h>
 #include <pcl_ros/point_cloud.h>
+#include <tins/tins.h>
+#include <thread>
+#include <chrono>
 
 #include "packet_raw.hpp"
 #include "reciever_socket.hpp"
@@ -29,16 +32,33 @@ namespace dephan_ros {
      */
     class Driver {
     private:
-        std::string ip_addr; 
+        std::string ip_addr;    
         unsigned port; 
         std::unique_ptr<receiver_socket> socket; 
+
+        std::string pcap_path;
+        std::unique_ptr<Tins::FileSniffer> pcap_sniffer;
+        long long _prev_pkt_tmstmp;
 
         ros::Publisher rawdata_publihser; 
         ros::Publisher pointcloud_publisher; 
         ros::Publisher pointcloud2_publisher; 
+
+        void 
+        _poll_udp(); 
+
+        void 
+        _poll_pcap();
+
+        void 
+        _poll_full_udp();
+
+        void 
+        _poll_full_pcap();
         
     public:
         Driver(ros::NodeHandle nh, std::string ip_addr, unsigned port, std::string topic_name); 
+        Driver(ros::NodeHandle nh, std::string pcap_path, std::string topic_name);
 
         void 
         poll();
