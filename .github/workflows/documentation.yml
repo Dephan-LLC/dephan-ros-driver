@@ -15,6 +15,7 @@ jobs:
         run: |
           pip3 install sphinx sphinx_copybutton sphinx_tabs sphinx_rtd_theme sphinx_favicon
       - name: Documentation build
+        working-directory: ./src/docs/
         run: |
           make html 
       - name: Deploy to Github pages
