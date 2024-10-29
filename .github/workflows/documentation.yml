@@ -21,6 +21,7 @@ jobs:
           cd ..
           rm -rf doxygen-1.9.1* 
       - name: Documentation build
+        working-directory: ./src/docs
         run: |
           make html 
       - name: Deploy to Github pages
