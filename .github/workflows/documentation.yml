@@ -14,12 +14,13 @@ jobs:
       - name: Install dependencies
         run: |
           pip3 install sphinx sphinx_copybutton sphinx_tabs sphinx_rtd_theme sphinx_favicon
-          wget https://github.com/doxygen/doxygen/releases/download/Release_1_9_1/doxygen-1.9.1.linux.bin.tar.gz
-          tar xzvf doxygen-1.9.1.linux.bin.tar.gz
-          cd doxygen-1.9.1
-          sudo make install
-          cd ..
-          rm -rf doxygen-1.9.1* 
+          apt install doxygen
+          # wget https://github.com/doxygen/doxygen/releases/download/Release_1_9_1/doxygen-1.9.1.linux.bin.tar.gz
+          # tar xzvf doxygen-1.9.1.linux.bin.tar.gz
+          # cd doxygen-1.9.1
+          # sudo make install
+          # cd ..
+          # rm -rf doxygen-1.9.1* 
       - name: Documentation build
         working-directory: ./src/docs
         run: |
