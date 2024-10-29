@@ -16,8 +16,6 @@
 namespace dephan_ros { 
     Driver::Driver(ros::NodeHandle nh, std::string ip_addr, unsigned port, std::string cloud_topic):
         ip_addr(ip_addr), port(port) {
-        // socket.reset(new receiver_socket("192.168.0.101", 9101));
-        // socket.reset(new receiver_socket("192.168.0.120", 51551));
 
         // setup socket for receiving data
         socket.reset(new receiver_socket(ip_addr, port));
@@ -48,9 +46,11 @@ namespace dephan_ros {
 
     void 
     Driver::poll() {
+
         // pcap_sniffer provided?
         if (pcap_sniffer)
             _poll_pcap(); 
+
         // UDP mode otherwise
         else    
             _poll_udp();
@@ -58,9 +58,11 @@ namespace dephan_ros {
 
     void 
     Driver::poll_full() {
+
         // pcap_sniffer provided? 
         if (pcap_sniffer)
             _poll_full_pcap();
+
         // UDP mode otherwise
         else
             _poll_full_udp();
@@ -68,11 +70,13 @@ namespace dephan_ros {
 
     void 
     Driver::_poll_full_udp() {
+
         // initialzie ros pointcloud v2 message
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
 
         // wait until 18 packeges are recieved
         for (size_t i = 0; i < 18; i++) { 
+
             // initialize raw packet collection
             packet::raw_packet_t raw_pkt(new uint8_t[packet::PKT_LEN]);
 
@@ -92,6 +96,7 @@ namespace dephan_ros {
                     )
                 );
         }
+
         // add timestamp to ros message
         pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
 
@@ -104,12 +109,17 @@ namespace dephan_ros {
 
     void 
     Driver::_poll_full_pcap() {
+
         // initialzie ros pointcloud v2 message
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
 
+        // wait until 18 packages are readed from the target PCAP file
         for (size_t i = 0; i < 18; i++) {
+
+            // get the next packet from the target PCAP file
             Tins::Packet pkt(pcap_sniffer->next_packet());
 
+            // is packet extracted with problems?
             if (!pkt) {
                 ROS_INFO("Starting over...");
                 pcap_sniffer.reset(new Tins::FileSniffer {pcap_path});
@@ -117,21 +127,29 @@ namespace dephan_ros {
                 _prev_pkt_tmstmp = _pkt.timestamp().microseconds();
             }
 
+            // normal operation otherwise
             else {
+
+                // sleep for time-correct packets reading
                 auto _cur_pkt_tmstmp = pkt.timestamp().microseconds();
                 std::this_thread::sleep_for(
                     std::chrono::microseconds(_cur_pkt_tmstmp - _prev_pkt_tmstmp)
                 );
                 _prev_pkt_tmstmp = _cur_pkt_tmstmp;
 
-                std::vector<uint8_t> raw_pdu = pkt.pdu()->rfind_pdu<Tins::RawPDU>().payload();                
+                // create raw-pdu collection
+                std::vector<uint8_t> raw_pdu = pkt.pdu()->rfind_pdu<Tins::RawPDU>().payload();
+
+                // initialize raw packet collection
                 packet::raw_packet_t raw_pkt(new uint8_t[raw_pdu.size()]); 
+
+                // fill raw_pkt with raw-pdu
                 std::copy(raw_pdu.begin(), raw_pdu.end(), raw_pkt.get());
 
-                // // // // 
-
+                // transform raw packet to handled packet
                 pkt_hdl_Mech hdl_pkt(std::move(raw_pkt)); 
 
+                // fill ros message by data from the handled packet
                 for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) 
                     msg->points.push_back(
                         pcl::PointXYZ(
@@ -142,10 +160,14 @@ namespace dephan_ros {
                     );
             }
         }
-        
+
+        // add timestamp to ros message
         pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
+
+        // add frame id to ros message
         msg->header.frame_id = "map";
 
+        // publish ros message to topic
         pointcloud2_publisher.publish(msg);
     }
 
@@ -156,6 +178,7 @@ namespace dephan_ros {
 
     void 
     Driver::_poll_udp() {
+
         // initialize ros pointcloud v2 message
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
 
@@ -190,6 +213,7 @@ namespace dephan_ros {
 
     void 
     Driver::_poll_pcap() {
+
         // initialzie ros pointcloud v2 message
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
 
@@ -203,19 +227,27 @@ namespace dephan_ros {
             Tins::Packet _pkt(pcap_sniffer->next_packet());
             _prev_pkt_tmstmp = _pkt.timestamp().microseconds();
         }
+
         // normal operation otherwise
         else {
+
+            // sleep for time-correct packets reading
             auto _cur_pkt_tmstmp = pkt.timestamp().microseconds();
             std::this_thread::sleep_for(
                 std::chrono::microseconds(_cur_pkt_tmstmp - _prev_pkt_tmstmp)
             );
             _prev_pkt_tmstmp = _cur_pkt_tmstmp;
 
+            // create raw-pdu collection
             std::vector<uint8_t> raw_pdu = pkt.pdu()->rfind_pdu<Tins::RawPDU>().payload();
-        
+
+            // initialize raw packet collection
             packet::raw_packet_t raw_pkt(new uint8_t[raw_pdu.size()]); 
+
+            // fill raw_pkt with raw-pdu
             std::copy(raw_pdu.begin(), raw_pdu.end(), raw_pkt.get());
 
+            // transform raw packet to handled packet
             pkt_hdl_Mech hdl_pkt(std::move(raw_pkt)); 
 
             // fill ros message by data from the handled packet
@@ -228,6 +260,8 @@ namespace dephan_ros {
                     )
                 );
         }
+        
+        // add timestamp to ros message
         pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
 
         // add frame id to ros message
