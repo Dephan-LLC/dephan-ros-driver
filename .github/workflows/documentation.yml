@@ -13,8 +13,8 @@ jobs:
       - uses: actions/setup-python@v5
       - name: Install dependencies
         run: |
-          pip3 install sphinx sphinx_copybutton sphinx_tabs sphinx_rtd_theme sphinx_favicon |
-          && apt install make cmake
+          pip3 install sphinx sphinx_copybutton sphinx_tabs sphinx_rtd_theme sphinx_favicon
+          apt install make cmake
       - name: Documentation build
         run: |
           make html 
