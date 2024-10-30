@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Dephan ROS driver documentation
-===========================================
+===============================
 
 .. toctree::
    :maxdepth: 2
@@ -31,6 +31,21 @@ Quick start
 -----------
 To install all neccesary packages and setup driver please follow 
 the :doc:`installation guide <installation>`. 
+
+
+Project strucrute
+-----------------
+The purpose of this project is to provide convenient and easy-to-use ROS support for DEPHAN-LLC LiDars. 
+
+There are some structural parts of the project:
+
+1. ``packet_handler_mech.hpp`` contais ...; 
+2. ``packet_raw.hpp`` contais ...;
+3. ``reciever_socket.hpp`` contains ...; 
+4. ``ros_driver.hpp`` contains ...; 
+
+Also, you can test your driver installation (as described in the :doc:`installation guide <installation>`) by running the 
+testing ROS node ``dephan_node.cpp``.
 
 
 Quick links
