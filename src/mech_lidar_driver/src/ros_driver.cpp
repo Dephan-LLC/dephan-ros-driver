@@ -9,28 +9,31 @@
  */
 
 #include "ros_driver.hpp"
-#include <std_msgs/UInt8MultiArray.h>
 #include <vector>
 
 
 namespace dephan_ros { 
-    Driver::Driver(ros::NodeHandle nh, std::string ip_addr, unsigned port, std::string cloud_topic):
-        ip_addr(ip_addr), port(port) {
+    using namespace std::chrono_literals;
+
+    Driver::Driver(std::string ip_addr, unsigned port, std::string cloud_topic):
+        Node("driver"), ip_addr(ip_addr), port(port) {
 
         // setup socket for receiving data
         socket.reset(new receiver_socket(ip_addr, port));
 
         // ROS publising routine
-        rawdata_publihser = 
-            nh.advertise<std_msgs::UInt8MultiArray>("raw_data", 10);
-        pointcloud_publisher = 
-            nh.advertise<sensor_msgs::PointCloud>("point_cloud_data", 10); 
         pointcloud2_publisher = 
-            nh.advertise<pcl::PointCloud<pcl::PointXYZ>>(cloud_topic, 10); 
+            this->create_publisher<sensor_msgs::msg::PointCloud2>(cloud_topic, 128);
+        // pointcloud_publisher = 
+        //     nh.advertise<sensor_msgs::PointCloud>("point_cloud_data", 10); 
+        // pointcloud2_publisher = 
+        //     nh.advertise<pcl::PointCloud<pcl::PointXYZ>>(cloud_topic, 10); 
+
+        timer = this->create_wall_timer(1ms, std::bind(&Driver::timer_callback, this));
     }
 
-    Driver::Driver(ros::NodeHandle nh, std::string pcap_path, std::string cloud_topic): 
-        pcap_path(pcap_path) {
+    Driver::Driver(std::string pcap_path, std::string cloud_topic): 
+        Node("driver"), pcap_path(pcap_path) {
         
         // setup libtins sniffer for reading data
         pcap_sniffer.reset(new Tins::FileSniffer {pcap_path});
@@ -41,7 +44,14 @@ namespace dephan_ros {
 
         // ROS publising routine
         pointcloud2_publisher = 
-            nh.advertise<pcl::PointCloud<pcl::PointXYZ>>(cloud_topic, 10); 
+            this->create_publisher<sensor_msgs::msg::PointCloud2>(cloud_topic, 128);
+        
+        timer = this->create_wall_timer(1ms, std::bind(&Driver::timer_callback, this));
+    }
+
+    void 
+    Driver::timer_callback() {
+        poll_full();
     }
 
     void 
@@ -60,7 +70,7 @@ namespace dephan_ros {
     Driver::poll_full() {
 
         // pcap_sniffer provided? 
-        if (pcap_sniffer)
+        if (pcap_sniffer) 
             _poll_full_pcap();
 
         // UDP mode otherwise
@@ -98,13 +108,14 @@ namespace dephan_ros {
         }
 
         // add timestamp to ros message
-        pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
+        // pcl_conversions::toPCL(rclcpp::Time::now(), msg->header.stamp);
 
         // add frame id to ros message
         msg->header.frame_id = "map";
 
-        // publish ros message to topic
-        pointcloud2_publisher.publish(msg);
+        sensor_msgs::msg::PointCloud2 output;
+        pcl::toROSMsg(*msg, output);
+        pointcloud2_publisher->publish(output);
     }
 
     void 
@@ -121,7 +132,8 @@ namespace dephan_ros {
 
             // is packet extracted with problems?
             if (!pkt) {
-                ROS_INFO("Starting over...");
+                // ROS_INFO("Starting over...");
+                std::cout << "Starting over..." << std::endl;
                 pcap_sniffer.reset(new Tins::FileSniffer {pcap_path});
                 Tins::Packet _pkt(pcap_sniffer->next_packet());
                 _prev_pkt_tmstmp = _pkt.timestamp().microseconds();
@@ -162,13 +174,15 @@ namespace dephan_ros {
         }
 
         // add timestamp to ros message
-        pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
+        // pcl_conversions::toPCL(rclcpp::Time::now(), msg->header.stamp);
 
         // add frame id to ros message
         msg->header.frame_id = "map";
 
         // publish ros message to topic
-        pointcloud2_publisher.publish(msg);
+        sensor_msgs::msg::PointCloud2 output;
+        pcl::toROSMsg(*msg, output);
+        pointcloud2_publisher->publish(output);
     }
 
     std::pair<std::string, unsigned> 
@@ -202,13 +216,15 @@ namespace dephan_ros {
             );
         
         // add timestamp to ros message
-        pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
+        // pcl_conversions::toPCL(rclcpp::Clock::now(), msg->header.stamp);
 
         // add frame id to ros message
         msg->header.frame_id = "map";
 
         // publish ros message to topic
-        pointcloud2_publisher.publish(msg);
+        sensor_msgs::msg::PointCloud2 output;
+        pcl::toROSMsg(*msg, output);
+        pointcloud2_publisher->publish(output);    
     }
 
     void 
@@ -222,7 +238,7 @@ namespace dephan_ros {
 
         // is packet extracted with problems?
         if (!pkt) {
-            ROS_INFO("Starting over...");
+            // ROS_INFO("Starting over...");
             pcap_sniffer.reset(new Tins::FileSniffer {pcap_path});
             Tins::Packet _pkt(pcap_sniffer->next_packet());
             _prev_pkt_tmstmp = _pkt.timestamp().microseconds();
@@ -262,12 +278,14 @@ namespace dephan_ros {
         }
         
         // add timestamp to ros message
-        pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
+        // pcl_conversions::toPCL(rclcpp::Node::Time::now(), msg->header.stamp);
 
         // add frame id to ros message
         msg->header.frame_id = "map";
 
         // publish ros message to topic
-        pointcloud2_publisher.publish(msg);
+        sensor_msgs::msg::PointCloud2 output;
+        pcl::toROSMsg(*msg, output);
+        pointcloud2_publisher->publish(output);    
     }
 }

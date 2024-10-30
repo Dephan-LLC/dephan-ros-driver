@@ -13,25 +13,30 @@
 
 int main(int argc, char *argv[]) { 
     // init ROS
-    ros::init(argc, argv, "ss_lidar");
+    rclcpp::init(argc, argv);
 
-    // init ros handle node
-    ros::NodeHandle nh; 
-    // ros::NodeHandle nh_pcap; 
+    rclcpp::spin(std::make_shared<dephan_ros::Driver>("192.168.0.120", 51551, "point_cloud2_data"));
 
-    // dephan_ros::Driver driver(nh, "192.168.0.120", 51551, "point_cloud2_data");  
-    // ROS_INFO("Started"); 
+    // rclcpp::spin(std::make_shared<dephan_ros::Driver>("/root/test.pcap", "point_cloud2_data_pcap"));
 
-    dephan_ros::Driver driver_pcap(nh, "/root/test.pcap", "point_cloud2_data_pcap");
-    ROS_INFO("Started PCAP");
+    rclcpp::shutdown();
 
-    // polling device via driver
-    while(ros::ok()) {
-        // driver.poll_full();
-        // driver_pcap.poll();
-        driver_pcap.poll_full();
-        ros::spinOnce();
-    }
+//////
+
+    // dephan_ros::Driver driver("192.168.0.101", 51551, "point_cloud2_data");  
+    // dephan_ros::Driver driver_pcap(nh, "/root/test.pcap", "point_cloud2_data_pcap");
+
+    // driver.poll();
+    // driver_pcap.poll();
+
+    // // // polling device via driver
+    // while(rclcpp::ok()) {
+    //     // driver.poll_full();
+    //     // driver_pcap.poll();
+    //     driver.poll();
+    //     rclcpp::spin(nh);
+    // }
+
 
     return 0; 
 }
