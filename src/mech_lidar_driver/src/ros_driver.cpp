@@ -15,8 +15,8 @@
 namespace dephan_ros { 
     using namespace std::chrono_literals;
 
-    Driver::Driver(std::string ip_addr, unsigned port, std::string cloud_topic):
-        Node("driver"), ip_addr(ip_addr), port(port) {
+    Driver::Driver(std::string ip_addr, unsigned port, std::string cloud_topic, bool is_full):
+        Node("driver"), ip_addr(ip_addr), port(port), is_full(is_full) {
 
         // setup socket for receiving data
         socket.reset(new receiver_socket(ip_addr, port));
@@ -32,8 +32,8 @@ namespace dephan_ros {
         timer = this->create_wall_timer(1ms, std::bind(&Driver::timer_callback, this));
     }
 
-    Driver::Driver(std::string pcap_path, std::string cloud_topic): 
-        Node("driver"), pcap_path(pcap_path) {
+    Driver::Driver(std::string pcap_path, std::string cloud_topic, bool is_full): 
+        Node("driver"), pcap_path(pcap_path), is_full(is_full) {
         
         // setup libtins sniffer for reading data
         pcap_sniffer.reset(new Tins::FileSniffer {pcap_path});
@@ -51,7 +51,10 @@ namespace dephan_ros {
 
     void 
     Driver::timer_callback() {
-        poll_full();
+        if (is_full)
+            poll_full();
+        else 
+            poll();
     }
 
     void 
@@ -239,6 +242,7 @@ namespace dephan_ros {
         // is packet extracted with problems?
         if (!pkt) {
             // ROS_INFO("Starting over...");
+            std::cout << "Starting over..." << std::endl;
             pcap_sniffer.reset(new Tins::FileSniffer {pcap_path});
             Tins::Packet _pkt(pcap_sniffer->next_packet());
             _prev_pkt_tmstmp = _pkt.timestamp().microseconds();

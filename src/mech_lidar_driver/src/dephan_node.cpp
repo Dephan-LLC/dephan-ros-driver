@@ -15,9 +15,9 @@ int main(int argc, char *argv[]) {
     // init ROS
     rclcpp::init(argc, argv);
 
-    rclcpp::spin(std::make_shared<dephan_ros::Driver>("192.168.0.120", 51551, "point_cloud2_data"));
+    // rclcpp::spin(std::make_shared<dephan_ros::Driver>("192.168.0.120", 51551, "point_cloud2_data"));
 
-    // rclcpp::spin(std::make_shared<dephan_ros::Driver>("/root/test.pcap", "point_cloud2_data_pcap"));
+    rclcpp::spin(std::make_shared<dephan_ros::Driver>("/root/test.pcap", "point_cloud2_data_pcap"));
 
     rclcpp::shutdown();
 
