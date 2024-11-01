@@ -92,8 +92,11 @@ void Driver::_poll_full_udp() {
         packet::raw_packet_t raw_pkt(new uint8_t[packet::PKT_LEN]);
 
         // wait until we are receive data
-        while (socket->get_packet(raw_pkt.get(), packet::PKT_LEN))
-            ;
+        while (socket->get_packet(raw_pkt.get(), packet::PKT_LEN)) {
+            if (!rclcpp::ok()) {
+                return;
+            }
+        }
 
         // transform raw packet to handled packet
         pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
@@ -195,8 +198,11 @@ void Driver::_poll_udp() {
     packet::raw_packet_t raw_pkt(new uint8_t[packet::PKT_LEN]);
 
     // wait until we are receive data
-    while (socket->get_packet(raw_pkt.get(), packet::PKT_LEN))
-        ;
+    while (socket->get_packet(raw_pkt.get(), packet::PKT_LEN)) {
+        if (!rclcpp::ok()) {
+            return;
+        }
+    }
 
     // transform raw packet to handled packet
     pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
