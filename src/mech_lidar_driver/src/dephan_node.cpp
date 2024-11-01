@@ -1,4 +1,4 @@
-/** 
+/**
  * Copyright (c) 2024, DEPHAN LLC, Anton Ledrov
  * All rights reserved.
  */
@@ -10,21 +10,24 @@
 
 #include "ros_driver.hpp"
 
-
-int main(int argc, char *argv[]) { 
+int main(int argc, char* argv[]) {
     // init ROS
     rclcpp::init(argc, argv);
 
-    // rclcpp::spin(std::make_shared<dephan_ros::Driver>("192.168.0.120", 51551, "point_cloud2_data"));
+    // rclcpp::spin(std::make_shared<dephan_ros::Driver>("192.168.0.120", 51551,
+    // "point_cloud2_data"));
 
-    rclcpp::spin(std::make_shared<dephan_ros::Driver>("/root/test.pcap", "point_cloud2_data_pcap"));
+    rclcpp::spin(std::make_shared<dephan_ros::Driver>(
+        "/root/test.pcap", "point_cloud2_data_pcap"
+    ));
 
     rclcpp::shutdown();
 
-//////
+    //////
 
-    // dephan_ros::Driver driver("192.168.0.101", 51551, "point_cloud2_data");  
-    // dephan_ros::Driver driver_pcap(nh, "/root/test.pcap", "point_cloud2_data_pcap");
+    // dephan_ros::Driver driver("192.168.0.101", 51551, "point_cloud2_data");
+    // dephan_ros::Driver driver_pcap(nh, "/root/test.pcap",
+    // "point_cloud2_data_pcap");
 
     // driver.poll();
     // driver_pcap.poll();
@@ -37,6 +40,5 @@ int main(int argc, char *argv[]) {
     //     rclcpp::spin(nh);
     // }
 
-
-    return 0; 
+    return 0;
 }

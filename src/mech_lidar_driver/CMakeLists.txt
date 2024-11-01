@@ -13,8 +13,8 @@ find_package(sensor_msgs REQUIRED)
 
 find_library(LIBTINS tins)
 
-add_executable(mech_driver 
-  src/dephan_node.cpp 
+add_executable(mech_driver
+  src/dephan_node.cpp
   src/ros_driver.cpp
   src/packet_handler_mech.cpp
   src/reciever_socket.cpp
@@ -33,7 +33,7 @@ target_include_directories(mech_driver PUBLIC
   /usr/include/pcl-1.12
 )
 
-target_link_libraries(mech_driver 
+target_link_libraries(mech_driver
   ${rclcpp_LIBRARIES}
   ${PCL_LIBRARIES}
   ${LIBTINS}
