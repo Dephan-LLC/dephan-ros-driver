@@ -7,7 +7,7 @@ Dephan ROS driver documentation
 ===============================
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 3
    :caption: Contents:
 
 .. toctree::
@@ -15,6 +15,10 @@ Dephan ROS driver documentation
    
    Installation <installation>
 
+.. toctree::
+   :hidden:
+
+   DEPHAN ROS node howto <dephan_node>
 
 .. toctree::
    :hidden:
@@ -49,11 +53,16 @@ Also, you can test your driver installation (as described in the :doc:`installat
 testing ROS node ``dephan_node.cpp``.
 
 
+DEPHAN ROS node usage
+--------------
+Fot testing and using driver you should setup and run ROS node wich will process LiDar data and translate it to the ROS topic. 
+To get information how to setup and use DEPHAN ROS node please follow the :doc:`DEPHAN ROS node howto <dephan_node>`.
+
 
 Quick links
 -----------
 * :doc:`Installation <installation>`
-
+* :doc:`DEPHAN ROS node <dephan_node>`
 
 .. * :ref:`genindex`
 .. * :ref:`modindex`

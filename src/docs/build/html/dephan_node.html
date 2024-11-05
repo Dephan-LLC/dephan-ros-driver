@@ -6,10 +6,11 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dephan ROS driver documentation &mdash; Dephan ROS driver 0.1.0 documentation</title>
+  <title>DEPHAN ROS node howto &mdash; Dephan ROS driver 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -19,10 +20,12 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Dephan ROS driver installation" href="installation.html" /> 
+    <link rel="next" title="Class Driver" href="cpp_src/ros_driver.html" />
+    <link rel="prev" title="Dephan ROS driver installation" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -33,7 +36,7 @@
 
           
           
-          <a href="#" class="icon icon-home">
+          <a href="index.html" class="icon icon-home">
             Dephan ROS driver
           </a>
 <div role="search">
@@ -47,8 +50,12 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="dephan_node.html">DEPHAN ROS node howto</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">DEPHAN ROS node howto</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
@@ -64,17 +71,17 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">Dephan ROS driver</a>
+          <a href="index.html">Dephan ROS driver</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Dephan ROS driver documentation</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">DEPHAN ROS node howto</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/dephan_node.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -82,45 +89,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="dephan-ros-driver-documentation">
-<h1>Dephan ROS driver documentation<a class="headerlink" href="#dephan-ros-driver-documentation" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<section id="quick-start">
-<h2>Quick start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
-<p>To install all neccesary packages and setup driver please follow
-the <a class="reference internal" href="installation.html"><span class="doc">installation guide</span></a>.</p>
-</section>
-<section id="project-strucrute">
-<h2>Project strucrute<a class="headerlink" href="#project-strucrute" title="Link to this heading"></a></h2>
-<p>The purpose of this project is to provide convenient and easy-to-use ROS support for DEPHAN-LLC LiDars.</p>
-<p>There are some structural parts of the project:</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">packet_raw.hpp</span></code> incapsulates all information about the raw packet recieved from the LiDar (or from the PCAP file);</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">packet_handler_mech.hpp</span></code> contais methods for handling raw packages recieved from the LiDar (or from the PCAP file);</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">reciever_socket.hpp</span></code> contains methods for connecting and polling the LiDar device;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ros_driver.hpp</span></code> contains methods for ROS operation;</p></li>
-</ol>
-<p>Also, you can test your driver installation (as described in the <a class="reference internal" href="installation.html"><span class="doc">installation guide</span></a>) by running the
-testing ROS node <code class="docutils literal notranslate"><span class="pre">dephan_node.cpp</span></code>.</p>
-</section>
-<section id="dephan-ros-node-usage">
-<h2>DEPHAN ROS node usage<a class="headerlink" href="#dephan-ros-node-usage" title="Link to this heading"></a></h2>
-<p>Fot testing and using driver you should setup and run ROS node wich will process LiDar data and translate it to the ROS topic.
-To get information how to setup and use DEPHAN ROS node please follow the <a class="reference internal" href="dephan_node.html"><span class="doc">DEPHAN ROS node howto</span></a>.</p>
-</section>
-<section id="quick-links">
-<h2>Quick links<a class="headerlink" href="#quick-links" title="Link to this heading"></a></h2>
+  <section id="dephan-ros-node-howto">
+<h1>DEPHAN ROS node howto<a class="headerlink" href="#dephan-ros-node-howto" title="Link to this heading"></a></h1>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h2>
+<p>For the <code class="docutils literal notranslate"><span class="pre">ROS:iron</span></code> you can specify json configuration file for the driver operation.</p>
+<p>You can find default configurations both for PCAP and UDP modes respectively by:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="installation.html"><span class="doc">Installation</span></a></p></li>
-<li><p><a class="reference internal" href="dephan_node.html"><span class="doc">DEPHAN ROS node</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mech_lidar_driver/configs/default_pcap_config.json</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mech_lidar_driver/configs/default_udp_config.json</span></code></p></li>
 </ul>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-0-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-0-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>rosrun<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-Uk9TOmlyb24=" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>&lt;PATH_TO_JSON_CONFIG&gt;
+</pre></div>
+</div>
+</div></div>
 </section>
 </section>
 
@@ -128,7 +117,8 @@ To get information how to setup and use DEPHAN ROS node please follow the <a cla
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installation.html" class="btn btn-neutral float-right" title="Dephan ROS driver installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Dephan ROS driver installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cpp_src/ros_driver.html" class="btn btn-neutral float-right" title="Class Driver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

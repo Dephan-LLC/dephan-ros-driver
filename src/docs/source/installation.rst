@@ -49,6 +49,21 @@ Requirements
     make && sudo make install
 
 
+4. Install ``json``:
+
+.. code-block:: shell 
+
+    cd ~ && git clone https://github.com/nlohmann/json.git
+
+    cd json 
+
+    mkdir build && cd build 
+
+    cmake ../ 
+
+    make && sudo make install
+
+
 Build and run
 -------------
 
@@ -85,7 +100,7 @@ Now you are ready to run the testing node. Create 3 terminals:
     
     .. code-tab:: shell ROS:noetic
 
-        roscore
+        sudo roscore
     
     .. code-tab:: shell ROS:iron 
 
@@ -98,11 +113,11 @@ Now you are ready to run the testing node. Create 3 terminals:
     
     .. code-tab:: shell ROS:noetic
 
-        rosrun mech_lidar_driver mech_driver
+        sudo rosrun mech_lidar_driver mech_driver
 
     .. code-tab:: shell ROS:iron
 
-        ros2 run mech_lidar_driver mech_driver
+        sudo ros2 run mech_lidar_driver mech_driver
 
 
 3. In terminal 3:
@@ -111,11 +126,11 @@ Now you are ready to run the testing node. Create 3 terminals:
     
     .. code-tab:: shell ROS:noetic
 
-        rostopic echo point_cloud2_data
+        sudo rostopic echo point_cloud2_data
 
     .. code-tab:: shell ROS:iron
 
-        ros2 topic echo point_cloud2_data
+        sudo ros2 topic echo point_cloud2_data
 
 
 Now you should see data stream in the terminal 3.

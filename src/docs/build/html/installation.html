@@ -24,7 +24,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Class Driver" href="cpp_src/ros_driver.html" />
+    <link rel="next" title="DEPHAN ROS node howto" href="dephan_node.html" />
     <link rel="prev" title="Dephan ROS driver documentation" href="index.html" /> 
 </head>
 
@@ -54,6 +54,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#build-and-run">Build and run</a></li>
 </ul>
 </li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dephan_node.html">DEPHAN ROS node howto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
@@ -126,6 +129,20 @@ cmake<span class="w"> </span>../
 make<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 </div>
+<ol class="arabic simple" start="4">
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">json</span></code>:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/nlohmann/json.git
+
+<span class="nb">cd</span><span class="w"> </span>json
+
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+
+cmake<span class="w"> </span>../
+
+make<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
 </section>
 <section id="build-and-run">
 <h2>Build and run<a class="headerlink" href="#build-and-run" title="Link to this heading"></a></h2>
@@ -155,7 +172,7 @@ colcon<span class="w"> </span>build
 <li><p>In tetminal 1:</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-2-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-2-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>roscore
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-2-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-2-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>roscore
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-2-Uk9TOmlyb24=" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span>No<span class="w"> </span>need<span class="w"> </span>this<span class="w"> </span>terminal
@@ -166,10 +183,10 @@ colcon<span class="w"> </span>build
 <li><p>In terminal 2:</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-3-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-3-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rosrun<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-3-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-3-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>rosrun<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-3-Uk9TOmlyb24=" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-3-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver
+</div><div aria-labelledby="tab-3-Uk9TOmlyb24=" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-3-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver
 </pre></div>
 </div>
 </div></div>
@@ -177,10 +194,10 @@ colcon<span class="w"> </span>build
 <li><p>In terminal 3:</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-4-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-4-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-4-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>point_cloud2_data
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-4-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-4-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-4-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>point_cloud2_data
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-4-Uk9TOmlyb24=" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-4-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>point_cloud2_data
+</div><div aria-labelledby="tab-4-Uk9TOmlyb24=" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-4-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>point_cloud2_data
 </pre></div>
 </div>
 </div></div>
@@ -193,7 +210,7 @@ colcon<span class="w"> </span>build
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Dephan ROS driver documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="cpp_src/ros_driver.html" class="btn btn-neutral float-right" title="Class Driver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="dephan_node.html" class="btn btn-neutral float-right" title="DEPHAN ROS node howto" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
