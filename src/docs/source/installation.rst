@@ -24,10 +24,14 @@ Requirements
 
     .. code-tab:: shell ROS:noetic
 
+        sudo apt update
+
         sudo apt install ros-noetic-pcl-conversions ros-noetic-pcl-ros
 
 
     .. code-tab:: shell ROS:iron
+
+        sudo apt update
 
         sudo apt install ros-iron-pcl-conversions ros-iron-pcl-ros
 
