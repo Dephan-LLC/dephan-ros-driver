@@ -91,28 +91,54 @@
 <h1>Dephan ROS driver installation<a class="headerlink" href="#dephan-ros-driver-installation" title="Link to this heading"></a></h1>
 <section id="supported-platfrorms">
 <h2>Supported platfrorms<a class="headerlink" href="#supported-platfrorms" title="Link to this heading"></a></h2>
-<p>Driver was tested under the <code class="docutils literal notranslate"><span class="pre">Ubuntu</span> <span class="pre">20.04</span></code> and <code class="docutils literal notranslate"><span class="pre">ROS</span> <span class="pre">Noetic</span></code> distribution.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This driver was tested only for <a class="reference external" href="https://hub.docker.com/_/ros">ros:noetic dockerhub image</a>.</p>
-<p>It is not recommended to use this driver under the other ros distribution.</p>
-</div>
+<p>Driver was tested under the <code class="docutils literal notranslate"><span class="pre">ROS:noetic</span></code> and <code class="docutils literal notranslate"><span class="pre">ROS:iron</span></code> distributions.</p>
 </section>
 <section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
-<p>Only the installed ros noetic package is enough.</p>
+<ol class="arabic simple">
+<li><p>Install selected ros package (<a class="reference external" href="http://wiki.ros.org/noetic/Installation/Ubuntu">ROS:noetic</a> for ROS1 operation or <a class="reference external" href="https://docs.ros.org/en/iron/Installation.html">ROS:iron</a> for ROS2 operation).</p></li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">PCL</span></code>:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libpcl-dev
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">TINS</span></code>:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libpcap-dev<span class="w"> </span>libssl-dev<span class="w"> </span>cmake
+
+<span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/mfontanini/libtins.git
+
+<span class="nb">cd</span><span class="w"> </span>libtins
+
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+
+cmake<span class="w"> </span>../
+
+make<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
 </section>
 <section id="build-and-run">
 <h2>Build and run<a class="headerlink" href="#build-and-run" title="Link to this heading"></a></h2>
 <p>For run and build driver please run the following commands:</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-VWJ1bnR1" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-VWJ1bnR1" name="VWJ1bnR1" role="tab" tabindex="0">Ubuntu</button></div><div aria-labelledby="tab-0-VWJ1bnR1" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-VWJ1bnR1" name="VWJ1bnR1" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/Dephan-LLC/dephan-ros-driver.git</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-0-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-0-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Dephan-LLC/dephan-ros-driver.git
 
-<span class="go">cd dephan-ros-driver</span>
+<span class="nb">cd</span><span class="w"> </span>dephan-ros-driver
 
-<span class="go">catkin_make</span>
+catkin_make
 
-<span class="go">source devel/setup.bash</span>
+<span class="nb">source</span><span class="w"> </span>devel/setup.bash
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-Uk9TOmlyb24=" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Dephan-LLC/dephan-ros-driver.git
+
+<span class="nb">cd</span><span class="w"> </span>dephan-ros-driver
+
+colcon<span class="w"> </span>build
+
+<span class="nb">source</span><span class="w"> </span>install/setup.bash
 </pre></div>
 </div>
 </div></div>
@@ -121,7 +147,10 @@
 <li><p>In tetminal 1:</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-VWJ1bnR1" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-VWJ1bnR1" name="VWJ1bnR1" role="tab" tabindex="0">Ubuntu</button></div><div aria-labelledby="tab-1-VWJ1bnR1" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-VWJ1bnR1" name="VWJ1bnR1" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roscore</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-1-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-1-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>roscore
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-Uk9TOmlyb24=" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span>No<span class="w"> </span>need<span class="w"> </span>this<span class="w"> </span>terminal
 </pre></div>
 </div>
 </div></div>
@@ -129,7 +158,10 @@
 <li><p>In terminal 2:</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-VWJ1bnR1" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-VWJ1bnR1" name="VWJ1bnR1" role="tab" tabindex="0">Ubuntu</button></div><div aria-labelledby="tab-2-VWJ1bnR1" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-VWJ1bnR1" name="VWJ1bnR1" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosrun mech_lidar_driver mech_driver</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-2-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-2-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rosrun<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-Uk9TOmlyb24=" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver
 </pre></div>
 </div>
 </div></div>
@@ -137,7 +169,10 @@
 <li><p>In terminal 3:</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-VWJ1bnR1" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-VWJ1bnR1" name="VWJ1bnR1" role="tab" tabindex="0">Ubuntu</button></div><div aria-labelledby="tab-3-VWJ1bnR1" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-VWJ1bnR1" name="VWJ1bnR1" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic echo point_cloud2_data</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-3-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-3-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>point_cloud2_data
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-3-Uk9TOmlyb24=" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-3-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>point_cloud2_data
 </pre></div>
 </div>
 </div></div>

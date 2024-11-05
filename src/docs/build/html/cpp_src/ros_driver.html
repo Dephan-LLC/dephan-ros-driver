@@ -89,36 +89,36 @@
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6DriverE">
-<span id="_CPPv3N10dephan_ros6DriverE"></span><span id="_CPPv2N10dephan_ros6DriverE"></span><span id="dephan_ros::Driver"></span><span class="target" id="classdephan__ros_1_1Driver"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Driver</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6DriverE" title="Link to this definition"></a><br /></dt>
-<dd><p>Base class for driver. </p>
+<span id="_CPPv3N10dephan_ros6DriverE"></span><span id="_CPPv2N10dephan_ros6DriverE"></span><span id="dephan_ros::Driver"></span><span class="target" id="classdephan__ros_1_1Driver"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Driver</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">rclcpp</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Node</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6DriverE" title="Link to this definition"></a><br /></dt>
+<dd><p>Class for ROS driver. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver6DriverEN3ros10NodeHandleENSt6stringEjNSt6stringE">
-<span id="_CPPv3N10dephan_ros6Driver6DriverEN3ros10NodeHandleENSt6stringEjNSt6stringE"></span><span id="_CPPv2N10dephan_ros6Driver6DriverEN3ros10NodeHandleENSt6stringEjNSt6stringE"></span><span id="dephan_ros::Driver::Driver__ros::NodeHandle.ss.unsigned.ss"></span><span class="target" id="classdephan__ros_1_1Driver_1a353f3280e31977b8be7dad15313807ab"></span><span class="sig-name descname"><span class="n"><span class="pre">Driver</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ros</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">NodeHandle</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nh</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ip_addr</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">port</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">topic_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver6DriverEN3ros10NodeHandleENSt6stringEjNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver6DriverENSt6stringEjNSt6stringEb">
+<span id="_CPPv3N10dephan_ros6Driver6DriverENSt6stringEjNSt6stringEb"></span><span id="_CPPv2N10dephan_ros6Driver6DriverENSt6stringEjNSt6stringEb"></span><span id="dephan_ros::Driver::Driver__ss.unsigned.ss.b"></span><span class="target" id="classdephan__ros_1_1Driver_1a2f5c707964b9d75d238544fb01a1b44a"></span><span class="sig-name descname"><span class="n"><span class="pre">Driver</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ip_addr</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">port</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">topic_name</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">is_full</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver6DriverENSt6stringEjNSt6stringEb" title="Link to this definition"></a><br /></dt>
 <dd><p><a class="reference internal" href="#classdephan__ros_1_1Driver"><span class="std std-ref">Driver</span></a> UDP mode constructor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>nh</strong> – <strong>[in]</strong> Ros handle node. </p></li>
 <li><p><strong>ip_addr</strong> – <strong>[in]</strong> Ip address of the LiDar device. </p></li>
 <li><p><strong>port</strong> – <strong>[in]</strong> Network port of the LiDar device. </p></li>
-<li><p><strong>topic_name</strong> – <strong>[in]</strong> Name of the topic for pointcloud v2 messages generated by the <a class="reference internal" href="#classdephan__ros_1_1Driver"><span class="std std-ref">Driver</span></a>. </p></li>
+<li><p><strong>topic_name</strong> – <strong>[in]</strong> Name of the topic for pointcloud v2 messages </p></li>
+<li><p><strong>is_full</strong> – <strong>[in]</strong> Flag for LiDar angle (true for 2 pi rad segment per packet, false for 2 pi / 18 rad segment per packet). </p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver6DriverEN3ros10NodeHandleENSt6stringENSt6stringE">
-<span id="_CPPv3N10dephan_ros6Driver6DriverEN3ros10NodeHandleENSt6stringENSt6stringE"></span><span id="_CPPv2N10dephan_ros6Driver6DriverEN3ros10NodeHandleENSt6stringENSt6stringE"></span><span id="dephan_ros::Driver::Driver__ros::NodeHandle.ss.ss"></span><span class="target" id="classdephan__ros_1_1Driver_1ae5bdf691b9f7bb8684509f656aef9474"></span><span class="sig-name descname"><span class="n"><span class="pre">Driver</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ros</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">NodeHandle</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nh</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pcap_path</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">topic_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver6DriverEN3ros10NodeHandleENSt6stringENSt6stringE" title="Link to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver6DriverENSt6stringENSt6stringEb">
+<span id="_CPPv3N10dephan_ros6Driver6DriverENSt6stringENSt6stringEb"></span><span id="_CPPv2N10dephan_ros6Driver6DriverENSt6stringENSt6stringEb"></span><span id="dephan_ros::Driver::Driver__ss.ss.b"></span><span class="target" id="classdephan__ros_1_1Driver_1a9aedd5c8be5b21e64d89a55dc09265dd"></span><span class="sig-name descname"><span class="n"><span class="pre">Driver</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pcap_path</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">topic_name</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">is_full</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver6DriverENSt6stringENSt6stringEb" title="Link to this definition"></a><br /></dt>
 <dd><p><a class="reference internal" href="#classdephan__ros_1_1Driver"><span class="std std-ref">Driver</span></a> PCAP mode construcror.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>nh</strong> – <strong>[in]</strong> Ros handle node. </p></li>
 <li><p><strong>pcap_path</strong> – <strong>[in]</strong> Path to the target PCAP file. </p></li>
-<li><p><strong>topic_name</strong> – <strong>[in]</strong> Name of the topic for pointcloud v2 messages generated by the <a class="reference internal" href="#classdephan__ros_1_1Driver"><span class="std std-ref">Driver</span></a>. </p></li>
+<li><p><strong>topic_name</strong> – <strong>[in]</strong> Name of the topic for pointcloud v2 messages. </p></li>
+<li><p><strong>is_full</strong> – <strong>[in]</strong> Flag for LiDar angle (true for 2 pi rad segment per packet, false for 2 pi / 18 rad segment per packet). </p></li>
 </ul>
 </dd>
 </dl>
@@ -145,6 +145,12 @@
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver14timer_callbackEv">
+<span id="_CPPv3N10dephan_ros6Driver14timer_callbackEv"></span><span id="_CPPv2N10dephan_ros6Driver14timer_callbackEv"></span><span id="dephan_ros::Driver::timer_callback"></span><span class="target" id="classdephan__ros_1_1Driver_1a0994e0fc3d5cb41d38c9f4130f078b44"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">timer_callback</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver14timer_callbackEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Timer callback for polling operation. </p>
+</dd></dl>
+
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver9_poll_udpEv">
 <span id="_CPPv3N10dephan_ros6Driver9_poll_udpEv"></span><span id="_CPPv2N10dephan_ros6Driver9_poll_udpEv"></span><span id="dephan_ros::Driver::_poll_udp"></span><span class="target" id="classdephan__ros_1_1Driver_1ab7a6ebeae633bb22c80ca10465eead71"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_poll_udp</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver9_poll_udpEv" title="Link to this definition"></a><br /></dt>
@@ -209,21 +215,21 @@
 </dd></dl>
 
 <dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver17rawdata_publihserE">
-<span id="_CPPv3N10dephan_ros6Driver17rawdata_publihserE"></span><span id="_CPPv2N10dephan_ros6Driver17rawdata_publihserE"></span><span id="dephan_ros::Driver::rawdata_publihser__ros::Publisher"></span><span class="target" id="classdephan__ros_1_1Driver_1ae39e0c4996a2d2154f476a9b98571883"></span><span class="n"><span class="pre">ros</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Publisher</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rawdata_publihser</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver17rawdata_publihserE" title="Link to this definition"></a><br /></dt>
-<dd><p>Ros topic publisher for the rawdata. </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver20pointcloud_publisherE">
-<span id="_CPPv3N10dephan_ros6Driver20pointcloud_publisherE"></span><span id="_CPPv2N10dephan_ros6Driver20pointcloud_publisherE"></span><span id="dephan_ros::Driver::pointcloud_publisher__ros::Publisher"></span><span class="target" id="classdephan__ros_1_1Driver_1aedbd3a54b9de392a2a96ef272d8ff713"></span><span class="n"><span class="pre">ros</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Publisher</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pointcloud_publisher</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver20pointcloud_publisherE" title="Link to this definition"></a><br /></dt>
-<dd><p>Ros topic publisher for the ros pointcloud v1 data. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver7is_fullE">
+<span id="_CPPv3N10dephan_ros6Driver7is_fullE"></span><span id="_CPPv2N10dephan_ros6Driver7is_fullE"></span><span id="dephan_ros::Driver::is_full__b"></span><span class="target" id="classdephan__ros_1_1Driver_1a65ae0de3d6aea9874b3e28254434fa6e"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_full</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver7is_fullE" title="Link to this definition"></a><br /></dt>
+<dd><p>Flag for LiDar angle (true for 2 pi rad segment per packet, false for 2 pi / 18 rad segment per packet) </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver21pointcloud2_publisherE">
-<span id="_CPPv3N10dephan_ros6Driver21pointcloud2_publisherE"></span><span id="_CPPv2N10dephan_ros6Driver21pointcloud2_publisherE"></span><span id="dephan_ros::Driver::pointcloud2_publisher__ros::Publisher"></span><span class="target" id="classdephan__ros_1_1Driver_1aef3d8b4a87c1f0dda85572664ec24bf1"></span><span class="n"><span class="pre">ros</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Publisher</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pointcloud2_publisher</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver21pointcloud2_publisherE" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N10dephan_ros6Driver21pointcloud2_publisherE"></span><span id="_CPPv2N10dephan_ros6Driver21pointcloud2_publisherE"></span><span id="dephan_ros::Driver::pointcloud2_publisher__rclcpp::Publisher:sensor_msgs::msg::PointCloud2:::SharedPtr"></span><span class="target" id="classdephan__ros_1_1Driver_1a8491322c6a31157c58eed2e899b67580"></span><span class="n"><span class="pre">rclcpp</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Publisher</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">sensor_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">PointCloud2</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">SharedPtr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pointcloud2_publisher</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver21pointcloud2_publisherE" title="Link to this definition"></a><br /></dt>
 <dd><p>Ros topic publisher for the ros pointcloud v2 data. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver5timerE">
+<span id="_CPPv3N10dephan_ros6Driver5timerE"></span><span id="_CPPv2N10dephan_ros6Driver5timerE"></span><span id="dephan_ros::Driver::timer__rclcpp::TimerBase::SharedPtr"></span><span class="target" id="classdephan__ros_1_1Driver_1a1fee35774e8ed7f04a164e93532f9603"></span><span class="n"><span class="pre">rclcpp</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">TimerBase</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">SharedPtr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">timer</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver5timerE" title="Link to this definition"></a><br /></dt>
+<dd><p>Ros timer for polling operation. </p>
 </dd></dl>
 
 </div>

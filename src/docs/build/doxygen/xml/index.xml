@@ -7,15 +7,16 @@
     <member refid="classdephan__ros_1_1Driver_1a16b560815004ee5a3c2e0f6142da1e31" kind="variable"><name>pcap_path</name></member>
     <member refid="classdephan__ros_1_1Driver_1a6fbcbc450e2a8160142467a76eb71ccf" kind="variable"><name>pcap_sniffer</name></member>
     <member refid="classdephan__ros_1_1Driver_1a483cb781522e93b80197d794f04c8b18" kind="variable"><name>_prev_pkt_tmstmp</name></member>
-    <member refid="classdephan__ros_1_1Driver_1ae39e0c4996a2d2154f476a9b98571883" kind="variable"><name>rawdata_publihser</name></member>
-    <member refid="classdephan__ros_1_1Driver_1aedbd3a54b9de392a2a96ef272d8ff713" kind="variable"><name>pointcloud_publisher</name></member>
-    <member refid="classdephan__ros_1_1Driver_1aef3d8b4a87c1f0dda85572664ec24bf1" kind="variable"><name>pointcloud2_publisher</name></member>
+    <member refid="classdephan__ros_1_1Driver_1a65ae0de3d6aea9874b3e28254434fa6e" kind="variable"><name>is_full</name></member>
+    <member refid="classdephan__ros_1_1Driver_1a8491322c6a31157c58eed2e899b67580" kind="variable"><name>pointcloud2_publisher</name></member>
+    <member refid="classdephan__ros_1_1Driver_1a1fee35774e8ed7f04a164e93532f9603" kind="variable"><name>timer</name></member>
+    <member refid="classdephan__ros_1_1Driver_1a0994e0fc3d5cb41d38c9f4130f078b44" kind="function"><name>timer_callback</name></member>
     <member refid="classdephan__ros_1_1Driver_1ab7a6ebeae633bb22c80ca10465eead71" kind="function"><name>_poll_udp</name></member>
     <member refid="classdephan__ros_1_1Driver_1a6b2251b92ee3664600ba6756315d5a3d" kind="function"><name>_poll_pcap</name></member>
     <member refid="classdephan__ros_1_1Driver_1ad4f2d43594008ad9880f80a6222ceee6" kind="function"><name>_poll_full_udp</name></member>
     <member refid="classdephan__ros_1_1Driver_1a754788757f3c0d88b24839bef6c5ffe6" kind="function"><name>_poll_full_pcap</name></member>
-    <member refid="classdephan__ros_1_1Driver_1a353f3280e31977b8be7dad15313807ab" kind="function"><name>Driver</name></member>
-    <member refid="classdephan__ros_1_1Driver_1ae5bdf691b9f7bb8684509f656aef9474" kind="function"><name>Driver</name></member>
+    <member refid="classdephan__ros_1_1Driver_1a2f5c707964b9d75d238544fb01a1b44a" kind="function"><name>Driver</name></member>
+    <member refid="classdephan__ros_1_1Driver_1a9aedd5c8be5b21e64d89a55dc09265dd" kind="function"><name>Driver</name></member>
     <member refid="classdephan__ros_1_1Driver_1aad0258b16b35e5ab8391a26f7c6f2b65" kind="function"><name>poll</name></member>
     <member refid="classdephan__ros_1_1Driver_1af1875e61040f8cc114d8523d74642988" kind="function"><name>poll_full</name></member>
     <member refid="classdephan__ros_1_1Driver_1a93e57a1f004ffb7b48547bb5a60aa80b" kind="function"><name>get_network_params</name></member>
@@ -53,6 +54,10 @@
   </compound>
   <compound refid="namespacedephan__ros" kind="namespace"><name>dephan_ros</name>
   </compound>
+  <compound refid="namespacerclcpp" kind="namespace"><name>rclcpp</name>
+  </compound>
+  <compound refid="namespacestd_1_1chrono__literals" kind="namespace"><name>std::chrono_literals</name>
+  </compound>
   <compound refid="packet__handler__mech_8hpp" kind="file"><name>packet_handler_mech.hpp</name>
   </compound>
   <compound refid="packet__raw_8hpp" kind="file"><name>packet_raw.hpp</name>
@@ -70,10 +75,10 @@
   </compound>
   <compound refid="ros__driver_8cpp" kind="file"><name>ros_driver.cpp</name>
   </compound>
-  <compound refid="dir_9cfeb176b067ea347e615aa2f3f09dfe" kind="dir"><name>/home/anton/dephan-ros-driver/src/mech_lidar_driver/include</name>
+  <compound refid="dir_9cfeb176b067ea347e615aa2f3f09dfe" kind="dir"><name>/root/dephan-ros-driver/src/mech_lidar_driver/include</name>
   </compound>
-  <compound refid="dir_09d78c59b483aea9cf20ece9b4b3153b" kind="dir"><name>/home/anton/dephan-ros-driver/src/mech_lidar_driver</name>
+  <compound refid="dir_09d78c59b483aea9cf20ece9b4b3153b" kind="dir"><name>/root/dephan-ros-driver/src/mech_lidar_driver</name>
   </compound>
-  <compound refid="dir_902abfb70c8632bc2fc6d4eaeec08bc5" kind="dir"><name>/home/anton/dephan-ros-driver/src/mech_lidar_driver/src</name>
+  <compound refid="dir_902abfb70c8632bc2fc6d4eaeec08bc5" kind="dir"><name>/root/dephan-ros-driver/src/mech_lidar_driver/src</name>
   </compound>
 </doxygenindex>

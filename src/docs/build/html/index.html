@@ -97,10 +97,10 @@ the <a class="reference internal" href="installation.html"><span class="doc">ins
 <p>The purpose of this project is to provide convenient and easy-to-use ROS support for DEPHAN-LLC LiDars.</p>
 <p>There are some structural parts of the project:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">packet_handler_mech.hpp</span></code> contais …;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">packet_raw.hpp</span></code> contais …;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">reciever_socket.hpp</span></code> contains …;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ros_driver.hpp</span></code> contains …;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">packet_raw.hpp</span></code> incapsulates all information about the raw packet recieved from the LiDar (or from the PCAP file);</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">packet_handler_mech.hpp</span></code> contais methods for handling raw packages recieved from the LiDar (or from the PCAP file);</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reciever_socket.hpp</span></code> contains methods for connecting and polling the LiDar device;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ros_driver.hpp</span></code> contains methods for ROS operation;</p></li>
 </ol>
 <p>Also, you can test your driver installation (as described in the <a class="reference internal" href="installation.html"><span class="doc">installation guide</span></a>) by running the
 testing ROS node <code class="docutils literal notranslate"><span class="pre">dephan_node.cpp</span></code>.</p>

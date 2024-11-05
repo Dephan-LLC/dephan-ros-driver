@@ -6,17 +6,35 @@ Dephan ROS driver installation
 Supported platfrorms
 --------------------
 
-Driver was tested under the ``Ubuntu 20.04`` and ``ROS Noetic`` distribution.
+Driver was tested under the ``ROS:noetic`` and ``ROS:iron`` distributions.
 
-.. warning::
-    This driver was tested only for `ros:noetic dockerhub image <https://hub.docker.com/_/ros>`_. 
-
-    It is not recommended to use this driver under the other ros distribution.
 
 Requirements
 ------------
 
-Only the installed ros noetic package is enough.
+1. Install selected ros package (`ROS:noetic <http://wiki.ros.org/noetic/Installation/Ubuntu>`_ for ROS1 operation or `ROS:iron <https://docs.ros.org/en/iron/Installation.html>`_ for ROS2 operation).
+
+2. Install ``PCL``: 
+
+.. code-block:: shell
+
+    sudo apt install libpcl-dev
+
+3. Install ``TINS``:
+
+.. code-block:: shell
+
+    sudo apt install libpcap-dev libssl-dev cmake
+
+    cd ~ && git clone https://github.com/mfontanini/libtins.git
+
+    cd libtins 
+
+    mkdir build && cd build 
+    
+    cmake ../ 
+
+    make && sudo make install
 
 
 Build and run
@@ -26,7 +44,7 @@ For run and build driver please run the following commands:
 
 .. tabs::
     
-    .. code-tab:: console Ubuntu
+    .. code-tab:: shell ROS:noetic
 
         git clone https://github.com/Dephan-LLC/dephan-ros-driver.git
 
@@ -36,30 +54,56 @@ For run and build driver please run the following commands:
 
         source devel/setup.bash
 
+    .. code-tab:: shell ROS:iron
+
+        git clone https://github.com/Dephan-LLC/dephan-ros-driver.git
+
+        cd dephan-ros-driver 
+
+        colcon build 
+
+        source install/setup.bash
+
+
 Now you are ready to run the testing node:
 
 1. In tetminal 1: 
 
 .. tabs::
     
-    .. code-tab:: console Ubuntu
+    .. code-tab:: shell ROS:noetic
 
         roscore
+    
+    .. code-tab:: shell ROS:iron 
+
+        echo No need this terminal
+
 
 2. In terminal 2:
 
 .. tabs::
     
-    .. code-tab:: console Ubuntu
+    .. code-tab:: shell ROS:noetic
 
         rosrun mech_lidar_driver mech_driver
+
+    .. code-tab:: shell ROS:iron
+
+        ros2 run mech_lidar_driver mech_driver
+
 
 3. In terminal 3:
 
 .. tabs::
     
-    .. code-tab:: console Ubuntu
+    .. code-tab:: shell ROS:noetic
 
         rostopic echo point_cloud2_data
+
+    .. code-tab:: shell ROS:iron
+
+        ros2 topic echo point_cloud2_data
+
 
 Now you should see data stream in the terminal 3.

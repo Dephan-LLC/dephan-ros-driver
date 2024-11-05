@@ -30,7 +30,8 @@ ament_target_dependencies(mech_driver
 
 target_include_directories(mech_driver PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
-  /usr/include/pcl-1.12
+  ${PCL_INCLUDE_DIRS}
+  # /usr/include/pcl-1.12
 )
 
 target_link_libraries(mech_driver

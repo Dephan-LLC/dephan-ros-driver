@@ -7,13 +7,14 @@ Dephan ROS driver documentation
 ===============================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
    :caption: Contents:
 
 .. toctree::
    :hidden:
    
    Installation <installation>
+
 
 .. toctree::
    :hidden:
@@ -39,18 +40,20 @@ The purpose of this project is to provide convenient and easy-to-use ROS support
 
 There are some structural parts of the project:
 
-1. ``packet_handler_mech.hpp`` contais ...; 
-2. ``packet_raw.hpp`` contais ...;
-3. ``reciever_socket.hpp`` contains ...; 
-4. ``ros_driver.hpp`` contains ...; 
+1. ``packet_raw.hpp`` incapsulates all information about the raw packet recieved from the LiDar (or from the PCAP file);
+2. ``packet_handler_mech.hpp`` contais methods for handling raw packages recieved from the LiDar (or from the PCAP file); 
+3. ``reciever_socket.hpp`` contains methods for connecting and polling the LiDar device; 
+4. ``ros_driver.hpp`` contains methods for ROS operation; 
 
 Also, you can test your driver installation (as described in the :doc:`installation guide <installation>`) by running the 
 testing ROS node ``dephan_node.cpp``.
 
 
+
 Quick links
 -----------
 * :doc:`Installation <installation>`
+
 
 .. * :ref:`genindex`
 .. * :ref:`modindex`

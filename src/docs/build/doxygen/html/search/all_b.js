@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_7ereceiver_5fsocket_36',['~receiver_socket',['../classdephan__ros_1_1receiver__socket.html#ab3d8005665a274427520b73445dd2a2e',1,'dephan_ros::receiver_socket']]]
+  ['timer_35',['timer',['../classdephan__ros_1_1Driver.html#a1fee35774e8ed7f04a164e93532f9603',1,'dephan_ros::Driver']]],
+  ['timer_5fcallback_36',['timer_callback',['../classdephan__ros_1_1Driver.html#a0994e0fc3d5cb41d38c9f4130f078b44',1,'dephan_ros::Driver']]]
 ];
