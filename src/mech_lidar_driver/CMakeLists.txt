@@ -10,6 +10,7 @@ find_package(std_msgs REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(pcl_ros REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(nlohmann_json 3.2.0 REQUIRED)
 
 find_library(LIBTINS tins)
 
@@ -38,6 +39,7 @@ target_link_libraries(mech_driver
   ${rclcpp_LIBRARIES}
   ${PCL_LIBRARIES}
   ${LIBTINS}
+  nlohmann_json::nlohmann_json
 )
 
 install(TARGETS

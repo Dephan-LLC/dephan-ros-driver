@@ -8,37 +8,54 @@
  * @brief ROS node for mechanical LiDar data
  */
 
+#include <iostream>
+#include <fstream>
+#include <nlohmann/json.hpp>
+#include <filesystem>
 #include "ros_driver.hpp"
+
+using json = nlohmann::json;
 
 int main(int argc, char* argv[]) {
     // init ROS
     rclcpp::init(argc, argv);
 
-    // rclcpp::spin(std::make_shared<dephan_ros::Driver>("192.168.0.120", 51551,
-    // "point_cloud2_data"));
+    // load configuration from the json
+    json configuration = json::parse(std::ifstream{argv[1]});
 
-    rclcpp::spin(std::make_shared<dephan_ros::Driver>(
-        "/root/test.pcap", "point_cloud2_data_pcap"
-    ));
+    // log starting info
+    std::cout << std::endl
+              << "Starting driver with following configuration: " << std::endl
+              << std::endl;
 
+    // log configuration details
+    for (auto& [k, v] : configuration.items())
+        std::cout << k << " : " << v << std::endl;
+    std::cout << std::endl;
+
+    // is driver in PCAP mode?
+    if (configuration["mode"] == "PCAP")
+        rclcpp::spin(std::make_shared<dephan_ros::Driver>(
+            configuration.value("pcap_path", "/root/test.pcap"),
+            configuration.value("topic", "point_cloud2_data")
+        ));
+
+    // us driver in UDP mode?
+    else if (configuration["mode"] == "UDP")
+        rclcpp::spin(std::make_shared<dephan_ros::Driver>(
+            configuration.value("ip", "0.0.0.0"),
+            configuration.value("port", 3000),
+            configuration.value("topic", "point_cloud2_data")
+        ));
+
+    // error reporting otherwise
+    else {
+        std::cerr << "bad config" << std::endl;
+        return 1;
+    }
+
+    // stop ros session
     rclcpp::shutdown();
-
-    //////
-
-    // dephan_ros::Driver driver("192.168.0.101", 51551, "point_cloud2_data");
-    // dephan_ros::Driver driver_pcap(nh, "/root/test.pcap",
-    // "point_cloud2_data_pcap");
-
-    // driver.poll();
-    // driver_pcap.poll();
-
-    // // // polling device via driver
-    // while(rclcpp::ok()) {
-    //     // driver.poll_full();
-    //     // driver_pcap.poll();
-    //     driver.poll();
-    //     rclcpp::spin(nh);
-    // }
 
     return 0;
 }
