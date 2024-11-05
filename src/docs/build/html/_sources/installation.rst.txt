@@ -14,11 +14,23 @@ Requirements
 
 1. Install selected ros package (`ROS:noetic <http://wiki.ros.org/noetic/Installation/Ubuntu>`_ for ROS1 operation or `ROS:iron <https://docs.ros.org/en/iron/Installation.html>`_ for ROS2 operation).
 
-2. Install ``PCL``: 
+2. Install ``PCL`` and ``PCL ROS``: 
 
 .. code-block:: shell
 
     sudo apt install libpcl-dev
+
+.. tabs::
+
+    .. code-tab:: shell ROS:noetic
+
+        sudo apt install ros-noetic-pcl-conversions ros-noetic-pcl-ros
+
+
+    .. code-tab:: shell ROS:iron
+
+        sudo apt install ros-iron-pcl-conversions ros-iron-pcl-ros
+
 
 3. Install ``TINS``:
 
@@ -46,7 +58,7 @@ For run and build driver please run the following commands:
     
     .. code-tab:: shell ROS:noetic
 
-        git clone https://github.com/Dephan-LLC/dephan-ros-driver.git
+        git clone -b main https://github.com/Dephan-LLC/dephan-ros-driver.git
 
         cd dephan-ros-driver
 
@@ -56,7 +68,7 @@ For run and build driver please run the following commands:
 
     .. code-tab:: shell ROS:iron
 
-        git clone https://github.com/Dephan-LLC/dephan-ros-driver.git
+        git clone -b ros2-hot https://github.com/Dephan-LLC/dephan-ros-driver.git
 
         cd dephan-ros-driver 
 
