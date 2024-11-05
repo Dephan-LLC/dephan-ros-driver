@@ -58,7 +58,7 @@ For run and build driver please run the following commands:
     
     .. code-tab:: shell ROS:noetic
 
-        git clone -b main https://github.com/Dephan-LLC/dephan-ros-driver.git
+        cd ~ && git clone -b main https://github.com/Dephan-LLC/dephan-ros-driver.git
 
         cd dephan-ros-driver
 
@@ -68,7 +68,7 @@ For run and build driver please run the following commands:
 
     .. code-tab:: shell ROS:iron
 
-        git clone -b ros2-hot https://github.com/Dephan-LLC/dephan-ros-driver.git
+        cd ~ && git clone -b ros2-hot https://github.com/Dephan-LLC/dephan-ros-driver.git
 
         cd dephan-ros-driver 
 
@@ -77,7 +77,7 @@ For run and build driver please run the following commands:
         source install/setup.bash
 
 
-Now you are ready to run the testing node:
+Now you are ready to run the testing node. Create 3 terminals:
 
 1. In tetminal 1: 
 

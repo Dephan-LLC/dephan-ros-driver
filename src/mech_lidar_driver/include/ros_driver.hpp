@@ -59,12 +59,14 @@ private:
     std::unique_ptr<Tins::FileSniffer> pcap_sniffer;
 
     /**
-     * Stored packet's timestamp for time correct reading from the pcap file.
+     * Stored packet's timestamp for time correct reading from the pcap
+     * file.
      */
     long long _prev_pkt_tmstmp;
 
     /**
-     * Flag for LiDar angle (true for 2 pi rad segment per packet, false for 2 pi / 18 rad segment per packet)
+     * Flag for LiDar angle (true for 2 pi rad segment per packet, false
+     * for 2 pi / 18 rad segment per packet)
      */
     bool is_full = false;
 
@@ -111,7 +113,8 @@ public:
      * @param[in] ip_addr Ip address of the LiDar device.
      * @param[in] port Network port of the LiDar device.
      * @param[in] topic_name Name of the topic for pointcloud v2 messages
-     * @param[in] is_full Flag for LiDar angle (true for 2 pi rad segment per packet, false for 2 pi / 18 rad segment per packet).
+     * @param[in] is_full Flag for LiDar angle (true for 2 pi rad segment
+     * per packet, false for 2 pi / 18 rad segment per packet).
      */
     Driver(
         std::string ip_addr, unsigned port, std::string topic_name,
@@ -123,7 +126,8 @@ public:
      *
      * @param[in] pcap_path Path to the target PCAP file.
      * @param[in] topic_name Name of the topic for pointcloud v2 messages.
-     * @param[in] is_full Flag for LiDar angle (true for 2 pi rad segment per packet, false for 2 pi / 18 rad segment per packet).
+     * @param[in] is_full Flag for LiDar angle (true for 2 pi rad segment
+     * per packet, false for 2 pi / 18 rad segment per packet).
      */
     Driver(std::string pcap_path, std::string topic_name, bool is_full = false);
 
