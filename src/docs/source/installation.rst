@@ -52,6 +52,8 @@ Requirements
 
     make && sudo make install
 
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
 
 4. Install ``json``:
 
@@ -68,8 +70,8 @@ Requirements
     make && sudo make install
 
 
-Build and run
--------------
+Building
+--------
 
 For run and build driver please run the following commands:
 
@@ -96,45 +98,5 @@ For run and build driver please run the following commands:
         source install/setup.bash
 
 
-Now you are ready to run the testing node. Create 3 terminals:
-
-1. In tetminal 1: 
-
-.. tabs::
-    
-    .. code-tab:: shell ROS:noetic
-
-        sudo roscore
-    
-    .. code-tab:: shell ROS:iron 
-
-        echo No need this terminal
-
-
-2. In terminal 2:
-
-.. tabs::
-    
-    .. code-tab:: shell ROS:noetic
-
-        sudo rosrun mech_lidar_driver mech_driver
-
-    .. code-tab:: shell ROS:iron
-
-        sudo ros2 run mech_lidar_driver mech_driver
-
-
-3. In terminal 3:
-
-.. tabs::
-    
-    .. code-tab:: shell ROS:noetic
-
-        sudo rostopic echo point_cloud2_data
-
-    .. code-tab:: shell ROS:iron
-
-        sudo ros2 topic echo point_cloud2_data
-
-
-Now you should see data stream in the terminal 3.
+Now you are ready to run the testing node. Please follow to :doc:`DEPHAN ROS node howto <dephan_node>` 
+to learn how to test and use the driver.
