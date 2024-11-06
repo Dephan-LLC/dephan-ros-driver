@@ -1,0 +1,34 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+AccessModifierOffset: -4
+AlignAfterOpenBracket: BlockIndent
+AlignArrayOfStructures: Right
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveMacros:
+    Enabled: true
+    AcrossEmptyLines: false
+    AcrossComments: false
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortBlocksOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Empty
+# AllowShortLoopsOnASingleLine: true
+AlwaysBreakTemplateDeclarations: Yes
+BraceWrapping:
+    BeforeCatch: true
+    BeforeElse:  true
+BreakBeforeBraces: Custom
+BreakConstructorInitializers: AfterColon
+BreakInheritanceList: AfterColon
+IndentCaseLabels: true
+IndentWidth: 4
+LineEnding: DeriveLF
+PointerAlignment: Left
+SortIncludes: Never
+SpaceAfterCStyleCast: true
+SpaceAroundPointerQualifiers: After
+SpaceBeforeParens: Custom
+SpaceBeforeParensOptions:
+    AfterOverloadedOperator: true
+...
