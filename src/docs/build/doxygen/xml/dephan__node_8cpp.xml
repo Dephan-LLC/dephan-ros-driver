@@ -4,38 +4,14 @@
     <compoundname>dephan_node.cpp</compoundname>
     <includes refid="ros__driver_8hpp" local="yes">ros_driver.hpp</includes>
     <incdepgraph>
-      <node id="14">
-        <label>arpa/inet.h</label>
-      </node>
-      <node id="17">
-        <label>cstdint</label>
-      </node>
-      <node id="8">
-        <label>pcl_ros/point_cloud.h</label>
-      </node>
-      <node id="16">
-        <label>poll.h</label>
-      </node>
-      <node id="6">
-        <label>sensor_msgs/PointCloud.h</label>
-      </node>
       <node id="18">
         <label>packet_handler_mech.hpp</label>
         <link refid="packet__handler__mech_8hpp"/>
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="7">
-        <label>std_msgs/UInt8MultiArray.h</label>
-      </node>
-      <node id="5">
-        <label>string</label>
-      </node>
-      <node id="12">
-        <label>packet_raw.hpp</label>
-        <link refid="packet__raw_8hpp_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
+      <node id="14">
+        <label>arpa/inet.h</label>
       </node>
       <node id="13">
         <label>reciever_socket.hpp</label>
@@ -50,6 +26,12 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
+      </node>
+      <node id="17">
+        <label>cstdint</label>
+      </node>
+      <node id="8">
+        <label>pcl_ros/point_cloud.h</label>
       </node>
       <node id="2">
         <label>ros_driver.hpp</label>
@@ -79,14 +61,32 @@
         <childnode refid="18" relation="include">
         </childnode>
       </node>
-      <node id="9">
-        <label>tins/tins.h</label>
+      <node id="16">
+        <label>poll.h</label>
+      </node>
+      <node id="6">
+        <label>sensor_msgs/PointCloud.h</label>
+      </node>
+      <node id="7">
+        <label>std_msgs/UInt8MultiArray.h</label>
+      </node>
+      <node id="5">
+        <label>string</label>
       </node>
       <node id="1">
-        <label>/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/dephan_node.cpp</label>
+        <label>/root/dephan-ros-driver/src/mech_lidar_driver/src/dephan_node.cpp</label>
         <link refid="dephan__node_8cpp"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="12">
+        <label>packet_raw.hpp</label>
+        <link refid="packet__raw_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>tins/tins.h</label>
       </node>
       <node id="3">
         <label>ros/ros.h</label>
@@ -125,7 +125,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/dephan_node.cpp" line="14" column="5" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/dephan_node.cpp" bodystart="14" bodyend="37"/>
+        <location file="/root/dephan-ros-driver/src/mech_lidar_driver/src/dephan_node.cpp" line="14" column="5" bodyfile="/root/dephan-ros-driver/src/mech_lidar_driver/src/dephan_node.cpp" bodystart="14" bodyend="37"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -164,6 +164,6 @@
 <codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;<sp/></highlight></codeline>
 <codeline lineno="37"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/src/dephan_node.cpp"/>
+    <location file="/root/dephan-ros-driver/src/mech_lidar_driver/src/dephan_node.cpp"/>
   </compounddef>
 </doxygen>

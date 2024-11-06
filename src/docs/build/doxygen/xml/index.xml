@@ -70,10 +70,10 @@
   </compound>
   <compound refid="ros__driver_8cpp" kind="file"><name>ros_driver.cpp</name>
   </compound>
-  <compound refid="dir_9cfeb176b067ea347e615aa2f3f09dfe" kind="dir"><name>/home/anton/dephan-ros-driver/src/mech_lidar_driver/include</name>
+  <compound refid="dir_9cfeb176b067ea347e615aa2f3f09dfe" kind="dir"><name>/root/dephan-ros-driver/src/mech_lidar_driver/include</name>
   </compound>
-  <compound refid="dir_09d78c59b483aea9cf20ece9b4b3153b" kind="dir"><name>/home/anton/dephan-ros-driver/src/mech_lidar_driver</name>
+  <compound refid="dir_09d78c59b483aea9cf20ece9b4b3153b" kind="dir"><name>/root/dephan-ros-driver/src/mech_lidar_driver</name>
   </compound>
-  <compound refid="dir_902abfb70c8632bc2fc6d4eaeec08bc5" kind="dir"><name>/home/anton/dephan-ros-driver/src/mech_lidar_driver/src</name>
+  <compound refid="dir_902abfb70c8632bc2fc6d4eaeec08bc5" kind="dir"><name>/root/dephan-ros-driver/src/mech_lidar_driver/src</name>
   </compound>
 </doxygenindex>

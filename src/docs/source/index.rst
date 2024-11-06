@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Dephan ROS:noetic driver documentation
-===============================
+======================================
 
 .. toctree::
    :maxdepth: 2

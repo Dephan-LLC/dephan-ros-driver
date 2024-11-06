@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="dir_09d78c59b483aea9cf20ece9b4b3153b" kind="dir">
-    <compoundname>/home/anton/dephan-ros-driver/src/mech_lidar_driver</compoundname>
-    <innerdir refid="dir_9cfeb176b067ea347e615aa2f3f09dfe">/home/anton/dephan-ros-driver/src/mech_lidar_driver/include</innerdir>
-    <innerdir refid="dir_902abfb70c8632bc2fc6d4eaeec08bc5">/home/anton/dephan-ros-driver/src/mech_lidar_driver/src</innerdir>
+    <compoundname>/root/dephan-ros-driver/src/mech_lidar_driver</compoundname>
+    <innerdir refid="dir_9cfeb176b067ea347e615aa2f3f09dfe">/root/dephan-ros-driver/src/mech_lidar_driver/include</innerdir>
+    <innerdir refid="dir_902abfb70c8632bc2fc6d4eaeec08bc5">/root/dephan-ros-driver/src/mech_lidar_driver/src</innerdir>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/"/>
+    <location file="/root/dephan-ros-driver/src/mech_lidar_driver/"/>
   </compounddef>
 </doxygen>
