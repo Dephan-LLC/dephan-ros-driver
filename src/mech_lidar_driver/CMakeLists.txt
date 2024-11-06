@@ -211,14 +211,14 @@ include_directories(
 
 # add_subdirectory(dephan-driver)
 
-add_executable(mech_driver 
-  src/dephan_node.cpp 
+add_executable(mech_driver
+  src/dephan_node.cpp
   src/ros_driver.cpp
   src/packet_handler_mech.cpp
   src/reciever_socket.cpp
 )
 
-target_link_libraries(mech_driver 
+target_link_libraries(mech_driver
   ${catkin_LIBRARIES}
   ${roslib_LIBRARIES}
   ${PCL_LIBRARIES}
