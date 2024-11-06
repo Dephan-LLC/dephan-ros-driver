@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" line="26" column="37" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" bodystart="26" bodyend="-1"/>
+        <location file="/root/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" line="25" column="29" bodyfile="/root/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" bodystart="25" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-attrib">
@@ -34,7 +34,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" line="31" column="35" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" bodystart="31" bodyend="-1"/>
+        <location file="/root/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" line="30" column="27" bodyfile="/root/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" bodystart="30" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -54,7 +54,7 @@
         </childnode>
       </node>
     </inheritancegraph>
-    <location file="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" line="21" column="5" bodyfile="/home/anton/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" bodystart="21" bodyend="32"/>
+    <location file="/root/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" line="20" column="1" bodyfile="/root/dephan-ros-driver/src/mech_lidar_driver/include/packet_raw.hpp" bodystart="20" bodyend="31"/>
     <listofallmembers>
       <member refid="structdephan__ros_1_1packet_1a6ff7d366d3cd2c0d904d52827674cb34" prot="public" virt="non-virtual"><scope>dephan_ros::packet</scope><name>PKT_LEN</name></member>
       <member refid="structdephan__ros_1_1packet_1a617f9aacf5177ff70513e57fa22a72e8" prot="public" virt="non-virtual"><scope>dephan_ros::packet</scope><name>raw_packet_t</name></member>
