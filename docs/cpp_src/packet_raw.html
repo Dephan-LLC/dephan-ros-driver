@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -14,9 +14,9 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=2389946f"></script>
-      <script src="../_static/doctools.js?v=888ff710"></script>
-      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/js/theme.js"></script>
@@ -80,22 +80,22 @@
            <div itemprop="articleBody">
              
   <section id="struct-packet">
-<h1>Struct packet<a class="headerlink" href="#struct-packet" title="Permalink to this heading"></a></h1>
+<h1>Struct packet<a class="headerlink" href="#struct-packet" title="Link to this heading"></a></h1>
 <ul class="simple">
 <li><p>Defined in <code class="docutils literal notranslate"><span class="pre">mech_lidar_driver/include/packet_raw.hpp</span></code></p></li>
 </ul>
 <section id="struct-documentation">
-<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this heading"></a></h2>
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Link to this heading"></a></h2>
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6packetE">
-<span id="_CPPv3N10dephan_ros6packetE"></span><span id="_CPPv2N10dephan_ros6packetE"></span><span id="dephan_ros::packet"></span><span class="target" id="structdephan__ros_1_1packet"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">packet</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6packetE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N10dephan_ros6packetE"></span><span id="_CPPv2N10dephan_ros6packetE"></span><span id="dephan_ros::packet"></span><span class="target" id="structdephan__ros_1_1packet"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">packet</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6packetE" title="Link to this definition"></a><br /></dt>
 <dd><p>Base Packet class </p>
 <p>Subclassed by <a class="reference internal" href="packet_handler_mech.html#classdephan__ros_1_1pkt__hdl__Mech"><span class="std std-ref">dephan_ros::pkt_hdl_Mech</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6packet12raw_packet_tE">
-<span id="_CPPv3N10dephan_ros6packet12raw_packet_tE"></span><span id="_CPPv2N10dephan_ros6packet12raw_packet_tE"></span><span id="dephan_ros::packet::raw_packet_t"></span><span class="target" id="structdephan__ros_1_1packet_1a617f9aacf5177ff70513e57fa22a72e8"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint8_t</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">raw_packet_t</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6packet12raw_packet_tE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N10dephan_ros6packet12raw_packet_tE"></span><span id="_CPPv2N10dephan_ros6packet12raw_packet_tE"></span><span id="dephan_ros::packet::raw_packet_t"></span><span class="target" id="structdephan__ros_1_1packet_1a617f9aacf5177ff70513e57fa22a72e8"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">uint8_t</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">raw_packet_t</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6packet12raw_packet_tE" title="Link to this definition"></a><br /></dt>
 <dd><p>typedef for the raw_packet_t. </p>
 </dd></dl>
 
@@ -104,7 +104,7 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6packet7PKT_LENE">
-<span id="_CPPv3N10dephan_ros6packet7PKT_LENE"></span><span id="_CPPv2N10dephan_ros6packet7PKT_LENE"></span><span id="dephan_ros::packet::PKT_LEN__unsignedC"></span><span class="target" id="structdephan__ros_1_1packet_1a6ff7d366d3cd2c0d904d52827674cb34"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PKT_LEN</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1016</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6packet7PKT_LENE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N10dephan_ros6packet7PKT_LENE"></span><span id="_CPPv2N10dephan_ros6packet7PKT_LENE"></span><span id="dephan_ros::packet::PKT_LEN__unsignedC"></span><span class="target" id="structdephan__ros_1_1packet_1a6ff7d366d3cd2c0d904d52827674cb34"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PKT_LEN</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1016</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6packet7PKT_LENE" title="Link to this definition"></a><br /></dt>
 <dd><p>Mechanical LiDar’s single packet length. </p>
 </dd></dl>
 
@@ -137,26 +137,7 @@
       </div>
     </section>
   </div>
-  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-        Version: docs
-        <span class="fa fa-caret-down"></span>
-    </span>
-    <div class="rst-other-versions">
-        <dl>
-            <dt>Versions</dt>
-            
-            <dd><a href="https://dephan-llc.github.io/dephan-ros-driver/docs/index.html">docs</a></dd>
-            
-            <dd><a href="https://dephan-llc.github.io/dephan-ros-driver/noetic/index.html">ROS:noetic</a></dd>
-            
-            <dd><a href="https://dephan-llc.github.io/dephan-ros-driver/iron/index.html">ROS:iron</a></dd>
-            
-        </dl>
-        <br>
-        </dl>
-    </div>
-</div><script>
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
