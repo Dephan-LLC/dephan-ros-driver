@@ -1,7 +1,7 @@
 name: documentation
 
 on: [push, pull_request, workflow_dispatch]
-
+    
 permissions:
   contents: write
 
@@ -15,15 +15,59 @@ jobs:
         run: |
           pip install sphinx breathe sphinx_copybutton sphinx_tabs sphinx_rtd_theme sphinx_favicon
           sudo apt install doxygen
-      - name: Sphinx build
+
+      - name: Build main
         working-directory: ./src/docs
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: |
-          make html
-      - name: Deploy to GitHub Pages
+          export CURRENT_VERSION=docs
+          make html 
+
+      - name: Build ros1
+        working-directory: ./src/docs
+        if: ${{ github.ref == 'refs/heads/ros1' }}
+        run: |
+          export CURRENT_VERSION=ROS:noetic
+          git fetch origin main:main
+          git checkout main -- source/conf.py
+          make html 
+
+      - name: Build ros2
+        working-directory: ./src/docs
+        if: ${{ github.ref == 'refs/heads/ros2' }}
+        run: |
+          export CURRENT_VERSION=ROS:iron
+          git fetch origin main:main
+          git checkout main -- source/conf.py
+          make html 
+
+      - name: Deploy Greetings to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main'}}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./src/docs/build/html
-          force_orphan: true
+          destination_dir: docs
+          enable_jekyll: false
+
+      - name: Deploy ROS:noetic version to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/ros1'}}
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./src/docs/build/html
+          destination_dir: noetic
+          enable_jekyll: false
+
+      - name: Deploy ROS:iron version to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/ros2'}}
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./src/docs/build/html
+          destination_dir: iron
+          enable_jekyll: false
+
