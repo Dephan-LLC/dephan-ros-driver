@@ -19,7 +19,7 @@ using json = nlohmann::json;
 
 int main(int argc, char* argv[]) {
     // init ROS
-    ros::init(argc, argv);
+    ros::init(argc, argv, "lidar_driver");
 
     // init ros handle node
     ros::NodeHandle nh;
