@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Dephan ROS:iron driver documentation
-===============================
+====================================
 
 .. toctree::
    :maxdepth: 3

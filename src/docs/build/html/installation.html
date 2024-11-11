@@ -10,7 +10,6 @@
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -20,12 +19,11 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
-      <script src="_static/tabs.js?v=3030b3cb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="DEPHAN ROS node howto" href="dephan_node.html" />
-    <link rel="prev" title="Dephan ROS driver documentation" href="index.html" /> 
+    <link rel="prev" title="Dephan ROS:iron driver documentation" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -94,76 +92,36 @@
 <h1>Dephan ROS driver installation<a class="headerlink" href="#dephan-ros-driver-installation" title="Link to this heading"></a></h1>
 <section id="supported-platfrorms">
 <h2>Supported platfrorms<a class="headerlink" href="#supported-platfrorms" title="Link to this heading"></a></h2>
-<p>Driver was tested under the <code class="docutils literal notranslate"><span class="pre">ROS:noetic</span></code> and <code class="docutils literal notranslate"><span class="pre">ROS:iron</span></code> distributions.</p>
+<p>This driver was developed and tested under the <code class="docutils literal notranslate"><span class="pre">ROS:iron</span></code> distribution.</p>
 </section>
 <section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
-<li><p>Install selected ros package (<a class="reference external" href="http://wiki.ros.org/noetic/Installation/Ubuntu">ROS:noetic</a> for ROS1 operation or <a class="reference external" href="https://docs.ros.org/en/iron/Installation.html">ROS:iron</a> for ROS2 operation).</p></li>
-<li><p>Install <code class="docutils literal notranslate"><span class="pre">PCL</span></code> and <code class="docutils literal notranslate"><span class="pre">PCL</span> <span class="pre">ROS</span></code>:</p></li>
+<li><p>Install <a class="reference external" href="https://docs.ros.org/en/iron/Installation.html">ROS:iron</a> packages.</p></li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">pcl</span></code> and <code class="docutils literal notranslate"><span class="pre">pcl-ros</span></code>:</p></li>
 </ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libpcl-dev
-</pre></div>
-</div>
-<div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-0-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-0-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
 
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-noetic-pcl-conversions<span class="w"> </span>ros-noetic-pcl-ros
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libpcl-dev<span class="w"> </span>ros-iron-pcl-conversions<span class="w"> </span>ros-iron-pcl-ros
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-0-Uk9TOmlyb24=" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
-
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-iron-pcl-conversions<span class="w"> </span>ros-iron-pcl-ros
-</pre></div>
-</div>
-</div></div>
 <ol class="arabic simple" start="3">
-<li><p>Install <code class="docutils literal notranslate"><span class="pre">TINS</span></code>:</p></li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">tins</span></code>:</p></li>
 </ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libpcap-dev<span class="w"> </span>libssl-dev<span class="w"> </span>cmake
-
-<span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/mfontanini/libtins.git
-
-<span class="nb">cd</span><span class="w"> </span>libtins
-
-mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
-
-cmake<span class="w"> </span>../
-
-make<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
-
-<span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/usr/local/lib
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libtins-dev
 </pre></div>
 </div>
 <ol class="arabic simple" start="4">
 <li><p>Install <code class="docutils literal notranslate"><span class="pre">json</span></code>:</p></li>
 </ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/nlohmann/json.git
-
-<span class="nb">cd</span><span class="w"> </span>json
-
-mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
-
-cmake<span class="w"> </span>../
-
-make<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>nlohmann-json3-dev
 </pre></div>
 </div>
 </section>
 <section id="building">
 <h2>Building<a class="headerlink" href="#building" title="Link to this heading"></a></h2>
-<p>For run and build driver please run the following commands:</p>
-<div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Uk9TOm5vZXRpYw==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tab" tabindex="0">ROS:noetic</button><button aria-controls="panel-1-Uk9TOmlyb24=" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tab" tabindex="-1">ROS:iron</button></div><div aria-labelledby="tab-1-Uk9TOm5vZXRpYw==" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Uk9TOm5vZXRpYw==" name="Uk9TOm5vZXRpYw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>main<span class="w"> </span>https://github.com/Dephan-LLC/dephan-ros-driver.git
-
-<span class="nb">cd</span><span class="w"> </span>dephan-ros-driver
-
-catkin_make
-
-<span class="nb">source</span><span class="w"> </span>devel/setup.bash
-</pre></div>
-</div>
-</div><div aria-labelledby="tab-1-Uk9TOmlyb24=" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-Uk9TOmlyb24=" name="Uk9TOmlyb24=" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>ros2-hot<span class="w"> </span>https://github.com/Dephan-LLC/dephan-ros-driver.git
+<p>To run and build driver please run the following commands:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>ros2<span class="w"> </span>https://github.com/Dephan-LLC/dephan-ros-driver.git
 
 <span class="nb">cd</span><span class="w"> </span>dephan-ros-driver
 
@@ -172,8 +130,7 @@ colcon<span class="w"> </span>build
 <span class="nb">source</span><span class="w"> </span>install/setup.bash
 </pre></div>
 </div>
-</div></div>
-<p>Now you are ready to run the testing node. Please follow to <a class="reference internal" href="dephan_node.html"><span class="doc">DEPHAN ROS node howto</span></a>
+<p>Now you are ready to run the testing node. Please follow the <a class="reference internal" href="dephan_node.html"><span class="doc">DEPHAN ROS node howto</span></a>
 to learn how to test and use the driver.</p>
 </section>
 </section>
@@ -182,7 +139,7 @@ to learn how to test and use the driver.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Dephan ROS driver documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Dephan ROS:iron driver documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="dephan_node.html" class="btn btn-neutral float-right" title="DEPHAN ROS node howto" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -204,20 +161,14 @@ to learn how to test and use the driver.</p>
   </div>
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
-        Version: ROS:iron
+        Version: 
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
-        
         <dl>
             <dt>Versions</dt>
             
-            <dd><a href="iron/index.html">ROS:iron</a></dd>
-            
-            <dd><a href="noetic/index.html">ROS:noetic</a></dd>
-            
         </dl>
-        
         <br>
         </dl>
     </div>
