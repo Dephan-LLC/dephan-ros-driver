@@ -30,7 +30,7 @@ Create 2 separeted terminals.
 
 .. code-block:: shell
 
-    ros2 topic echo point_cloud2_data
+    ros2 topic echo point_cloud2_data_<JSON_CONFIG["topic"]>
 
 
 Now you should see data stream in the terminal 2.
