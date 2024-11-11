@@ -10,6 +10,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/root/dephan-ros-driver/src/mech_lidar_driver/include/packet_handler_mech.hpp" line="17" column="1"/>
+    <location file="/root/dephan-ros-driver/src/mech_lidar_driver/include/packet_handler_mech.hpp" line="16" column="1"/>
   </compounddef>
 </doxygen>

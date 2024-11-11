@@ -75,21 +75,19 @@ $(function() {
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>dephan_ros {</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="structdephan__ros_1_1packet.html">   21</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structdephan__ros_1_1packet.html">packet</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structdephan__ros_1_1packet.html#a617f9aacf5177ff70513e57fa22a72e8">   26</a></span>&#160;            <span class="keyword">typedef</span> std::unique_ptr&lt;uint8_t[]&gt; <a class="code" href="structdephan__ros_1_1packet.html#a617f9aacf5177ff70513e57fa22a72e8">raw_packet_t</a>; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structdephan__ros_1_1packet.html#a6ff7d366d3cd2c0d904d52827674cb34">   31</a></span>&#160;            <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <a class="code" href="structdephan__ros_1_1packet.html#a6ff7d366d3cd2c0d904d52827674cb34">PKT_LEN</a> = 1016; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    };</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="astructdephan__ros_1_1packet_html"><div class="ttname"><a href="structdephan__ros_1_1packet.html">dephan_ros::packet</a></div><div class="ttdef"><b>Definition:</b> packet_raw.hpp:21</div></div>
-<div class="ttc" id="astructdephan__ros_1_1packet_html_a617f9aacf5177ff70513e57fa22a72e8"><div class="ttname"><a href="structdephan__ros_1_1packet.html#a617f9aacf5177ff70513e57fa22a72e8">dephan_ros::packet::raw_packet_t</a></div><div class="ttdeci">std::unique_ptr&lt; uint8_t[]&gt; raw_packet_t</div><div class="ttdef"><b>Definition:</b> packet_raw.hpp:26</div></div>
-<div class="ttc" id="astructdephan__ros_1_1packet_html_a6ff7d366d3cd2c0d904d52827674cb34"><div class="ttname"><a href="structdephan__ros_1_1packet.html#a6ff7d366d3cd2c0d904d52827674cb34">dephan_ros::packet::PKT_LEN</a></div><div class="ttdeci">static const unsigned PKT_LEN</div><div class="ttdef"><b>Definition:</b> packet_raw.hpp:31</div></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>dephan_ros {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structdephan__ros_1_1packet.html">   20</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structdephan__ros_1_1packet.html">packet</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structdephan__ros_1_1packet.html#a617f9aacf5177ff70513e57fa22a72e8">   25</a></span>&#160;    <span class="keyword">typedef</span> std::unique_ptr&lt;uint8_t[]&gt; <a class="code" href="structdephan__ros_1_1packet.html#a617f9aacf5177ff70513e57fa22a72e8">raw_packet_t</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structdephan__ros_1_1packet.html#a6ff7d366d3cd2c0d904d52827674cb34">   30</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <a class="code" href="structdephan__ros_1_1packet.html#a6ff7d366d3cd2c0d904d52827674cb34">PKT_LEN</a> = 1016;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace dephan_ros</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="astructdephan__ros_1_1packet_html"><div class="ttname"><a href="structdephan__ros_1_1packet.html">dephan_ros::packet</a></div><div class="ttdef"><b>Definition:</b> packet_raw.hpp:20</div></div>
+<div class="ttc" id="astructdephan__ros_1_1packet_html_a617f9aacf5177ff70513e57fa22a72e8"><div class="ttname"><a href="structdephan__ros_1_1packet.html#a617f9aacf5177ff70513e57fa22a72e8">dephan_ros::packet::raw_packet_t</a></div><div class="ttdeci">std::unique_ptr&lt; uint8_t[]&gt; raw_packet_t</div><div class="ttdef"><b>Definition:</b> packet_raw.hpp:25</div></div>
+<div class="ttc" id="astructdephan__ros_1_1packet_html_a6ff7d366d3cd2c0d904d52827674cb34"><div class="ttname"><a href="structdephan__ros_1_1packet.html#a6ff7d366d3cd2c0d904d52827674cb34">dephan_ros::packet::PKT_LEN</a></div><div class="ttdeci">static const unsigned PKT_LEN</div><div class="ttdef"><b>Definition:</b> packet_raw.hpp:30</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

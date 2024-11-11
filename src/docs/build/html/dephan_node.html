@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dephan ROS driver installation &mdash; Dephan ROS driver 0.1.0 documentation</title>
+  <title>DEPHAN ROS node howto &mdash; Dephan ROS driver 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -22,8 +22,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="DEPHAN ROS node howto" href="dephan_node.html" />
-    <link rel="prev" title="Dephan ROS:iron driver documentation" href="index.html" /> 
+    <link rel="next" title="Class Driver" href="cpp_src/ros_driver.html" />
+    <link rel="prev" title="Dephan ROS driver installation" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,16 +45,15 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#supported-platfrorms">Supported platfrorms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#building">Building</a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">DEPHAN ROS node howto</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
 </ul>
 </li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="dephan_node.html">DEPHAN ROS node howto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
@@ -78,9 +77,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Dephan ROS driver installation</li>
+      <li class="breadcrumb-item active">DEPHAN ROS node howto</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/dephan_node.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -88,50 +87,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="dephan-ros-driver-installation">
-<h1>Dephan ROS driver installation<a class="headerlink" href="#dephan-ros-driver-installation" title="Link to this heading"></a></h1>
-<section id="supported-platfrorms">
-<h2>Supported platfrorms<a class="headerlink" href="#supported-platfrorms" title="Link to this heading"></a></h2>
-<p>This driver was developed and tested under the <code class="docutils literal notranslate"><span class="pre">ROS:noetic</span></code> distribution for <code class="docutils literal notranslate"><span class="pre">Ubuntu</span></code>.</p>
+  <section id="dephan-ros-node-howto">
+<h1>DEPHAN ROS node howto<a class="headerlink" href="#dephan-ros-node-howto" title="Link to this heading"></a></h1>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h2>
+<p>You can specify json configuration file for the driver operation.</p>
+<p>You can find default configurations both for PCAP and UDP modes by, respectivly:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">src/mech_lidar_driver/configs/default_pcap_config.json</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">src/mech_lidar_driver/configs/default_udp_config.json</span></code></p></li>
+</ul>
 </section>
-<section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<p>Create 3 separeted terminals.</p>
 <ol class="arabic simple">
-<li><p>Install <a class="reference external" href="http://wiki.ros.org/noetic/Installation/Ubuntu">ROS:noetic</a> packages.</p></li>
-<li><p>Install <code class="docutils literal notranslate"><span class="pre">pcl</span></code> and <code class="docutils literal notranslate"><span class="pre">pcl-ros</span></code>:</p></li>
+<li><p>In tetminal 1:</p></li>
 </ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
-
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libpcl-dev<span class="w"> </span>ros-iron-pcl-conversions<span class="w"> </span>ros-iron-pcl-ros
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>roscore
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>In terminal 2:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rosrun<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>&lt;PATH_TO_JSON_CONFIG&gt;
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li><p>Install <code class="docutils literal notranslate"><span class="pre">tins</span></code>:</p></li>
+<li><p>In terminal 3:</p></li>
 </ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libtins-dev
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>point_cloud2_data
 </pre></div>
 </div>
-<ol class="arabic simple" start="4">
-<li><p>Install <code class="docutils literal notranslate"><span class="pre">json</span></code>:</p></li>
-</ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>nlohmann-json3-dev
-</pre></div>
-</div>
-</section>
-<section id="building">
-<h2>Building<a class="headerlink" href="#building" title="Link to this heading"></a></h2>
-<p>To run and build driver please run the following commands:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>ros1<span class="w"> </span>https://github.com/Dephan-LLC/dephan-ros-driver.git
-
-<span class="nb">cd</span><span class="w"> </span>dephan-ros-driver
-
-catkin_make
-
-<span class="nb">source</span><span class="w"> </span>devel/setup.bash
-</pre></div>
-</div>
-<p>Now you are ready to run the testing node. Please follow the <a class="reference internal" href="dephan_node.html"><span class="doc">DEPHAN ROS node howto</span></a>
-to learn how to test and use the driver.</p>
+<p>Now you should see data stream in the terminal 3.</p>
 </section>
 </section>
 
@@ -139,8 +127,8 @@ to learn how to test and use the driver.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Dephan ROS:iron driver documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="dephan_node.html" class="btn btn-neutral float-right" title="DEPHAN ROS node howto" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Dephan ROS driver installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cpp_src/ros_driver.html" class="btn btn-neutral float-right" title="Class Driver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

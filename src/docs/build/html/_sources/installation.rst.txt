@@ -6,60 +6,52 @@ Dephan ROS driver installation
 Supported platfrorms
 --------------------
 
-Driver was tested under the ``Ubuntu 20.04`` and ``ROS Noetic`` distribution.
+This driver was developed and tested under the ``ROS:noetic`` distribution for ``Ubuntu``. 
 
-.. warning::
-    This driver was tested only for `ros:noetic dockerhub image <https://hub.docker.com/_/ros>`_. 
-
-    It is not recommended to use this driver under the other ros distribution.
 
 Requirements
 ------------
 
-Only the installed ros noetic package is enough.
+1. Install `ROS:noetic <http://wiki.ros.org/noetic/Installation/Ubuntu>`_ packages.
+
+2. Install ``pcl`` and ``pcl-ros``: 
+
+.. code-block:: shell
+
+    sudo apt update
+
+    sudo apt install libpcl-dev ros-iron-pcl-conversions ros-iron-pcl-ros
 
 
-Build and run
--------------
+3. Install ``tins``:
 
-For run and build driver please run the following commands:
+.. code-block:: shell
 
-.. tabs::
-    
-    .. code-tab:: console Ubuntu
+    sudo apt install libtins-dev
 
-        git clone https://github.com/Dephan-LLC/dephan-ros-driver.git
 
-        cd dephan-ros-driver
+4. Install ``json``:
 
-        catkin_make 
+.. code-block:: shell 
 
-        source devel/setup.bash
+    sudo apt install nlohmann-json3-dev 
 
-Now you are ready to run the testing node:
 
-1. In tetminal 1: 
+Building
+--------
 
-.. tabs::
-    
-    .. code-tab:: console Ubuntu
+To run and build driver please run the following commands:
 
-        roscore
+.. code-block:: shell 
 
-2. In terminal 2:
+    cd ~ && git clone -b ros1 https://github.com/Dephan-LLC/dephan-ros-driver.git
 
-.. tabs::
-    
-    .. code-tab:: console Ubuntu
+    cd dephan-ros-driver 
 
-        rosrun mech_lidar_driver mech_driver
+    catkin_make 
 
-3. In terminal 3:
+    source devel/setup.bash
 
-.. tabs::
-    
-    .. code-tab:: console Ubuntu
 
-        rostopic echo point_cloud2_data
-
-Now you should see data stream in the terminal 3.
+Now you are ready to run the testing node. Please follow the :doc:`DEPHAN ROS node howto <dephan_node>` 
+to learn how to test and use the driver.

@@ -84,33 +84,33 @@ $(function() {
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>dephan_ros {</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classdephan__ros_1_1receiver__socket.html">   21</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classdephan__ros_1_1receiver__socket.html">receiver_socket</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <a class="code" href="classdephan__ros_1_1receiver__socket.html#ac36569003029d126d8106477208cca26">receiver_socket</a>(std::string ip_addr, <span class="keywordtype">int</span> port);</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classdephan__ros_1_1receiver__socket.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="classdephan__ros_1_1receiver__socket.html">receiver_socket</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="classdephan__ros_1_1receiver__socket.html#ac36569003029d126d8106477208cca26">receiver_socket</a>(std::string ip_addr, <span class="keywordtype">int</span> port);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="classdephan__ros_1_1receiver__socket.html#ab3d8005665a274427520b73445dd2a2e">~receiver_socket</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="classdephan__ros_1_1receiver__socket.html#ab3d8005665a274427520b73445dd2a2e">~receiver_socket</a>();</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordtype">int</span> <a class="code" href="classdephan__ros_1_1receiver__socket.html#a98255dbd3da277d775dd1462d6b1f613">get_packet</a>(uint8_t* buf, <span class="keywordtype">int</span> len);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classdephan__ros_1_1receiver__socket.html#a98255dbd3da277d775dd1462d6b1f613">get_packet</a>(uint8_t* buf, <span class="keywordtype">int</span> len);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="comment">// Disabled copy constructor</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="classdephan__ros_1_1receiver__socket.html#ac36569003029d126d8106477208cca26">receiver_socket</a>(<span class="keyword">const</span> <a class="code" href="classdephan__ros_1_1receiver__socket.html">receiver_socket</a>&amp;);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="comment">// Disabled copy constructor</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="classdephan__ros_1_1receiver__socket.html#ac36569003029d126d8106477208cca26">receiver_socket</a>(<span class="keyword">const</span> <a class="code" href="classdephan__ros_1_1receiver__socket.html">receiver_socket</a>&amp;);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="comment">// Disabled assign operator</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="classdephan__ros_1_1receiver__socket.html">receiver_socket</a>&amp; operator= (<span class="keyword">const</span> <a class="code" href="classdephan__ros_1_1receiver__socket.html">receiver_socket</a>&amp;);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment">// Disabled assign operator</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="classdephan__ros_1_1receiver__socket.html">receiver_socket</a>&amp; operator= (<span class="keyword">const</span> <a class="code" href="classdephan__ros_1_1receiver__socket.html">receiver_socket</a>&amp;);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        std::string m_ip_addr;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">int</span> m_sock_port;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordtype">int</span> udp_socket;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::string m_ip_addr;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">int</span> m_sock_port;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">int</span> udp_socket;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="comment">// contains info about source, destination address and port</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">struct </span>sockaddr_in si_me, si_from;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        socklen_t si_from_len = <span class="keyword">sizeof</span>(si_from);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">// contains info about source, destination address and port</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">struct </span>sockaddr_in si_me, si_from;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    socklen_t si_from_len = <span class="keyword">sizeof</span>(si_from);</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> POLL_TIMEOUT = 500; <span class="comment">// in milliseconds</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keyword">struct </span>pollfd m_fds[1];</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    };</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> POLL_TIMEOUT = 500; <span class="comment">// in milliseconds</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">struct </span>pollfd m_fds[1];</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// namespace dephan_ros</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* RECEIVER_SOCKET_HPP */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aclassdephan__ros_1_1receiver__socket_html"><div class="ttname"><a href="classdephan__ros_1_1receiver__socket.html">dephan_ros::receiver_socket</a></div><div class="ttdef"><b>Definition:</b> reciever_socket.hpp:21</div></div>

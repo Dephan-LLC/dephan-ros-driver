@@ -3,17 +3,22 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Dephan ROS:noetic driver documentation
-======================================
+Dephan ROS:iron driver documentation
+====================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
 .. toctree::
    :hidden:
    
    Installation <installation>
+
+.. toctree::
+   :hidden:
+
+   DEPHAN ROS node howto <dephan_node>
 
 .. toctree::
    :hidden:
@@ -39,19 +44,22 @@ The purpose of this project is to provide convenient and easy-to-use ROS support
 
 There are some structural parts of the project:
 
-1. ``packet_handler_mech.hpp`` contais ...; 
-2. ``packet_raw.hpp`` contais ...;
-3. ``reciever_socket.hpp`` contains ...; 
-4. ``ros_driver.hpp`` contains ...; 
+1. ``packet_raw.hpp`` incapsulates all information about the raw packet recieved from the LiDar (or from the PCAP file);
+2. ``packet_handler_mech.hpp`` contais methods for handling raw packages recieved from the LiDar (or from the PCAP file); 
+3. ``reciever_socket.hpp`` contains methods for connecting and polling the LiDar device; 
+4. ``ros_driver.hpp`` contains methods for ROS operation; 
 
 Also, you can test your driver installation (as described in the :doc:`installation guide <installation>`) by running the 
 testing ROS node ``dephan_node.cpp``.
 
 
+DEPHAN ROS node usage
+---------------------
+Fot testing and using driver you should setup and run ROS node wich will process LiDar data and translate it to the ROS topic. 
+To get information how to setup and use DEPHAN ROS node please follow the :doc:`DEPHAN ROS node howto <dephan_node>`.
+
+
 Quick links
 -----------
 * :doc:`Installation <installation>`
-
-.. * :ref:`genindex`
-.. * :ref:`modindex`
-.. * :ref:`search`
+* :doc:`DEPHAN ROS node <dephan_node>`
