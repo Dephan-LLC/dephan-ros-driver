@@ -54,7 +54,7 @@ testing ROS node ``dephan_node.cpp``.
 
 
 DEPHAN ROS node usage
---------------
+---------------------
 Fot testing and using driver you should setup and run ROS node wich will process LiDar data and translate it to the ROS topic. 
 To get information how to setup and use DEPHAN ROS node please follow the :doc:`DEPHAN ROS node howto <dephan_node>`.
 
