@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dephan ROS:noetic driver documentation &mdash; Dephan ROS driver 0.1.0 documentation</title>
+  <title>Dephan ROS:iron driver documentation &mdash; Dephan ROS driver 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -47,6 +47,9 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 </ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dephan_node.html">DEPHAN ROS node howto</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="cpp_src/ros_driver.html">Class Driver</a></li>
@@ -69,7 +72,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Dephan ROS:noetic driver documentation</li>
+      <li class="breadcrumb-item active">Dephan ROS:iron driver documentation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -79,8 +82,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="dephan-ros-noetic-driver-documentation">
-<h1>Dephan ROS:noetic driver documentation<a class="headerlink" href="#dephan-ros-noetic-driver-documentation" title="Permalink to this heading"></a></h1>
+  <section id="dephan-ros-iron-driver-documentation">
+<h1>Dephan ROS:iron driver documentation<a class="headerlink" href="#dephan-ros-iron-driver-documentation" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -97,18 +102,24 @@ the <a class="reference internal" href="installation.html"><span class="doc">ins
 <p>The purpose of this project is to provide convenient and easy-to-use ROS support for DEPHAN-LLC LiDars.</p>
 <p>There are some structural parts of the project:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">packet_handler_mech.hpp</span></code> contais …;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">packet_raw.hpp</span></code> contais …;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">reciever_socket.hpp</span></code> contains …;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ros_driver.hpp</span></code> contains …;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">packet_raw.hpp</span></code> incapsulates all information about the raw packet recieved from the LiDar (or from the PCAP file);</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">packet_handler_mech.hpp</span></code> contais methods for handling raw packages recieved from the LiDar (or from the PCAP file);</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reciever_socket.hpp</span></code> contains methods for connecting and polling the LiDar device;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ros_driver.hpp</span></code> contains methods for ROS operation;</p></li>
 </ol>
 <p>Also, you can test your driver installation (as described in the <a class="reference internal" href="installation.html"><span class="doc">installation guide</span></a>) by running the
 testing ROS node <code class="docutils literal notranslate"><span class="pre">dephan_node.cpp</span></code>.</p>
+</section>
+<section id="dephan-ros-node-usage">
+<h2>DEPHAN ROS node usage<a class="headerlink" href="#dephan-ros-node-usage" title="Permalink to this heading"></a></h2>
+<p>Fot testing and using driver you should setup and run ROS node wich will process LiDar data and translate it to the ROS topic.
+To get information how to setup and use DEPHAN ROS node please follow the <a class="reference internal" href="dephan_node.html"><span class="doc">DEPHAN ROS node howto</span></a>.</p>
 </section>
 <section id="quick-links">
 <h2>Quick links<a class="headerlink" href="#quick-links" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="installation.html"><span class="doc">Installation</span></a></p></li>
+<li><p><a class="reference internal" href="dephan_node.html"><span class="doc">DEPHAN ROS node</span></a></p></li>
 </ul>
 </section>
 </section>
