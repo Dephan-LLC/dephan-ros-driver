@@ -20,7 +20,7 @@ Requirements
 
     sudo apt update
 
-    sudo apt install libpcl-dev ros-iron-pcl-conversions ros-iron-pcl-ros
+    sudo apt install libpcl-dev ros-noetic-pcl-conversions ros-noetic-pcl-ros
 
 
 3. Install ``tins``:

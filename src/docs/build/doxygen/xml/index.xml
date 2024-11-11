@@ -62,6 +62,7 @@
   <compound refid="ros__driver_8hpp" kind="file"><name>ros_driver.hpp</name>
   </compound>
   <compound refid="dephan__node_8cpp" kind="file"><name>dephan_node.cpp</name>
+    <member refid="dephan__node_8cpp_1ab701e3ac61a85b337ec5c1abaad6742d" kind="typedef"><name>json</name></member>
     <member refid="dephan__node_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>
   </compound>
   <compound refid="packet__handler__mech_8cpp" kind="file"><name>packet_handler_mech.cpp</name>

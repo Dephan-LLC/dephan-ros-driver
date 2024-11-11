@@ -37,7 +37,7 @@ Create 3 separeted terminals.
 
 .. code-block:: shell
 
-    rostopic echo point_cloud2_data
+    rostopic echo point_cloud2_data_<JSON_CONFIG["topic"]>
 
 
 Now you should see data stream in the terminal 3.
