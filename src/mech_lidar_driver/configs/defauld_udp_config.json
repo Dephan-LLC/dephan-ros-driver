@@ -1,0 +1,7 @@
+{
+    "name": "test_UDP",
+    "mode": "UDP",
+    "ip": "192.168.0.120",
+    "port": 51551,
+    "topic": "point_cloud2_data_udp"
+}

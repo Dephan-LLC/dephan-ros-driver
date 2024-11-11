@@ -8,29 +8,62 @@
  * @brief ROS node for mechanical LiDar data
  */
 
+#include <iostream>
+#include <fstream>
+#include <nlohmann/json.hpp>
+#include <filesystem>
+
 #include "ros_driver.hpp"
+
+using json = nlohmann::json;
 
 int main(int argc, char* argv[]) {
     // init ROS
-    ros::init(argc, argv, "ss_lidar");
+    ros::init(argc, argv);
 
     // init ros handle node
     ros::NodeHandle nh;
-    // ros::NodeHandle nh_pcap;
 
-    // dephan_ros::Driver driver(nh, "192.168.0.120", 51551,
-    // "point_cloud2_data"); ROS_INFO("Started");
+    // load configuration from the json
+    if (argc < 2) {
+        std::cerr << "path to config file does not provided" << std::endl;
+        return 1;
+    }
+    json configuration = json::parse(std::ifstream{argv[1]});
 
-    dephan_ros::Driver driver_pcap(
-        nh, "/root/test.pcap", "point_cloud2_data_pcap"
-    );
-    ROS_INFO("Started PCAP");
+    // log starting info and configuration
+    std::cout << std::endl
+              << "Starting driver with following configuration: " << std::endl
+              << std::endl;
+
+    for (auto& [k, v] : configuration.items())
+        std::cout << k << " : " << v << std::endl;
+    std::cout << std::endl;
+
+    // is driver in PCAP mode?
+    if (configuration["mode"] == "PCAP")
+        dephan_ros::Driver driver(
+            nh, configuration.value("pcap_path", "/root/test.pcap"),
+            configuration.value("topic", "point_cloud2_data")
+        );
+
+    // is driver in UDP mode?
+    else if (configuration["mode"] == "UDP")
+        dephan_ros::Driver driver(
+            nh, configuration.value("ip", "0.0.0.0"),
+            configuration.value("port", 3000),
+            configuration.value("topic", "point_cloud2_data")
+        );
+
+    // error reporting otherwise
+    else {
+        std::cerr << "bad config" << std::endl;
+        return 1;
+    }
 
     // polling device via driver
     while (ros::ok()) {
-        // driver.poll_full();
-        // driver_pcap.poll();
-        driver_pcap.poll_full();
+        driver.poll();
         ros::spinOnce();
     }
 
