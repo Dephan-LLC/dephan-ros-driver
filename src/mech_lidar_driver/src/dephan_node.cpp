@@ -40,8 +40,6 @@ int main(int argc, char* argv[]) {
         std::cout << k << " : " << v << std::endl;
     std::cout << std::endl;
 
-    dephan_ros::Driver driver{};
-
     // is driver in PCAP mode?
     if (configuration["mode"] == "PCAP") {
 
