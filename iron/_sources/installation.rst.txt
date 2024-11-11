@@ -6,97 +6,52 @@ Dephan ROS driver installation
 Supported platfrorms
 --------------------
 
-Driver was tested under the ``ROS:noetic`` and ``ROS:iron`` distributions.
+This driver was developed and tested under the ``ROS:iron`` distribution. 
 
 
 Requirements
 ------------
 
-1. Install selected ros package (`ROS:noetic <http://wiki.ros.org/noetic/Installation/Ubuntu>`_ for ROS1 operation or `ROS:iron <https://docs.ros.org/en/iron/Installation.html>`_ for ROS2 operation).
+1. Install `ROS:iron <https://docs.ros.org/en/iron/Installation.html>`_ packages.
 
-2. Install ``PCL`` and ``PCL ROS``: 
-
-.. code-block:: shell
-
-    sudo apt install libpcl-dev
-
-.. tabs::
-
-    .. code-tab:: shell ROS:noetic
-
-        sudo apt update
-
-        sudo apt install ros-noetic-pcl-conversions ros-noetic-pcl-ros
-
-
-    .. code-tab:: shell ROS:iron
-
-        sudo apt update
-
-        sudo apt install ros-iron-pcl-conversions ros-iron-pcl-ros
-
-
-3. Install ``TINS``:
+2. Install ``pcl`` and ``pcl-ros``: 
 
 .. code-block:: shell
 
-    sudo apt install libpcap-dev libssl-dev cmake
+    sudo apt update
 
-    cd ~ && git clone https://github.com/mfontanini/libtins.git
+    sudo apt install libpcl-dev ros-iron-pcl-conversions ros-iron-pcl-ros
 
-    cd libtins 
 
-    mkdir build && cd build 
-    
-    cmake ../ 
+3. Install ``tins``:
 
-    make && sudo make install
+.. code-block:: shell
 
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+    sudo apt install libtins-dev
 
 
 4. Install ``json``:
 
 .. code-block:: shell 
 
-    cd ~ && git clone https://github.com/nlohmann/json.git
-
-    cd json 
-
-    mkdir build && cd build 
-
-    cmake ../ 
-
-    make && sudo make install
+    sudo apt install nlohmann-json3-dev 
 
 
 Building
 --------
 
-For run and build driver please run the following commands:
+To run and build driver please run the following commands:
 
-.. tabs::
-    
-    .. code-tab:: shell ROS:noetic
+.. code-block:: shell 
 
-        cd ~ && git clone -b main https://github.com/Dephan-LLC/dephan-ros-driver.git
+    cd ~ && git clone -b ros2 https://github.com/Dephan-LLC/dephan-ros-driver.git
 
-        cd dephan-ros-driver
+    cd dephan-ros-driver 
 
-        catkin_make 
+    colcon build 
 
-        source devel/setup.bash
-
-    .. code-tab:: shell ROS:iron
-
-        cd ~ && git clone -b ros2-hot https://github.com/Dephan-LLC/dephan-ros-driver.git
-
-        cd dephan-ros-driver 
-
-        colcon build 
-
-        source install/setup.bash
+    source install/setup.bash
 
 
-Now you are ready to run the testing node. Please follow to :doc:`DEPHAN ROS node howto <dephan_node>` 
+Now you are ready to run the testing node. Please follow the :doc:`DEPHAN ROS node howto <dephan_node>` 
 to learn how to test and use the driver.
