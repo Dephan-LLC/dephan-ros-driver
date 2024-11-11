@@ -40,31 +40,45 @@ int main(int argc, char* argv[]) {
         std::cout << k << " : " << v << std::endl;
     std::cout << std::endl;
 
+    dephan_ros::Driver driver{};
+
     // is driver in PCAP mode?
-    if (configuration["mode"] == "PCAP")
+    if (configuration["mode"] == "PCAP") {
+
+        // initialize driver instance
         dephan_ros::Driver driver(
             nh, configuration.value("pcap_path", "/root/test.pcap"),
             configuration.value("topic", "point_cloud2_data")
         );
 
+        // polling via driver
+        while (ros::ok()) {
+            driver.poll();
+            ros::spinOnce();
+        }
+    }
+
     // is driver in UDP mode?
-    else if (configuration["mode"] == "UDP")
+    else if (configuration["mode"] == "UDP") {
+
+        // initialize driver instance
         dephan_ros::Driver driver(
             nh, configuration.value("ip", "0.0.0.0"),
             configuration.value("port", 3000),
             configuration.value("topic", "point_cloud2_data")
         );
 
+        // polling via driver
+        while (ros::ok()) {
+            driver.poll();
+            ros::spinOnce();
+        }
+    }
+
     // error reporting otherwise
     else {
         std::cerr << "bad config" << std::endl;
         return 1;
-    }
-
-    // polling device via driver
-    while (ros::ok()) {
-        driver.poll();
-        ros::spinOnce();
     }
 
     return 0;
