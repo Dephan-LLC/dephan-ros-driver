@@ -47,7 +47,7 @@ Usage scenarios
 
 .. code-block:: shell
 
-    rosrun mech_lidar_driver mech_driver <RELATIVE_PATH_TO_JSON_CONFIG>
+    rosrun mech_lidar_driver mech_driver --config <RELATIVE_PATH_TO_JSON_CONFIG>
 
 Operation testing
 ^^^^^^^^^^^^^^^^^
