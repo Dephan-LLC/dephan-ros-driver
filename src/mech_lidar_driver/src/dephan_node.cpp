@@ -16,16 +16,60 @@
 
 using json = nlohmann::json;
 
+void log_help() {
+    std::cout << std::endl
+              << "-c / --config" << "\t:\t"
+              << "relative path from execute directory to configuration file"
+              << std::endl
+              << std::endl;
+}
+
+json get_configuration(int argc, char* argv[]) {
+
+    // is cmd arguments actually provided?
+    if (argc < 2) {
+        std::cout << "Config does not provided" << std::endl;
+        std::cout << "Use default config otherwise" << std::endl;
+
+        return json::parse(std::ifstream{
+            "./src/mech_lidar_driver/configs/default_udp_config.json"
+        });
+    }
+
+    // if provided it should be a -c or --config
+    else {
+        if (std::strcmp(argv[1], "-c") || std::strcmp(argv[1], "--config"))
+            return json::parse(std::ifstream{argv[2]});
+        else
+            throw std::runtime_error("Bad command line flags");
+    }
+}
+
 int main(int argc, char* argv[]) {
+
+    // help-request processing
+    if (argc == 2 &&
+        (std::strcmp(argv[1], "-h") || std::strcmp(argv[1], "--help"))) {
+
+        // log help info
+        log_help();
+
+        return 0;
+    }
+
+    // init configuration
+    json configuration = get_configuration(argc, argv);
+
     // init ROS
     rclcpp::init(argc, argv);
 
-    // load configuration from the json
-    json configuration = json::parse(std::ifstream{argv[1]});
-
     // log starting info
     std::cout << std::endl
-              << "Starting driver with following configuration: " << std::endl
+              << "=================================================="
+              << std::endl
+              << "Starting driver with the following configuration: "
+              << std::endl
+              << "=================================================="
               << std::endl;
 
     // log configuration details
@@ -33,25 +77,27 @@ int main(int argc, char* argv[]) {
         std::cout << k << " : " << v << std::endl;
     std::cout << std::endl;
 
-    // is driver in PCAP mode?
+    // is the driver in PCAP mode?
     if (configuration["mode"] == "PCAP")
         rclcpp::spin(std::make_shared<dephan_ros::Driver>(
             configuration.value("pcap_path", "/root/test.pcap"),
-            configuration.value("topic", "point_cloud2_data")
+            configuration.value("topic", "point_cloud2_pcap")
         ));
 
-    // us driver in UDP mode?
+    // is the driver in UDP mode?
     else if (configuration["mode"] == "UDP")
         rclcpp::spin(std::make_shared<dephan_ros::Driver>(
             configuration.value("ip", "0.0.0.0"),
             configuration.value("port", 3000),
-            configuration.value("topic", "point_cloud2_data")
+            configuration.value("topic", "point_cloud2_udp")
         ));
 
     // error reporting otherwise
     else {
-        std::cerr << "bad config" << std::endl;
-        return 1;
+        // stop ros session
+        rclcpp::shutdown();
+
+        throw std::runtime_error("Unknown configuration mode");
     }
 
     // stop ros session
