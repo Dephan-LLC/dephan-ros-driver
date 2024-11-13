@@ -17,27 +17,54 @@ You can find default configurations both for PCAP and UDP modes by, respectivly:
 Usage
 -----
 
-Create 3 separeted terminals.
+Preparation 
+^^^^^^^^^^^
 
-1. In tetminal 1: 
+To start using driver node in ros1 environment it is **neccesary** to create separeted terminal and run: 
 
 .. code-block:: shell 
 
     roscore
 
+After that you can create another terminal and start using driver node.
 
-2. In terminal 2:
+Usage scenarios
+^^^^^^^^^^^^^^^
 
-.. code-block:: shell
-
-    rosrun mech_lidar_driver mech_driver <PATH_TO_JSON_CONFIG>
-
-
-3. In terminal 3: 
+1. Show help information:
 
 .. code-block:: shell
 
-    rostopic echo point_cloud2_data_<JSON_CONFIG["topic"]>
+    rosrun mech_lidar_driver mech_driver --help
+
+2. Run node with default configuration by ``src/mech_lidar_driver/configs/default_udp_config.json``:
+
+.. code-block:: shell
+
+    rosrun mech_lidar_driver mech_driver
+
+3. Run node with user-specified configuration:
+
+.. code-block:: shell
+
+    rosrun mech_lidar_driver mech_driver <RELATIVE_PATH_TO_JSON_CONFIG>
+
+Operation testing
+^^^^^^^^^^^^^^^^^
+
+To ensure that driver works correctly you can capture publishing data:
+
+1. For default configuration: 
+
+.. code-block:: shell
+
+    rostopic echo point_cloud2_data_udp
+
+2. For user-specified configuration:
+
+.. code-block:: shell
+
+    rostopic echo <JSON_CONFIG["topic"]>
 
 
-Now you should see data stream in the terminal 3.
+If driver operates correctly you should see frequently updated data. 

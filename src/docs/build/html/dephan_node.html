@@ -51,7 +51,12 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">DEPHAN ROS node howto</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preparation">Preparation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-scenarios">Usage scenarios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#operation-testing">Operation testing</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -100,26 +105,52 @@
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
-<p>Create 3 separeted terminals.</p>
-<ol class="arabic simple">
-<li><p>In tetminal 1:</p></li>
-</ol>
+<section id="preparation">
+<h3>Preparation<a class="headerlink" href="#preparation" title="Link to this heading"></a></h3>
+<p>To start using driver node in ros1 environment it is <strong>neccesary</strong> to create separeted terminal and run:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>roscore
 </pre></div>
 </div>
-<ol class="arabic simple" start="2">
-<li><p>In terminal 2:</p></li>
+<p>After that you can create another terminal and start using driver node.</p>
+</section>
+<section id="usage-scenarios">
+<h3>Usage scenarios<a class="headerlink" href="#usage-scenarios" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Show help information:</p></li>
 </ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rosrun<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>&lt;PATH_TO_JSON_CONFIG&gt;
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rosrun<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--help
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Run node with default configuration by <code class="docutils literal notranslate"><span class="pre">src/mech_lidar_driver/configs/default_udp_config.json</span></code>:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rosrun<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li><p>In terminal 3:</p></li>
+<li><p>Run node with user-specified configuration:</p></li>
 </ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>point_cloud2_data_&lt;JSON_CONFIG<span class="o">[</span><span class="s2">&quot;topic&quot;</span><span class="o">]</span>&gt;
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rosrun<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>&lt;RELATIVE_PATH_TO_JSON_CONFIG&gt;
 </pre></div>
 </div>
-<p>Now you should see data stream in the terminal 3.</p>
+</section>
+<section id="operation-testing">
+<h3>Operation testing<a class="headerlink" href="#operation-testing" title="Link to this heading"></a></h3>
+<p>To ensure that driver works correctly you can capture publishing data:</p>
+<ol class="arabic simple">
+<li><p>For default configuration:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>point_cloud2_data_udp
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>For user-specified configuration:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>&lt;JSON_CONFIG<span class="o">[</span><span class="s2">&quot;topic&quot;</span><span class="o">]</span>&gt;
+</pre></div>
+</div>
+<p>If driver operates correctly you should see frequently updated data.</p>
+</section>
 </section>
 </section>
 
