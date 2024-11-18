@@ -39,7 +39,7 @@ json get_configuration(int argc, char* argv[]) {
 
     // if provided it should be a -c or --config
     else {
-        if (std::strcmp(argv[1], "-c") || std::strcmp(argv[1], "--config"))
+        if (!std::strcmp(argv[1], "-c") || !std::strcmp(argv[1], "--config"))
             return json::parse(std::ifstream{argv[2]});
         else
             throw std::runtime_error("Bad command line flags");
@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
 
     // help-request processing
     if (argc == 2 &&
-        (std::strcmp(argv[1], "-h") || std::strcmp(argv[1], "--help"))) {
+        (!std::strcmp(argv[1], "-h") || !std::strcmp(argv[1], "--help"))) {
 
         // log help info
         log_help();
