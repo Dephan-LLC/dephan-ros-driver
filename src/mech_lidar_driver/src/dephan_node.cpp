@@ -13,23 +13,39 @@
 #include <nlohmann/json.hpp>
 #include <filesystem>
 #include "ros_driver.hpp"
+#include "colored_cout.h"
 
 using json = nlohmann::json;
 
 void log_help() {
-    std::cout << std::endl
-              << "-c / --config" << "\t:\t"
-              << "relative path from execute directory to configuration file"
-              << std::endl
-              << std::endl;
+    std::cout
+        << std::endl
+        << utils::make_colored(
+               "-c / --config", utils::Color::white, utils::Style::bold
+           )
+        << "\t:\t"
+        << utils::make_colored(
+               "relative path from execute directory to configuration file",
+               utils::Color::white
+           )
+        << std::endl
+        << std::endl;
 }
 
 json get_configuration(int argc, char* argv[]) {
 
     // is cmd arguments actually provided?
     if (argc < 2) {
-        std::cout << "Config does not provided" << std::endl;
-        std::cout << "Use default config otherwise" << std::endl;
+        std::cout << utils::make_colored(
+                         "Config does not provided", utils::Color::yellow,
+                         utils::Style::bold
+                     )
+                  << std::endl;
+        std::cout << utils::make_colored(
+                         "Use default config otherwise", utils::Color::yellow,
+                         utils::Style::bold
+                     )
+                  << std::endl;
 
         return json::parse(std::ifstream{
             "./src/mech_lidar_driver/configs/default_udp_config.json"
@@ -38,10 +54,22 @@ json get_configuration(int argc, char* argv[]) {
 
     // if provided it should be a -c or --config
     else {
-        if (std::strcmp(argv[1], "-c") || std::strcmp(argv[1], "--config"))
-            return json::parse(std::ifstream{argv[2]});
+        if (!std::strcmp(argv[1], "-c") || !std::strcmp(argv[1], "--config")) {
+            try {
+                return json::parse(std::ifstream{argv[2]});
+            }
+            catch (const std::exception& ex) {
+                throw std::runtime_error(utils::make_colored(
+                    "Trobles with opening a json file", utils::Color::red,
+                    utils::Style::bold
+                ));
+            }
+        }
+
         else
-            throw std::runtime_error("Bad command line flags");
+            throw std::runtime_error(utils::make_colored(
+                "Bad command line flags", utils::Color::red, utils::Style::bold
+            ));
     }
 }
 
@@ -49,7 +77,7 @@ int main(int argc, char* argv[]) {
 
     // help-request processing
     if (argc == 2 &&
-        (std::strcmp(argv[1], "-h") || std::strcmp(argv[1], "--help"))) {
+        (!std::strcmp(argv[1], "-h") || !std::strcmp(argv[1], "--help"))) {
 
         // log help info
         log_help();
@@ -65,11 +93,20 @@ int main(int argc, char* argv[]) {
 
     // log starting info
     std::cout << std::endl
-              << "=================================================="
+              << utils::make_colored(
+                     "==================================================",
+                     utils::Color::green, utils::Style::bold
+                 )
               << std::endl
-              << "Starting driver with the following configuration: "
+              << utils::make_colored(
+                     "Starting driver with the following configuration: ",
+                     utils::Color::green, utils::Style::bold
+                 )
               << std::endl
-              << "=================================================="
+              << utils::make_colored(
+                     "==================================================",
+                     utils::Color::green, utils::Style::bold
+                 )
               << std::endl;
 
     // log configuration details
@@ -97,7 +134,9 @@ int main(int argc, char* argv[]) {
         // stop ros session
         rclcpp::shutdown();
 
-        throw std::runtime_error("Unknown configuration mode");
+        throw std::runtime_error(utils::make_colored(
+            "Unknown configuration mode", utils::Color::red, utils::Style::bold
+        ));
     }
 
     // stop ros session

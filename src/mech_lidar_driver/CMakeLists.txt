@@ -19,6 +19,7 @@ add_executable(mech_driver
   src/ros_driver.cpp
   src/packet_handler_mech.cpp
   src/reciever_socket.cpp
+  utils/colored_cout.cpp
 )
 
 ament_target_dependencies(mech_driver
@@ -32,6 +33,7 @@ ament_target_dependencies(mech_driver
 target_include_directories(mech_driver PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${PCL_INCLUDE_DIRS}
+  ${CMAKE_CURRENT_SOURCE_DIR}/utils
   # /usr/include/pcl-1.12
 )
 
