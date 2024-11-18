@@ -1,7 +1,7 @@
 # ROS driver for DEPHAN LLC LiDars
 
 ## ROS Distro
-It is a package for [***ros:noetic***](https://hub.docker.com/_/ros) ROS distro. 
+It is a package for both ROS1 and ROS2 distributions: [***ros:noetic***](http://wiki.ros.org/noetic) and [***ros:iron***](https://docs.ros.org/en/iron/index.html). 
 
 ## Documentation
-For installation, building and running process and API reference please open `dephan-ros-driver/src/docs/build/html/index.html` file in yout browser.
+For installation, building and running process and API reference please open follow the [docs page](https://dephan-llc.github.io/dephan-ros-driver/docs/).
