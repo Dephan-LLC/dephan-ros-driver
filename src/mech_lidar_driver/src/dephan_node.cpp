@@ -116,18 +116,49 @@ int main(int argc, char* argv[]) {
 
     // is the driver in PCAP mode?
     if (configuration["mode"] == "PCAP")
-        rclcpp::spin(std::make_shared<dephan_ros::Driver>(
-            configuration.value("pcap_path", "/root/test.pcap"),
-            configuration.value("topic", "point_cloud2_pcap")
-        ));
+        if (configuration["capture_type"] == "FULL")
+            rclcpp::spin(std::make_shared<dephan_ros::Driver>(
+                configuration.value("pcap_path", "/root/test.pcap"),
+                configuration.value("topic", "point_cloud2_pcap"), true
+            ));
+        else if (configuration["capture_type"] == "SINGLE")
+            rclcpp::spin(std::make_shared<dephan_ros::Driver>(
+                configuration.value("pcap_path", "/root/test.pcap"),
+                configuration.value("topic", "point_cloud2_pcap")
+            ));
+        else {
+            // stop ros session
+            rclcpp::shutdown();
+
+            throw std::runtime_error(utils::make_colored(
+                "Unknown configuration \"capture type\"", utils::Color::red,
+                utils::Style::bold
+            ));
+        }
 
     // is the driver in UDP mode?
     else if (configuration["mode"] == "UDP")
-        rclcpp::spin(std::make_shared<dephan_ros::Driver>(
-            configuration.value("ip", "0.0.0.0"),
-            configuration.value("port", 3000),
-            configuration.value("topic", "point_cloud2_udp")
-        ));
+        if (configuration["capture_type"] == "FULL")
+            rclcpp::spin(std::make_shared<dephan_ros::Driver>(
+                configuration.value("ip", "0.0.0.0"),
+                configuration.value("port", 3000),
+                configuration.value("topic", "point_cloud2_udp"), true
+            ));
+        else if (configuration["capture_type"] == "SINGLE")
+            rclcpp::spin(std::make_shared<dephan_ros::Driver>(
+                configuration.value("ip", "0.0.0.0"),
+                configuration.value("port", 3000),
+                configuration.value("topic", "point_cloud2_udp")
+            ));
+        else {
+            // stop ros session
+            rclcpp::shutdown();
+
+            throw std::runtime_error(utils::make_colored(
+                "Unknown configuration \"capture type\"", utils::Color::red,
+                utils::Style::bold
+            ));
+        }
 
     // error reporting otherwise
     else {
@@ -135,7 +166,8 @@ int main(int argc, char* argv[]) {
         rclcpp::shutdown();
 
         throw std::runtime_error(utils::make_colored(
-            "Unknown configuration mode", utils::Color::red, utils::Style::bold
+            "Unknown configuration \"mode\"", utils::Color::red,
+            utils::Style::bold
         ));
     }
 
