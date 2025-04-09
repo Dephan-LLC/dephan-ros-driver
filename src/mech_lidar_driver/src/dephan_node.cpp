@@ -112,7 +112,7 @@ int main(int argc, char* argv[]) {
 
         // error reporting otherwise
         else
-            throw std::runtime_error("Unknown configuration capture type");
+            throw std::runtime_error("Unknown configuration \"capture type\"");
     }
 
     // is driver in UDP mode?
@@ -145,12 +145,12 @@ int main(int argc, char* argv[]) {
 
         // error reporting otherwise
         else
-            throw std::runtime_error("Unknown configuration capture type");
+            throw std::runtime_error("Unknown configuration \"capture type\"");
     }
 
     // error reporting otherwise
     else
-        throw std::runtime_error("Unknown configuration mode");
+        throw std::runtime_error("Unknown configuration \"mode\"");
 
     return 0;
 }

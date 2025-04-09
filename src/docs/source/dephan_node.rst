@@ -11,6 +11,7 @@ The best way to use driver as you want is specify json configuration file for th
 There are two types of configuration files: for *udp operation* and for *pcap-based operation*.
 
 For both types there is a ``"capture type"`` parameter which can take only two values: ``"FULL"`` and ``"SINGLE"``. 
+
 When using the ``"FULL"`` type, 360-degree view packets will be captured, whereas in the ``"SINGLE"`` mode, packets will be captured singly.
 
 UDP operation
