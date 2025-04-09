@@ -50,7 +50,11 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">DEPHAN ROS node howto</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#description">Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#udp-operation">UDP operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pcap-based-operation">PCAP-based operation</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#preparation">Preparation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#usage-scenarios">Usage scenarios</a></li>
@@ -96,12 +100,41 @@
 <h1>DEPHAN ROS node howto<a class="headerlink" href="#dephan-ros-node-howto" title="Permalink to this heading"></a></h1>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading"></a></h2>
-<p>You can specify json configuration file for the driver operation.</p>
-<p>You can find default configurations both for PCAP and UDP modes by, respectivly:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">src/mech_lidar_driver/configs/default_pcap_config.json</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">src/mech_lidar_driver/configs/default_udp_config.json</span></code></p></li>
-</ul>
+<p>The best way to use driver as you want is specify json configuration file for the driver operation.</p>
+<p>There are two types of configuration files: for <em>udp operation</em> and for <em>pcap-based operation</em>.</p>
+<p>For both types there is a <code class="docutils literal notranslate"><span class="pre">&quot;capture</span> <span class="pre">type&quot;</span></code> parameter which can take only two values: <code class="docutils literal notranslate"><span class="pre">&quot;FULL&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;SINGLE&quot;</span></code>.
+When using the <code class="docutils literal notranslate"><span class="pre">&quot;FULL&quot;</span></code> type, 360-degree view packets will be captured, whereas in the <code class="docutils literal notranslate"><span class="pre">&quot;SINGLE&quot;</span></code> mode, packets will be captured singly.</p>
+<section id="udp-operation">
+<h3>UDP operation<a class="headerlink" href="#udp-operation" title="Permalink to this heading"></a></h3>
+<p>It is used to work with a real lidar device connected to the ROS node via UDP.</p>
+<p>You can find default configurations for UDP mode by <code class="docutils literal notranslate"><span class="pre">src/mech_lidar_driver/configs/default_udp_config.json</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;mode&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;UDP&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;test_UDP&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;ip&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;192.168.0.120&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;port&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">51551</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;topic&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;laserscan_data_udp&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;capture_type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;FULL&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can change the last 5 fields according to your preferences.</p>
+</section>
+<section id="pcap-based-operation">
+<h3>PCAP-based operation<a class="headerlink" href="#pcap-based-operation" title="Permalink to this heading"></a></h3>
+<p>It is used when there is no real device at hand, but there is a file with recorded traffic from it.</p>
+<p>You can find default configurations for UDP mode by <code class="docutils literal notranslate"><span class="pre">src/mech_lidar_driver/configs/default_pcap_config.json</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;mode&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;PCAP&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;test_PCAP&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;pcap_path&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/root/test.pcap&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;topic&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;laserscan_data_pcap&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;capture_type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;FULL&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can change the last 4 fields according to your preferences.</p>
+</section>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
