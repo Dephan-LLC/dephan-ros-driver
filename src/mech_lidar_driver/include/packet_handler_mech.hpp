@@ -61,6 +61,11 @@ public:
     float ranges[CHANELLS] = {0.0};
 
     /**
+     * Intensities of the points within one scan packet.
+     */
+    float intensities[CHANELLS] = {0.0};
+
+    /**
      * Angles of the points within one scan packet.
      */
     float angles[CHANELLS] = {0.0};

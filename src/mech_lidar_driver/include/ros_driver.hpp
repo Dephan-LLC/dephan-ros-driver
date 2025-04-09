@@ -13,6 +13,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
+#include <sensor_msgs/msg/laser_scan.hpp>
 #include <memory>
 #include <string>
 #include <pcl/point_cloud.h>
@@ -71,10 +72,10 @@ private:
     bool is_full = false;
 
     /**
-     * Ros topic publisher for the ros pointcloud v2 data.
+     * Ros topic publisher for the ros laserscan data.
      */
-    rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
-        pointcloud2_publisher;
+    rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr
+        laserscan_publisher;
 
     /**
      * Ros timer for polling operation.

@@ -29,6 +29,11 @@ pkt_hdl_Mech::pkt_hdl_Mech(raw_packet_t pkt) : raw_pkt(std::move(pkt)) {
                        ((uint32_t) raw_pkt[16 + chnl * 8 + 1] << 8 * 1) +
                        raw_pkt[16 + chnl * 8];
 
+        intensities[chnl] = ((uint32_t) raw_pkt[20 + chnl * 8 + 3] << 8 * 3) +
+                            ((uint32_t) raw_pkt[20 + chnl * 8 + 2] << 8 * 2) +
+                            ((uint32_t) raw_pkt[20 + chnl * 8 + 1] << 8 * 1) +
+                            raw_pkt[20 + chnl * 8];
+
         angles[chnl] = (enc_signal + chnl) * RAD_RESOLUTION;
     }
 }
