@@ -15,6 +15,7 @@
 #include <memory>
 #include <string>
 #include <sensor_msgs/PointCloud.h>
+#include <sensor_msgs/LaserScan.h>
 #include <std_msgs/UInt8MultiArray.h>
 #include <pcl_ros/point_cloud.h>
 #include <tins/tins.h>
@@ -62,19 +63,9 @@ private:
     long long _prev_pkt_tmstmp;
 
     /**
-     * Ros topic publisher for the rawdata.
+     * Ros topic publisher for the ros laserscan data.
      */
-    ros::Publisher rawdata_publihser;
-
-    /**
-     * Ros topic publisher for the ros pointcloud v1 data.
-     */
-    ros::Publisher pointcloud_publisher;
-
-    /**
-     * Ros topic publisher for the ros pointcloud v2 data.
-     */
-    ros::Publisher pointcloud2_publisher;
+    ros::Publisher laserscan_publisher;
 
     /**
      * Poll one packet (2 pi / 18 rad segment per packet) in UDP mode.

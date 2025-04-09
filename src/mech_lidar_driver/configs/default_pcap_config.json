@@ -2,5 +2,5 @@
     "name": "test_PCAP",
     "mode": "PCAP",
     "pcap_path": "/root/test.pcap",
-    "topic": "point_cloud2_data_pcap"
+    "topic": "laserscan_data_udp"
 }

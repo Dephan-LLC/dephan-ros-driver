@@ -22,11 +22,7 @@ Driver::Driver(
     socket.reset(new receiver_socket(ip_addr, port));
 
     // ROS publising routine
-    rawdata_publihser = nh.advertise<std_msgs::UInt8MultiArray>("raw_data", 10);
-    pointcloud_publisher =
-        nh.advertise<sensor_msgs::PointCloud>("point_cloud_data", 10);
-    pointcloud2_publisher =
-        nh.advertise<pcl::PointCloud<pcl::PointXYZ>>(cloud_topic, 10);
+    laserscan_publisher = nh.advertise<sensor_msgs::LaserScan>(cloud_topic, 10);
 }
 
 Driver::Driver(
@@ -41,8 +37,7 @@ Driver::Driver(
     _prev_pkt_tmstmp = _pkt.timestamp().microseconds();
 
     // ROS publising routine
-    pointcloud2_publisher =
-        nh.advertise<pcl::PointCloud<pcl::PointXYZ>>(cloud_topic, 10);
+    laserscan_publisher = nh.advertise<sensor_msgs::LaserScan>(cloud_topic, 10);
 }
 
 void Driver::poll() {
@@ -70,7 +65,7 @@ void Driver::poll_full() {
 void Driver::_poll_full_udp() {
 
     // initialzie ros pointcloud v2 message
-    pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
+    sensor_msgs::LaserScan::Ptr msg(new sensor_msgs::LaserScan);
 
     // wait until 18 packeges are recieved
     for (size_t i = 0; i < 18; i++) {
@@ -89,27 +84,35 @@ void Driver::_poll_full_udp() {
         pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
 
         // fill ros message by data from the handled packet
-        for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl)
-            msg->points.push_back(pcl::PointXYZ(
-                hdl_pkt.ranges[chnl] * cosf(hdl_pkt.angles[chnl]) / 1000,
-                hdl_pkt.ranges[chnl] * sinf(hdl_pkt.angles[chnl]) / 1000, 0.0
-            ));
+        msg->angle_min       = hdl_pkt.angles[0];
+        msg->angle_max       = hdl_pkt.angles[hdl_pkt.CHANELLS - 1];
+        msg->angle_increment = hdl_pkt.RAD_RESOLUTION;
+        msg->scan_time       = 0.1;
+        msg->time_increment  = msg->scan_time / 2250.0;
+        for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
+            msg->ranges.push_back(hdl_pkt.ranges[chnl]);
+            msg->intensities.push_back(hdl_pkt.intensities[chnl]);
+        }
+        msg->range_min =
+            *std::min_element(msg->ranges.begin(), msg->ranges.end());
+        msg->range_max =
+            *std::max_element(msg->ranges.begin(), msg->ranges.end());
     }
 
     // add timestamp to ros message
-    pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
+    msg->header.stamp = ros::Time::now();
 
     // add frame id to ros message
     msg->header.frame_id = "map";
 
     // publish ros message to topic
-    pointcloud2_publisher.publish(msg);
+    laserscan_publisher.publish(msg);
 }
 
 void Driver::_poll_full_pcap() {
 
     // initialzie ros pointcloud v2 message
-    pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
+    sensor_msgs::LaserScan::Ptr msg(new sensor_msgs::LaserScan);
 
     // wait until 18 packages are readed from the target PCAP file
     for (size_t i = 0; i < 18; i++) {
@@ -149,23 +152,30 @@ void Driver::_poll_full_pcap() {
             pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
 
             // fill ros message by data from the handled packet
-            for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl)
-                msg->points.push_back(pcl::PointXYZ(
-                    hdl_pkt.ranges[chnl] * cosf(hdl_pkt.angles[chnl]) / 1000,
-                    hdl_pkt.ranges[chnl] * sinf(hdl_pkt.angles[chnl]) / 1000,
-                    0.0
-                ));
+            msg->angle_min       = hdl_pkt.angles[0];
+            msg->angle_max       = hdl_pkt.angles[hdl_pkt.CHANELLS - 1];
+            msg->angle_increment = hdl_pkt.RAD_RESOLUTION;
+            msg->scan_time       = 0.1;
+            msg->time_increment  = msg->scan_time / 2250.0;
+            for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
+                msg->ranges.push_back(hdl_pkt.ranges[chnl] / 1000);
+                msg->intensities.push_back(hdl_pkt.intensities[chnl]);
+            }
+            msg->range_min =
+                *std::min_element(msg->ranges.begin(), msg->ranges.end());
+            msg->range_max =
+                *std::max_element(msg->ranges.begin(), msg->ranges.end());
         }
     }
 
     // add timestamp to ros message
-    pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
+    msg->header.stamp = ros::Time::now();
 
     // add frame id to ros message
     msg->header.frame_id = "map";
 
     // publish ros message to topic
-    pointcloud2_publisher.publish(msg);
+    laserscan_publisher.publish(msg);
 }
 
 std::pair<std::string, unsigned> Driver::get_network_params() {
@@ -175,7 +185,7 @@ std::pair<std::string, unsigned> Driver::get_network_params() {
 void Driver::_poll_udp() {
 
     // initialize ros pointcloud v2 message
-    pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
+    sensor_msgs::LaserScan::Ptr msg(new sensor_msgs::LaserScan);
 
     // initialize raw packet collection
     packet::raw_packet_t raw_pkt(new uint8_t[packet::PKT_LEN]);
@@ -191,26 +201,32 @@ void Driver::_poll_udp() {
     pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
 
     // fill ros message by data from the handled packet
-    for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl)
-        msg->points.push_back(pcl::PointXYZ(
-            hdl_pkt.ranges[chnl] * cosf(hdl_pkt.angles[chnl]) / 1000,
-            hdl_pkt.ranges[chnl] * sinf(hdl_pkt.angles[chnl]) / 1000, 0.0
-        ));
+    msg->angle_min       = hdl_pkt.angles[0];
+    msg->angle_max       = hdl_pkt.angles[hdl_pkt.CHANELLS - 1];
+    msg->angle_increment = hdl_pkt.RAD_RESOLUTION;
+    msg->scan_time       = 0.1;
+    msg->time_increment  = msg->scan_time / 2250.0;
+    for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
+        msg->ranges.push_back(hdl_pkt.ranges[chnl]);
+        msg->intensities.push_back(hdl_pkt.intensities[chnl]);
+    }
+    msg->range_min = *std::min_element(msg->ranges.begin(), msg->ranges.end());
+    msg->range_max = *std::max_element(msg->ranges.begin(), msg->ranges.end());
 
     // add timestamp to ros message
-    pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
+    msg->header.stamp = ros::Time::now();
 
     // add frame id to ros message
     msg->header.frame_id = "map";
 
     // publish ros message to topic
-    pointcloud2_publisher.publish(msg);
+    laserscan_publisher.publish(msg);
 }
 
 void Driver::_poll_pcap() {
 
     // initialzie ros pointcloud v2 message
-    pcl::PointCloud<pcl::PointXYZ>::Ptr msg(new pcl::PointCloud<pcl::PointXYZ>);
+    sensor_msgs::LaserScan::Ptr msg(new sensor_msgs::LaserScan);
 
     // get the next packet from the target PCAP file
     Tins::Packet pkt(pcap_sniffer->next_packet());
@@ -247,20 +263,28 @@ void Driver::_poll_pcap() {
         pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
 
         // fill ros message by data from the handled packet
-        for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl)
-            msg->points.push_back(pcl::PointXYZ(
-                hdl_pkt.ranges[chnl] * cosf(hdl_pkt.angles[chnl]) / 1000,
-                hdl_pkt.ranges[chnl] * sinf(hdl_pkt.angles[chnl]) / 1000, 0.0
-            ));
+        msg->angle_min       = hdl_pkt.angles[0];
+        msg->angle_max       = hdl_pkt.angles[hdl_pkt.CHANELLS - 1];
+        msg->angle_increment = hdl_pkt.RAD_RESOLUTION;
+        msg->scan_time       = 0.1;
+        msg->time_increment  = msg->scan_time / 2250.0;
+        for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
+            msg->ranges.push_back(hdl_pkt.ranges[chnl]);
+            msg->intensities.push_back(hdl_pkt.intensities[chnl]);
+        }
+        msg->range_min =
+            *std::min_element(msg->ranges.begin(), msg->ranges.end());
+        msg->range_max =
+            *std::max_element(msg->ranges.begin(), msg->ranges.end());
     }
 
     // add timestamp to ros message
-    pcl_conversions::toPCL(ros::Time::now(), msg->header.stamp);
+    msg->header.stamp = ros::Time::now();
 
     // add frame id to ros message
     msg->header.frame_id = "map";
 
     // publish ros message to topic
-    pointcloud2_publisher.publish(msg);
+    laserscan_publisher.publish(msg);
 }
 } // namespace dephan_ros

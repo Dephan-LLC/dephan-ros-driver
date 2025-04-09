@@ -32,9 +32,11 @@ json get_configuration(int argc, char* argv[]) {
         std::cout << "Config does not provided" << std::endl;
         std::cout << "Use default config otherwise" << std::endl;
 
-        return json::parse(std::ifstream{
-            "./src/mech_lidar_driver/configs/default_udp_config.json"
-        });
+        return json::parse(
+            std::ifstream{
+                "./src/mech_lidar_driver/configs/default_udp_config.json"
+            }
+        );
     }
 
     // if provided it should be a -c or --config
@@ -92,7 +94,11 @@ int main(int argc, char* argv[]) {
 
         // polling via driver
         while (ros::ok()) {
-            driver.poll();
+            // driver.poll();
+
+            // FOR TEST ONLY!
+            // driver.poll_full();
+            // FOR TEST ONLY!
             ros::spinOnce();
         }
     }
@@ -109,7 +115,11 @@ int main(int argc, char* argv[]) {
 
         // polling via driver
         while (ros::ok()) {
-            driver.poll();
+            // driver.poll();
+
+            // FOR TEST ONLY!
+            // driver.poll_full();
+            // FOR TEST ONLY!
             ros::spinOnce();
         }
     }
