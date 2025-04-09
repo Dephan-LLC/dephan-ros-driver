@@ -85,7 +85,7 @@ void Driver::_poll_full_udp() {
 
         // fill ros message by data from the handled packet
         for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
-            msg->ranges.push_back(hdl_pkt.ranges[chnl]);
+            msg->ranges.push_back(hdl_pkt.ranges[chnl] / 1000);
             msg->intensities.push_back(hdl_pkt.intensities[chnl]);
         }
     }
@@ -205,7 +205,7 @@ void Driver::_poll_udp() {
     msg->scan_time       = 0.1;
     msg->time_increment  = msg->scan_time / 2250.0;
     for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
-        msg->ranges.push_back(hdl_pkt.ranges[chnl]);
+        msg->ranges.push_back(hdl_pkt.ranges[chnl] / 1000);
         msg->intensities.push_back(hdl_pkt.intensities[chnl]);
     }
     msg->range_min = *std::min_element(msg->ranges.begin(), msg->ranges.end());
@@ -267,7 +267,7 @@ void Driver::_poll_pcap() {
         msg->scan_time       = 0.1;
         msg->time_increment  = msg->scan_time / 2250.0;
         for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
-            msg->ranges.push_back(hdl_pkt.ranges[chnl]);
+            msg->ranges.push_back(hdl_pkt.ranges[chnl] / 1000);
             msg->intensities.push_back(hdl_pkt.intensities[chnl]);
         }
         msg->range_min =
