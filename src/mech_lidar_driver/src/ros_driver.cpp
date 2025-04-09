@@ -84,20 +84,19 @@ void Driver::_poll_full_udp() {
         pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
 
         // fill ros message by data from the handled packet
-        msg->angle_min       = hdl_pkt.angles[0];
-        msg->angle_max       = hdl_pkt.angles[hdl_pkt.CHANELLS - 1];
-        msg->angle_increment = hdl_pkt.RAD_RESOLUTION;
-        msg->scan_time       = 0.1;
-        msg->time_increment  = msg->scan_time / 2250.0;
         for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
             msg->ranges.push_back(hdl_pkt.ranges[chnl]);
             msg->intensities.push_back(hdl_pkt.intensities[chnl]);
         }
-        msg->range_min =
-            *std::min_element(msg->ranges.begin(), msg->ranges.end());
-        msg->range_max =
-            *std::max_element(msg->ranges.begin(), msg->ranges.end());
     }
+    // fill ros message by constant data
+    msg->angle_min       = 0.0;
+    msg->angle_max       = 2 * 3.1415;
+    msg->angle_increment = 2 * 3.1415 / 2250;
+    msg->scan_time       = 0.1;
+    msg->time_increment  = msg->scan_time / 2250.0;
+    msg->range_min = *std::min_element(msg->ranges.begin(), msg->ranges.end());
+    msg->range_max = *std::max_element(msg->ranges.begin(), msg->ranges.end());
 
     // add timestamp to ros message
     msg->header.stamp = ros::Time::now();
@@ -152,21 +151,20 @@ void Driver::_poll_full_pcap() {
             pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
 
             // fill ros message by data from the handled packet
-            msg->angle_min       = hdl_pkt.angles[0];
-            msg->angle_max       = hdl_pkt.angles[hdl_pkt.CHANELLS - 1];
-            msg->angle_increment = hdl_pkt.RAD_RESOLUTION;
-            msg->scan_time       = 0.1;
-            msg->time_increment  = msg->scan_time / 2250.0;
             for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
                 msg->ranges.push_back(hdl_pkt.ranges[chnl] / 1000);
                 msg->intensities.push_back(hdl_pkt.intensities[chnl]);
             }
-            msg->range_min =
-                *std::min_element(msg->ranges.begin(), msg->ranges.end());
-            msg->range_max =
-                *std::max_element(msg->ranges.begin(), msg->ranges.end());
         }
     }
+    // fill ros message by constant data
+    msg->angle_min       = 0.0;
+    msg->angle_max       = 2 * 3.1415;
+    msg->angle_increment = 2 * 3.1415 / 2250;
+    msg->scan_time       = 0.1;
+    msg->time_increment  = msg->scan_time / 2250.0;
+    msg->range_min = *std::min_element(msg->ranges.begin(), msg->ranges.end());
+    msg->range_max = *std::max_element(msg->ranges.begin(), msg->ranges.end());
 
     // add timestamp to ros message
     msg->header.stamp = ros::Time::now();
