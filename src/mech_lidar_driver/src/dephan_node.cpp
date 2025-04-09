@@ -92,15 +92,27 @@ int main(int argc, char* argv[]) {
             configuration.value("topic", "point_cloud2_data")
         );
 
-        // polling via driver
-        while (ros::ok()) {
-            // driver.poll();
+        // is driver capture type FULL?
+        if (configuration["capture_type"] == "FULL")
 
-            // FOR TEST ONLY!
-            // driver.poll_full();
-            // FOR TEST ONLY!
-            ros::spinOnce();
-        }
+            // polling via driver
+            while (ros::ok()) {
+                driver.poll_full();
+                ros::spinOnce();
+            }
+
+        // is driver capture type SINGLE?
+        else if (configuration["capture_type"] == "SINGLE")
+
+            // polling via driver
+            while (ros::ok()) {
+                driver.poll();
+                ros::spinOnce();
+            }
+
+        // error reporting otherwise
+        else
+            throw std::runtime_error("Unknown configuration capture type");
     }
 
     // is driver in UDP mode?
@@ -113,15 +125,27 @@ int main(int argc, char* argv[]) {
             configuration.value("topic", "point_cloud2_data")
         );
 
-        // polling via driver
-        while (ros::ok()) {
-            // driver.poll();
+        // is driver capture type FULL?
+        if (configuration["capture_type"] == "FULL")
 
-            // FOR TEST ONLY!
-            // driver.poll_full();
-            // FOR TEST ONLY!
-            ros::spinOnce();
-        }
+            // polling via driver
+            while (ros::ok()) {
+                driver.poll_full();
+                ros::spinOnce();
+            }
+
+        // is driver capture type SINGLE?
+        else if (configuration["capture_type"] == "SINGLE")
+
+            // polling via driver
+            while (ros::ok()) {
+                driver.poll();
+                ros::spinOnce();
+            }
+
+        // error reporting otherwise
+        else
+            throw std::runtime_error("Unknown configuration capture type");
     }
 
     // error reporting otherwise

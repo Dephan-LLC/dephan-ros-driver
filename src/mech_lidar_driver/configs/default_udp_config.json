@@ -3,5 +3,6 @@
     "mode": "UDP",
     "ip": "192.168.0.120",
     "port": 51551,
-    "topic": "laserscan_data_udp"
+    "topic": "laserscan_data_udp", 
+    "capture_type": "FULL"
 }
