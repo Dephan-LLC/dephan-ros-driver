@@ -58,7 +58,7 @@ To ensure that driver works correctly you can capture publishing data:
 
 .. code-block:: shell
 
-    rostopic echo point_cloud2_data_udp
+    rostopic echo laserscan_data_udp
 
 2. For user-specified configuration:
 
