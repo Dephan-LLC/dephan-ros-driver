@@ -1,7 +1,7 @@
 {
-    "name": "test_PCAP",
     "mode": "PCAP",
+    "name": "test_PCAP",
     "pcap_path": "/root/test.pcap",
-    "topic": "laserscan_data_udp", 
+    "topic": "laserscan_data_pcap", 
     "capture_type": "FULL"
 }
