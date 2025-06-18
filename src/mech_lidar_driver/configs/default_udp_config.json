@@ -2,7 +2,7 @@
     "mode": "UDP",
     "name": "test_UDP",
     "ip": "192.168.0.120",
-    "port": 51551,
+    "port": 50001,
     "topic": "laserscan_data_udp",
     "capture_type": "FULL"
 }

@@ -6,11 +6,11 @@ DEPHAN ROS node howto
 Description
 -----------
 
-The best way to use driver as you want is specify json configuration file for the driver operation. 
+The best way to use driver as you want is specify json configuration file for the driver operation.
 
 There are two types of configuration files: for *udp operation* and for *pcap-based operation*.
 
-For both types there is a ``"capture type"`` parameter which can take only two values: ``"FULL"`` and ``"SINGLE"``. 
+For both types there is a ``"capture type"`` parameter which can take only two values: ``"FULL"`` and ``"SINGLE"``.
 
 When using the ``"FULL"`` type, 360-degree view packets will be captured, whereas in the ``"SINGLE"`` mode, packets will be captured singly.
 
@@ -27,12 +27,12 @@ You can find default configurations for UDP mode by ``src/mech_lidar_driver/conf
         "mode": "UDP",
         "name": "test_UDP",
         "ip": "192.168.0.120",
-        "port": 51551,
-        "topic": "laserscan_data_udp", 
+        "port": 50001,
+        "topic": "laserscan_data_udp",
         "capture_type": "FULL"
     }
 
-You can change the last 5 fields according to your preferences. 
+You can change the last 5 fields according to your preferences.
 
 PCAP-based operation
 ^^^^^^^^^^^^^^^^^^^^
@@ -47,11 +47,11 @@ You can find default configurations for UDP mode by ``src/mech_lidar_driver/conf
         "mode": "PCAP",
         "name": "test_PCAP",
         "pcap_path": "/root/test.pcap",
-        "topic": "laserscan_data_pcap", 
+        "topic": "laserscan_data_pcap",
         "capture_type": "FULL"
-    }   
+    }
 
-You can change the last 4 fields according to your preferences. 
+You can change the last 4 fields according to your preferences.
 
 
 Usage
@@ -64,7 +64,7 @@ Usage scenarios
 
 .. code-block:: shell
 
-    ros2 run mech_lidar_driver mech_driver --help 
+    ros2 run mech_lidar_driver mech_driver --help
 
 
 2. Run node with default configuration by ``src/mech_lidar_driver/configs/default_udp_config.json``:
@@ -83,7 +83,7 @@ Usage scenarios
 Operation testing
 ^^^^^^^^^^^^^^^^^
 
-To ensure that driver works correctly you can capture publishing data. 
+To ensure that driver works correctly you can capture publishing data.
 
 1. For default configuration:
 
@@ -94,6 +94,6 @@ To ensure that driver works correctly you can capture publishing data.
 
 2. For user-specified configuration:
 
-.. code-block:: shell 
+.. code-block:: shell
 
     ros2 topic echo <JSON_CONFIG["topic"]>
