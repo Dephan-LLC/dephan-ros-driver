@@ -43,7 +43,7 @@ public:
     /**
      * Number of chanells of the photodetection unit.
      */
-    static const int CHANELLS = 125;
+    static const int CHANELLS = 115;
 
     /**
      * Version of the communications protocol.
@@ -53,7 +53,7 @@ public:
     /**
      * Angle resolution of the photodetection unit.
      */
-    static constexpr float RAD_RESOLUTION = 2 * 3.1415 / 2250;
+    static constexpr float RAD_RESOLUTION = 2 * 3.1415 / 2300;
 
     /**
      * Ranges to the points within one scan packet.

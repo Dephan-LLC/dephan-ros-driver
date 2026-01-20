@@ -27,7 +27,7 @@ public:
     /**
      * Mechanical LiDar's single packet length.
      */
-    static const unsigned PKT_LEN = 1016;
+    static const unsigned PKT_LEN = 936;
 };
 } // namespace dephan_ros
 
