@@ -92,9 +92,9 @@ void Driver::_poll_full_udp() {
     // fill ros message by constant data
     msg->angle_min       = 0.0;
     msg->angle_max       = 2 * 3.1415;
-    msg->angle_increment = 2 * 3.1415 / 2250;
+    msg->angle_increment = 2 * 3.1415 / 2300;
     msg->scan_time       = 0.1;
-    msg->time_increment  = msg->scan_time / 2250.0;
+    msg->time_increment  = msg->scan_time / 2300.0;
     msg->range_min = *std::min_element(msg->ranges.begin(), msg->ranges.end());
     msg->range_max = *std::max_element(msg->ranges.begin(), msg->ranges.end());
 
@@ -160,9 +160,9 @@ void Driver::_poll_full_pcap() {
     // fill ros message by constant data
     msg->angle_min       = 0.0;
     msg->angle_max       = 2 * 3.1415;
-    msg->angle_increment = 2 * 3.1415 / 2250;
+    msg->angle_increment = 2 * 3.1415 / 2300;
     msg->scan_time       = 0.1;
-    msg->time_increment  = msg->scan_time / 2250.0;
+    msg->time_increment  = msg->scan_time / 2300.0;
     msg->range_min = *std::min_element(msg->ranges.begin(), msg->ranges.end());
     msg->range_max = *std::max_element(msg->ranges.begin(), msg->ranges.end());
 
@@ -203,7 +203,7 @@ void Driver::_poll_udp() {
     msg->angle_max       = hdl_pkt.angles[hdl_pkt.CHANELLS - 1];
     msg->angle_increment = hdl_pkt.RAD_RESOLUTION;
     msg->scan_time       = 0.1;
-    msg->time_increment  = msg->scan_time / 2250.0;
+    msg->time_increment  = msg->scan_time / 2300.0;
     for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
         msg->ranges.push_back(hdl_pkt.ranges[chnl] / 1000);
         msg->intensities.push_back(hdl_pkt.intensities[chnl]);
@@ -265,7 +265,7 @@ void Driver::_poll_pcap() {
         msg->angle_max       = hdl_pkt.angles[hdl_pkt.CHANELLS - 1];
         msg->angle_increment = hdl_pkt.RAD_RESOLUTION;
         msg->scan_time       = 0.1;
-        msg->time_increment  = msg->scan_time / 2250.0;
+        msg->time_increment  = msg->scan_time / 2300.0;
         for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
             msg->ranges.push_back(hdl_pkt.ranges[chnl] / 1000);
             msg->intensities.push_back(hdl_pkt.intensities[chnl]);
