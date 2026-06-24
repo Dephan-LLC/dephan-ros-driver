@@ -1,0 +1,12 @@
+services:
+  ros2-iron:
+    build:
+      context: .
+      dockerfile: ros2-iron.Dockerfile
+    image: dephan-ros-driver:ros2-iron
+    stdin_open: true
+    tty: true
+    ports:
+      - "50007:50007/udp"
+    volumes:
+      - ${DRIVER_WORKSPACE:-..}:/workspace

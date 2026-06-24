@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.14.4)
 project(mech_lidar_driver)
 
-## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+## Compile as C++17 for structured bindings used by the node.
+add_compile_options(-std=c++17)
 
 find_package(ament_cmake_ros REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -19,6 +19,7 @@ add_executable(mech_driver
   src/ros_driver.cpp
   src/packet_handler_mech.cpp
   src/reciever_socket.cpp
+  src/http_client.cpp
   utils/colored_cout.cpp
 )
 
