@@ -7,14 +7,15 @@ permissions:
 
 jobs:
   docs:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
       - name: Install dependencies
         run: |
           pip install sphinx breathe sphinx_copybutton sphinx_tabs sphinx_rtd_theme sphinx_favicon
-          sudo apt install doxygen
+          sudo apt-get update
+          sudo apt-get install -y doxygen
 
       - name: Build main
         working-directory: ./src/docs
@@ -43,7 +44,7 @@ jobs:
 
       - name: Deploy Greetings to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main'}}
+        if: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'}}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -53,7 +54,7 @@ jobs:
 
       - name: Deploy ROS:noetic version to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/ros1'}}
+        if: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/ros1'}}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -63,7 +64,7 @@ jobs:
 
       - name: Deploy ROS:iron version to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/ros2'}}
+        if: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/ros2'}}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
