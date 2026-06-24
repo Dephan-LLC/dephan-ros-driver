@@ -37,6 +37,20 @@ Requirements
     sudo apt install nlohmann-json3-dev 
 
 
+Docker alternative
+------------------
+
+The repository contains a Docker setup for repeatable ROS:iron builds:
+
+.. code-block:: shell
+
+    cd docker
+    docker compose build ros2-iron
+    docker compose run --rm ros2-iron
+
+See :doc:`Docker <docker>` for details.
+
+
 Building
 --------
 
@@ -46,9 +60,15 @@ To run and build driver please run the following commands:
 
     cd ~ && git clone -b ros2 https://github.com/Dephan-LLC/dephan-ros-driver.git
 
-    cd dephan-ros-driver 
+    cd dephan-ros-driver
 
-    colcon build 
+    rm -rf /tmp/dephan_ros2_ws
+    mkdir -p /tmp/dephan_ros2_ws/src
+    ln -s "$PWD/src/mech_lidar_driver" /tmp/dephan_ros2_ws/src/mech_lidar_driver
+
+    cd /tmp/dephan_ros2_ws
+
+    colcon build --symlink-install
 
     source install/setup.bash
 
