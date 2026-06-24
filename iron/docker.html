@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dephan ROS driver installation &mdash; Dephan ROS driver 0.1.0 documentation</title>
+  <title>Docker &mdash; Dephan ROS driver 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -22,8 +22,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Docker" href="docker.html" />
-    <link rel="prev" title="Dephan ROS:iron driver documentation" href="index.html" /> 
+    <link rel="next" title="DEPHAN ROS node howto" href="dephan_node.html" />
+    <link rel="prev" title="Dephan ROS driver installation" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,14 +46,14 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#supported-platfrorms">Supported platfrorms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#docker-alternative">Docker alternative</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#building">Building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Docker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#build-image">Build image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-shell">Run shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-driver-inside-container">Build driver inside container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#udp-and-docker-desktop">UDP and Docker Desktop</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dephan_node.html">DEPHAN ROS node howto</a></li>
@@ -82,9 +82,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Dephan ROS driver installation</li>
+      <li class="breadcrumb-item active">Docker</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/docker.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -92,66 +92,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="dephan-ros-driver-installation">
-<h1>Dephan ROS driver installation<a class="headerlink" href="#dephan-ros-driver-installation" title="Link to this heading"></a></h1>
-<section id="supported-platfrorms">
-<h2>Supported platfrorms<a class="headerlink" href="#supported-platfrorms" title="Link to this heading"></a></h2>
-<p>This driver was developed and tested under the <code class="docutils literal notranslate"><span class="pre">ROS:iron</span></code> distribution.</p>
-</section>
-<section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
-<ol class="arabic simple">
-<li><p>Install <a class="reference external" href="https://docs.ros.org/en/iron/Installation.html">ROS:iron</a> packages.</p></li>
-<li><p>Install <code class="docutils literal notranslate"><span class="pre">pcl</span></code> and <code class="docutils literal notranslate"><span class="pre">pcl-ros</span></code>:</p></li>
-</ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
-
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libpcl-dev<span class="w"> </span>ros-iron-pcl-conversions<span class="w"> </span>ros-iron-pcl-ros
-</pre></div>
-</div>
-<ol class="arabic simple" start="3">
-<li><p>Install <code class="docutils literal notranslate"><span class="pre">tins</span></code>:</p></li>
-</ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libtins-dev
-</pre></div>
-</div>
-<ol class="arabic simple" start="4">
-<li><p>Install <code class="docutils literal notranslate"><span class="pre">json</span></code>:</p></li>
-</ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>nlohmann-json3-dev
-</pre></div>
-</div>
-</section>
-<section id="docker-alternative">
-<h2>Docker alternative<a class="headerlink" href="#docker-alternative" title="Link to this heading"></a></h2>
-<p>The repository contains a Docker setup for repeatable ROS:iron builds:</p>
+  <section id="docker">
+<h1>Docker<a class="headerlink" href="#docker" title="Link to this heading"></a></h1>
+<p>Docker files are provided for repeatable ROS:iron builds.</p>
+<section id="build-image">
+<h2>Build image<a class="headerlink" href="#build-image" title="Link to this heading"></a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>docker
 docker<span class="w"> </span>compose<span class="w"> </span>build<span class="w"> </span>ros2-iron
+</pre></div>
+</div>
+</section>
+<section id="run-shell">
+<h2>Run shell<a class="headerlink" href="#run-shell" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>docker
 docker<span class="w"> </span>compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>ros2-iron
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="docker.html"><span class="doc">Docker</span></a> for details.</p>
 </section>
-<section id="building">
-<h2>Building<a class="headerlink" href="#building" title="Link to this heading"></a></h2>
-<p>To run and build driver please run the following commands:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>ros2<span class="w"> </span>https://github.com/Dephan-LLC/dephan-ros-driver.git
-
-<span class="nb">cd</span><span class="w"> </span>dephan-ros-driver
-
+<section id="build-driver-inside-container">
+<h2>Build driver inside container<a class="headerlink" href="#build-driver-inside-container" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>/opt/ros/iron/setup.bash
 rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/dephan_ros2_ws
 mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/dephan_ros2_ws/src
-ln<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/src/mech_lidar_driver&quot;</span><span class="w"> </span>/tmp/dephan_ros2_ws/src/mech_lidar_driver
-
+ln<span class="w"> </span>-s<span class="w"> </span>/workspace/src/mech_lidar_driver<span class="w"> </span>/tmp/dephan_ros2_ws/src/mech_lidar_driver
 <span class="nb">cd</span><span class="w"> </span>/tmp/dephan_ros2_ws
-
 colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install
-
 <span class="nb">source</span><span class="w"> </span>install/setup.bash
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--help
 </pre></div>
 </div>
-<p>Now you are ready to run the testing node. Please follow the <a class="reference internal" href="dephan_node.html"><span class="doc">DEPHAN ROS node howto</span></a>
-to learn how to test and use the driver.</p>
+<p>Do not run <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code> directly from <code class="docutils literal notranslate"><span class="pre">/workspace</span></code> when the checkout
+contains a ROS1/catkin top-level <code class="docutils literal notranslate"><span class="pre">src/CMakeLists.txt</span></code> file. A clean temporary
+workspace avoids colcon treating that file as a package entry.</p>
+</section>
+<section id="udp-and-docker-desktop">
+<h2>UDP and Docker Desktop<a class="headerlink" href="#udp-and-docker-desktop" title="Link to this heading"></a></h2>
+<p>Docker Desktop may rewrite the visible source address of incoming UDP packets.
+If the driver receives packets but publishes no data, set <code class="docutils literal notranslate"><span class="pre">ip</span></code> in the JSON
+configuration to <code class="docutils literal notranslate"><span class="pre">&quot;0.0.0.0&quot;</span></code> to disable the source-IP filter:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UDP&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50007</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;topic&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;laserscan_data_udp&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;capture_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FULL&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -159,8 +146,8 @@ to learn how to test and use the driver.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Dephan ROS:iron driver documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="docker.html" class="btn btn-neutral float-right" title="Docker" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Dephan ROS driver installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dephan_node.html" class="btn btn-neutral float-right" title="DEPHAN ROS node howto" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
