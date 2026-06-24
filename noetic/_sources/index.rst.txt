@@ -14,11 +14,13 @@ Dephan ROS:noetic driver documentation
    :hidden:
    
    Installation <installation>
+   Docker <docker>
 
 .. toctree::
    :hidden:
 
    DEPHAN ROS node howto <dephan_node>
+   LiDAR HTTP API CLI <http_api>
 
 .. toctree::
    :hidden:
@@ -28,6 +30,7 @@ Dephan ROS:noetic driver documentation
 
    cpp_src/ros_driver
    cpp_src/reciever_socket
+   cpp_src/http_client
    cpp_src/packet_handler_mech
    cpp_src/packet_raw
 
@@ -47,7 +50,8 @@ There are some structural parts of the project:
 1. ``packet_raw.hpp`` incapsulates all information about the raw packet recieved from the LiDar (or from the PCAP file);
 2. ``packet_handler_mech.hpp`` contais methods for handling raw packages recieved from the LiDar (or from the PCAP file); 
 3. ``reciever_socket.hpp`` contains methods for connecting and polling the LiDar device; 
-4. ``ros_driver.hpp`` contains methods for ROS operation; 
+4. ``ros_driver.hpp`` contains methods for ROS operation;
+5. ``http_client.hpp`` contains a minimal HTTP client used by LiDAR web API CLI commands.
 
 Also, you can test your driver installation (as described in the :doc:`installation guide <installation>`) by running the 
 testing ROS node ``dephan_node.cpp``.
@@ -58,8 +62,16 @@ DEPHAN ROS node usage
 Fot testing and using driver you should setup and run ROS node wich will process LiDar data and translate it to the ROS topic. 
 To get information how to setup and use DEPHAN ROS node please follow the :doc:`DEPHAN ROS node howto <dephan_node>`.
 
+LiDAR HTTP API usage
+--------------------
+The same executable can also be used as a command-line client for the LiDAR HTTP API.
+HTTP commands return after the request is completed and do not start UDP/PCAP polling.
+See :doc:`LiDAR HTTP API CLI <http_api>` for configuration, status, firmware, log and Safety zones commands.
+
 
 Quick links
 -----------
 * :doc:`Installation <installation>`
+* :doc:`Docker <docker>`
 * :doc:`DEPHAN ROS node <dephan_node>`
+* :doc:`LiDAR HTTP API CLI <http_api>`

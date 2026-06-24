@@ -37,6 +37,20 @@ Requirements
     sudo apt install nlohmann-json3-dev 
 
 
+Docker alternative
+------------------
+
+The repository contains a Docker setup for repeatable ROS:noetic builds:
+
+.. code-block:: shell
+
+    cd docker
+    docker compose build ros1-noetic
+    docker compose run --rm --service-ports ros1-noetic
+
+See :doc:`Docker <docker>` for details and Windows Docker Desktop notes.
+
+
 Building
 --------
 
