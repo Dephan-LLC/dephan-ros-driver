@@ -48,6 +48,8 @@ private:
     receiver_socket& operator= (const receiver_socket&);
 
     std::string m_ip_addr;
+    in_addr m_expected_addr{};
+    bool m_filter_by_source;
     int m_sock_port;
     int udp_socket;
 

@@ -14,13 +14,21 @@
 #include <unistd.h> // close
 #include <iostream>
 #include <cstring> // memset
+#include <stdexcept>
 #include <system_error>
 
 namespace dephan_ros {
 receiver_socket::receiver_socket(std::string ip_addr, int port) :
-    m_ip_addr(ip_addr), m_sock_port(port) {
+    m_ip_addr(ip_addr),
+    m_filter_by_source(!ip_addr.empty() && ip_addr != "0.0.0.0"),
+    m_sock_port(port) {
     // zero out the structure
     memset((char*) &si_me, 0, sizeof(si_me));
+
+    if (m_filter_by_source &&
+        inet_pton(AF_INET, m_ip_addr.c_str(), &m_expected_addr) != 1) {
+        throw std::invalid_argument("Invalid source IP address: " + m_ip_addr);
+    }
 
     si_me.sin_family      = AF_INET;
     si_me.sin_port        = htons(m_sock_port);
@@ -108,17 +116,18 @@ int receiver_socket::get_packet(uint8_t* buf, int len) {
         &si_from_len
     );
 
-    if (si_from.sin_addr.s_addr != inet_addr(m_ip_addr.c_str())) {
-        // ip mismatch
-        return -1;
-    }
-
     if (recv_len < 0) {
         if (errno != EWOULDBLOCK && errno != EAGAIN) {
             throw std::system_error(
                 errno, std::generic_category(), "recvfrom() failed"
             );
         }
+        return -1;
+    }
+
+    if (m_filter_by_source &&
+        si_from.sin_addr.s_addr != m_expected_addr.s_addr) {
+        // ip mismatch
         return -1;
     }
 
