@@ -58,7 +58,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#service-commands">Service commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#safety-zones">Safety zones</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#exit-status-and-output">Exit status and output</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#not-implemented-by-this-driver-cli">Not implemented by this driver CLI</a></li>
 </ul>
 </li>
 </ul>
@@ -197,18 +196,6 @@ event stream until the connection closes or the command is interrupted.</p>
 <p>Every HTTP command prints the HTTP status line and the response body. The
 process returns <code class="docutils literal notranslate"><span class="pre">0</span></code> for <code class="docutils literal notranslate"><span class="pre">2xx</span></code> responses and non-zero for HTTP errors or
 transport errors.</p>
-</section>
-<section id="not-implemented-by-this-driver-cli">
-<h2>Not implemented by this driver CLI<a class="headerlink" href="#not-implemented-by-this-driver-cli" title="Link to this heading"></a></h2>
-<p>The following motor-register and RTOS-task endpoints are intentionally not
-exposed by the driver CLI:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/motor_status.json</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/motor_reg/{regIndex}</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/motor_regs?...</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/list_tasks.txt</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/motor_regs?...</span></code></p></li>
-</ul>
 </section>
 </section>
 

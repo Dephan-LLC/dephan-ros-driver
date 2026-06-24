@@ -121,15 +121,3 @@ Exit status and output
 Every HTTP command prints the HTTP status line and the response body. The
 process returns ``0`` for ``2xx`` responses and non-zero for HTTP errors or
 transport errors.
-
-Not implemented by this driver CLI
-----------------------------------
-
-The following motor-register and RTOS-task endpoints are intentionally not
-exposed by the driver CLI:
-
-* ``/motor_status.json``
-* ``/motor_reg/{regIndex}``
-* ``/motor_regs?...``
-* ``/list_tasks.txt``
-* ``POST /motor_regs?...``
