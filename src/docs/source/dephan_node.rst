@@ -34,6 +34,11 @@ You can find default configurations for UDP mode by ``src/mech_lidar_driver/conf
 
 You can change the last 5 fields according to your preferences.
 
+The ``ip`` field is used as a source-IP filter for incoming UDP packets.
+Use ``"0.0.0.0"`` or an empty string to accept packets from any source.
+This is useful in Docker Desktop/NAT environments where the visible source
+address may differ from the LiDAR address.
+
 PCAP-based operation
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -88,6 +93,14 @@ Usage scenarios
 .. code-block:: shell
 
     rosrun mech_lidar_driver mech_driver --config <RELATIVE_PATH_TO_JSON_CONFIG>
+
+4. Run HTTP API command without starting ROS polling:
+
+.. code-block:: shell
+
+    rosrun mech_lidar_driver mech_driver --lidar-ip 192.168.0.120 --get-config
+
+See :doc:`LiDAR HTTP API CLI <http_api>` for the full command list.
 
 Operation testing
 ^^^^^^^^^^^^^^^^^
