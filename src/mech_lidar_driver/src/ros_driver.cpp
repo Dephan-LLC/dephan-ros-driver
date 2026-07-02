@@ -9,15 +9,22 @@
  */
 
 #include "ros_driver.hpp"
+#include "http_client.hpp"
 #include <algorithm>
+#include <chrono>
 #include <cmath>
+#include <geometry_msgs/msg/point.hpp>
 #include <limits>
+#include <nlohmann/json.hpp>
 #include <sensor_msgs/point_cloud2_iterator.hpp>
+#include <utility>
 #include <vector>
 
 namespace dephan_ros {
 using namespace std::chrono_literals;
 namespace {
+using json = nlohmann::json;
+
 const float PI = 3.14159265358979323846f;
 const int POINTS_PER_REV = pkt_hdl_Mech::POINTS_PER_REV;
 const int PACKETS_PER_REV = POINTS_PER_REV / pkt_hdl_Mech::CHANELLS;
@@ -87,12 +94,201 @@ sensor_msgs::msg::PointCloud2 make_pointcloud_msg(
 
     return cloud;
 }
+
+geometry_msgs::msg::Point make_point(
+    double x, double y, double angle_offset_rad
+) {
+    geometry_msgs::msg::Point point;
+    point.x = x * std::cos(angle_offset_rad) - y * std::sin(angle_offset_rad);
+    point.y = x * std::sin(angle_offset_rad) + y * std::cos(angle_offset_rad);
+    point.z = 0.0;
+    return point;
+}
+
+bool zone_is_enabled(const json& zone) {
+    return !zone.contains("enabled") || zone.value("enabled", true);
+}
+
+bool zone_status_known(const json& status, const std::string& name) {
+    return status.is_object() && status.contains(name) && status[name].is_boolean();
+}
+
+bool zone_is_triggered(const json& status, const std::string& name) {
+    return zone_status_known(status, name) && status[name].get<bool>();
+}
+
+void set_marker_color(
+    visualization_msgs::msg::Marker& marker, bool enabled, bool status_known,
+    bool triggered
+) {
+    marker.color.a = enabled ? 0.95f : 0.35f;
+    if (!enabled) {
+        marker.color.r = 0.5f;
+        marker.color.g = 0.5f;
+        marker.color.b = 0.5f;
+    }
+    else if (!status_known) {
+        marker.color.r = 1.0f;
+        marker.color.g = 0.8f;
+        marker.color.b = 0.1f;
+    }
+    else if (triggered) {
+        marker.color.r = 1.0f;
+        marker.color.g = 0.1f;
+        marker.color.b = 0.1f;
+    }
+    else {
+        marker.color.r = 0.1f;
+        marker.color.g = 0.8f;
+        marker.color.b = 0.2f;
+    }
+}
+
+void append_sector_points(
+    visualization_msgs::msg::Marker& marker, const json& segment,
+    double angle_offset_rad
+) {
+    double start = segment.value("angle_start_deg", 0.0) * PI / 180.0;
+    double end   = segment.value("angle_end_deg", 0.0) * PI / 180.0;
+    double span  = end - start;
+    while (span < 0.0) {
+        span += 2.0 * PI;
+    }
+
+    double radius = segment.value("dist_max_m", 0.0);
+    int steps = std::max(8, static_cast<int>(std::ceil(span / (PI / 36.0))));
+    marker.points.push_back(make_point(0.0, 0.0, angle_offset_rad));
+    for (int i = 0; i <= steps; ++i) {
+        double angle = start + span * static_cast<double>(i) /
+                                   static_cast<double>(steps);
+        marker.points.push_back(make_point(
+            radius * std::cos(angle), radius * std::sin(angle),
+            angle_offset_rad
+        ));
+    }
+    marker.points.push_back(make_point(0.0, 0.0, angle_offset_rad));
+}
+
+void append_polygon_points(
+    visualization_msgs::msg::Marker& marker, const json& segment,
+    double angle_offset_rad
+) {
+    if (!segment.contains("vertices") || !segment["vertices"].is_array()) {
+        return;
+    }
+
+    for (const auto& vertex : segment["vertices"]) {
+        if (vertex.is_array() && vertex.size() >= 2) {
+            marker.points.push_back(make_point(
+                vertex[0].get<double>(), vertex[1].get<double>(),
+                angle_offset_rad
+            ));
+        }
+    }
+    if (!marker.points.empty()) {
+        marker.points.push_back(marker.points.front());
+    }
+}
+
+visualization_msgs::msg::MarkerArray build_safety_zone_markers(
+    const json& zones, const json& status, const std::string& frame_id,
+    double angle_offset_rad, const rclcpp::Time& stamp
+) {
+    visualization_msgs::msg::MarkerArray markers;
+
+    visualization_msgs::msg::Marker clear_marker;
+    clear_marker.action = visualization_msgs::msg::Marker::DELETEALL;
+    markers.markers.push_back(clear_marker);
+
+    if (!zones.is_object() || !zones.contains("zones") ||
+        !zones["zones"].is_array()) {
+        return markers;
+    }
+
+    int marker_id = 1;
+    for (const auto& zone : zones["zones"]) {
+        if (!zone.is_object() || !zone.contains("segments") ||
+            !zone["segments"].is_array()) {
+            continue;
+        }
+
+        std::string name = zone.value("name", "zone");
+        bool enabled = zone_is_enabled(zone);
+        bool status_known = zone_status_known(status, name);
+        bool triggered = zone_is_triggered(status, name);
+
+        for (const auto& segment : zone["segments"]) {
+            if (!segment.is_object()) {
+                continue;
+            }
+
+            visualization_msgs::msg::Marker marker;
+            marker.header.frame_id = frame_id;
+            marker.header.stamp = stamp;
+            marker.ns = "safety_zones";
+            marker.id = marker_id++;
+            marker.type = visualization_msgs::msg::Marker::LINE_STRIP;
+            marker.action = visualization_msgs::msg::Marker::ADD;
+            marker.pose.orientation.w = 1.0;
+            marker.scale.x = 0.03;
+            marker.lifetime = rclcpp::Duration::from_seconds(2.0);
+            set_marker_color(marker, enabled, status_known, triggered);
+
+            std::string type = segment.value("type", "");
+            if (type == "sector") {
+                append_sector_points(marker, segment, angle_offset_rad);
+            }
+            else if (type == "polygon") {
+                append_polygon_points(marker, segment, angle_offset_rad);
+            }
+
+            if (marker.points.size() >= 2) {
+                markers.markers.push_back(marker);
+            }
+        }
+    }
+
+    return markers;
+}
 } // namespace
 
 Driver::Driver(
     std::string ip_addr, unsigned port, std::string cloud_topic, bool is_full,
-    std::string pointcloud_topic
-) : Node("driver"), ip_addr(ip_addr), port(port), is_full(is_full) {
+    DriverRuntimeOptions options
+) : Node("driver"), ip_addr(ip_addr), port(port), is_full(is_full),
+    runtime_options(std::move(options)) {
+
+    runtime_options.pointcloud_topic = this->declare_parameter(
+        "pointcloud_topic", runtime_options.pointcloud_topic
+    );
+    runtime_options.frame_id = this->declare_parameter(
+        "frame_id", runtime_options.frame_id
+    );
+    double angle_offset_deg = this->declare_parameter(
+        "angle_offset_deg", runtime_options.angle_offset_rad * 180.0 / PI
+    );
+    runtime_options.angle_offset_rad = angle_offset_deg * PI / 180.0;
+    runtime_options.safety_debug = this->declare_parameter(
+        "safety_debug", runtime_options.safety_debug
+    );
+    runtime_options.http_host = this->declare_parameter(
+        "http_host", runtime_options.http_host
+    );
+    runtime_options.http_port = this->declare_parameter(
+        "http_port", runtime_options.http_port
+    );
+    runtime_options.http_timeout_ms = this->declare_parameter(
+        "http_timeout_ms", runtime_options.http_timeout_ms
+    );
+    runtime_options.safety_zones_topic = this->declare_parameter(
+        "safety_zones_topic", runtime_options.safety_zones_topic
+    );
+    runtime_options.safety_status_topic = this->declare_parameter(
+        "safety_zones_status_topic", runtime_options.safety_status_topic
+    );
+    runtime_options.safety_debug_period_s = this->declare_parameter(
+        "safety_debug_period_s", runtime_options.safety_debug_period_s
+    );
 
     // setup socket for receiving data
     socket.reset(new receiver_socket(ip_addr, port));
@@ -100,10 +296,28 @@ Driver::Driver(
     laserscan_publisher =
         this->create_publisher<sensor_msgs::msg::LaserScan>(cloud_topic, 128);
     pointcloud_publisher = this->create_publisher<sensor_msgs::msg::PointCloud2>(
-        pointcloud_topic.empty() ? default_pointcloud_topic(cloud_topic)
-                                 : pointcloud_topic,
+        runtime_options.pointcloud_topic.empty()
+            ? default_pointcloud_topic(cloud_topic)
+            : runtime_options.pointcloud_topic,
         128
     );
+    if (runtime_options.safety_debug) {
+        safety_zones_publisher =
+            this->create_publisher<visualization_msgs::msg::MarkerArray>(
+                runtime_options.safety_zones_topic, 1
+            );
+        safety_status_publisher =
+            this->create_publisher<std_msgs::msg::String>(
+                runtime_options.safety_status_topic, 1
+            );
+        safety_debug_running = true;
+        safety_debug_thread = std::thread([this]() {
+            while (rclcpp::ok() && safety_debug_running.load()) {
+                publish_safety_debug();
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
+        });
+    }
 
     timer =
         this->create_wall_timer(1ms, std::bind(&Driver::timer_callback, this));
@@ -111,8 +325,41 @@ Driver::Driver(
 
 Driver::Driver(
     std::string pcap_path, std::string cloud_topic, bool is_full,
-    std::string pointcloud_topic
-) : Node("driver"), pcap_path(pcap_path), is_full(is_full) {
+    DriverRuntimeOptions options
+) : Node("driver"), pcap_path(pcap_path), is_full(is_full),
+    runtime_options(std::move(options)) {
+
+    runtime_options.pointcloud_topic = this->declare_parameter(
+        "pointcloud_topic", runtime_options.pointcloud_topic
+    );
+    runtime_options.frame_id = this->declare_parameter(
+        "frame_id", runtime_options.frame_id
+    );
+    double angle_offset_deg = this->declare_parameter(
+        "angle_offset_deg", runtime_options.angle_offset_rad * 180.0 / PI
+    );
+    runtime_options.angle_offset_rad = angle_offset_deg * PI / 180.0;
+    runtime_options.safety_debug = this->declare_parameter(
+        "safety_debug", runtime_options.safety_debug
+    );
+    runtime_options.http_host = this->declare_parameter(
+        "http_host", runtime_options.http_host
+    );
+    runtime_options.http_port = this->declare_parameter(
+        "http_port", runtime_options.http_port
+    );
+    runtime_options.http_timeout_ms = this->declare_parameter(
+        "http_timeout_ms", runtime_options.http_timeout_ms
+    );
+    runtime_options.safety_zones_topic = this->declare_parameter(
+        "safety_zones_topic", runtime_options.safety_zones_topic
+    );
+    runtime_options.safety_status_topic = this->declare_parameter(
+        "safety_zones_status_topic", runtime_options.safety_status_topic
+    );
+    runtime_options.safety_debug_period_s = this->declare_parameter(
+        "safety_debug_period_s", runtime_options.safety_debug_period_s
+    );
 
     // setup libtins sniffer for reading data
     pcap_sniffer.reset(new Tins::FileSniffer{pcap_path});
@@ -125,13 +372,38 @@ Driver::Driver(
     laserscan_publisher =
         this->create_publisher<sensor_msgs::msg::LaserScan>(cloud_topic, 128);
     pointcloud_publisher = this->create_publisher<sensor_msgs::msg::PointCloud2>(
-        pointcloud_topic.empty() ? default_pointcloud_topic(cloud_topic)
-                                 : pointcloud_topic,
+        runtime_options.pointcloud_topic.empty()
+            ? default_pointcloud_topic(cloud_topic)
+            : runtime_options.pointcloud_topic,
         128
     );
+    if (runtime_options.safety_debug) {
+        safety_zones_publisher =
+            this->create_publisher<visualization_msgs::msg::MarkerArray>(
+                runtime_options.safety_zones_topic, 1
+            );
+        safety_status_publisher =
+            this->create_publisher<std_msgs::msg::String>(
+                runtime_options.safety_status_topic, 1
+            );
+        safety_debug_running = true;
+        safety_debug_thread = std::thread([this]() {
+            while (rclcpp::ok() && safety_debug_running.load()) {
+                publish_safety_debug();
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
+        });
+    }
 
     timer =
         this->create_wall_timer(1ms, std::bind(&Driver::timer_callback, this));
+}
+
+Driver::~Driver() {
+    safety_debug_running = false;
+    if (safety_debug_thread.joinable()) {
+        safety_debug_thread.join();
+    }
 }
 
 void Driver::timer_callback() {
@@ -161,6 +433,61 @@ void Driver::poll_full() {
     // UDP mode otherwise
     else
         _poll_full_udp();
+}
+
+void Driver::publish_safety_debug() {
+    if (!runtime_options.safety_debug) {
+        return;
+    }
+
+    auto now = std::chrono::steady_clock::now();
+    double period_s = std::max(0.1, runtime_options.safety_debug_period_s);
+    if (last_safety_debug_publish.time_since_epoch().count() != 0) {
+        auto elapsed = std::chrono::duration<double>(
+            now - last_safety_debug_publish
+        );
+        if (elapsed.count() < period_s) {
+            return;
+        }
+    }
+    last_safety_debug_publish = now;
+
+    try {
+        HttpClient client(
+            runtime_options.http_host, runtime_options.http_port,
+            runtime_options.http_timeout_ms
+        );
+
+        json status_json = json::object();
+        HttpResponse status_response = client.get("/zones/status.json");
+        if (status_response.status_code >= 200 &&
+            status_response.status_code < 300) {
+            std_msgs::msg::String status_msg;
+            status_msg.data = status_response.body;
+            safety_status_publisher->publish(status_msg);
+            if (!status_response.body.empty()) {
+                status_json = json::parse(status_response.body);
+            }
+        }
+
+        HttpResponse zones_response = client.get("/zones.json");
+        if (zones_response.status_code >= 200 &&
+            zones_response.status_code < 300 && !zones_response.body.empty()) {
+            visualization_msgs::msg::MarkerArray markers =
+                build_safety_zone_markers(
+                    json::parse(zones_response.body), status_json,
+                    runtime_options.frame_id, runtime_options.angle_offset_rad,
+                    this->get_clock()->now()
+                );
+            safety_zones_publisher->publish(markers);
+        }
+    }
+    catch (const std::exception& ex) {
+        RCLCPP_WARN_THROTTLE(
+            this->get_logger(), *this->get_clock(), 5000,
+            "Safety debug polling failed: %s", ex.what()
+        );
+    }
 }
 
 void Driver::_poll_full_udp() {
@@ -195,8 +522,8 @@ void Driver::_poll_full_udp() {
         }
     }
     // fill ros message by constant data
-    msg->angle_min       = 0.0;
-    msg->angle_max       = 2 * PI;
+    msg->angle_min       = runtime_options.angle_offset_rad;
+    msg->angle_max       = runtime_options.angle_offset_rad + 2 * PI;
     msg->angle_increment = 2 * PI / POINTS_PER_REV;
     msg->scan_time       = 0.1;
     msg->time_increment  = msg->scan_time / POINTS_PER_REV;
@@ -207,7 +534,7 @@ void Driver::_poll_full_udp() {
     msg->header.stamp = this->get_clock()->now();
 
     // // add frame id to ros message
-    msg->header.frame_id = "map";
+    msg->header.frame_id = runtime_options.frame_id;
 
     // publish ros messages to topics
     sensor_msgs::msg::PointCloud2 cloud = make_pointcloud_msg(*msg);
@@ -270,8 +597,8 @@ void Driver::_poll_full_pcap() {
         }
     }
     // fill ros message by constant data
-    msg->angle_min       = 0.0;
-    msg->angle_max       = 2 * PI;
+    msg->angle_min       = runtime_options.angle_offset_rad;
+    msg->angle_max       = runtime_options.angle_offset_rad + 2 * PI;
     msg->angle_increment = 2 * PI / POINTS_PER_REV;
     msg->scan_time       = 0.1;
     msg->time_increment  = msg->scan_time / POINTS_PER_REV;
@@ -282,7 +609,7 @@ void Driver::_poll_full_pcap() {
     msg->header.stamp = this->get_clock()->now();
 
     // // add frame id to ros message
-    msg->header.frame_id = "map";
+    msg->header.frame_id = runtime_options.frame_id;
 
     // publish ros messages to topics
     sensor_msgs::msg::PointCloud2 cloud = make_pointcloud_msg(*msg);
@@ -313,8 +640,9 @@ void Driver::_poll_udp() {
     pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
 
     // fill ros message by data from the handled packet
-    msg->angle_min       = hdl_pkt.angles[0];
-    msg->angle_max       = hdl_pkt.angles[hdl_pkt.CHANELLS - 1];
+    msg->angle_min       = hdl_pkt.angles[0] + runtime_options.angle_offset_rad;
+    msg->angle_max       = hdl_pkt.angles[hdl_pkt.CHANELLS - 1] +
+                           runtime_options.angle_offset_rad;
     msg->angle_increment = hdl_pkt.RAD_RESOLUTION;
     msg->scan_time       = 0.1;
     msg->time_increment  = msg->scan_time / POINTS_PER_REV;
@@ -329,7 +657,7 @@ void Driver::_poll_udp() {
     msg->header.stamp = this->get_clock()->now();
 
     // // add frame id to ros message
-    msg->header.frame_id = "map";
+    msg->header.frame_id = runtime_options.frame_id;
 
     // publish ros messages to topics
     sensor_msgs::msg::PointCloud2 cloud = make_pointcloud_msg(*msg);
@@ -378,8 +706,9 @@ void Driver::_poll_pcap() {
         pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
 
         // fill ros message by data from the handled packet
-        msg->angle_min       = hdl_pkt.angles[0];
-        msg->angle_max       = hdl_pkt.angles[hdl_pkt.CHANELLS - 1];
+        msg->angle_min = hdl_pkt.angles[0] + runtime_options.angle_offset_rad;
+        msg->angle_max = hdl_pkt.angles[hdl_pkt.CHANELLS - 1] +
+                         runtime_options.angle_offset_rad;
         msg->angle_increment = hdl_pkt.RAD_RESOLUTION;
         msg->scan_time       = 0.1;
         msg->time_increment  = msg->scan_time / POINTS_PER_REV;
@@ -395,7 +724,7 @@ void Driver::_poll_pcap() {
     msg->header.stamp = this->get_clock()->now();
 
     // // add frame id to ros message
-    msg->header.frame_id = "map";
+    msg->header.frame_id = runtime_options.frame_id;
 
     // publish ros messages to topics
     sensor_msgs::msg::PointCloud2 cloud = make_pointcloud_msg(*msg);

@@ -5,5 +5,14 @@
     "port": 50007,
     "topic": "laserscan_data_udp",
     "pointcloud_topic": "pointcloud_data_udp",
+    "frame_id": "base_link",
+    "angle_offset_deg": 90.0,
+    "safety_debug": false,
+    "safety_zones_topic": "safety_zones_markers",
+    "safety_zones_status_topic": "safety_zones_status",
+    "safety_debug_period_s": 1.0,
+    "http_host": "192.168.0.120",
+    "http_port": 80,
+    "http_timeout_ms": 3000,
     "capture_type": "FULL"
 }

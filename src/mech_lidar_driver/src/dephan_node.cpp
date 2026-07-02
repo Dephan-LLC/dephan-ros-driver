@@ -9,6 +9,7 @@
  */
 
 #include <cstring>
+#include <cmath>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -28,6 +29,7 @@ namespace {
 const char* DEFAULT_DRIVER_CONFIG =
     "./src/mech_lidar_driver/configs/default_udp_config.json";
 const char* DEFAULT_HTTP_HOST = "192.168.0.120";
+const double PI = 3.14159265358979323846;
 
 enum class HttpCommandType {
     None,
@@ -127,6 +129,36 @@ void write_binary_file(const std::string& path, const std::string& data) {
     }
 }
 
+double deg_to_rad(double degrees) {
+    return degrees * PI / 180.0;
+}
+
+dephan_ros::DriverRuntimeOptions get_runtime_options(const json& configuration) {
+    dephan_ros::DriverRuntimeOptions options;
+    options.pointcloud_topic =
+        configuration.value("pointcloud_topic", options.pointcloud_topic);
+    options.frame_id = configuration.value("frame_id", options.frame_id);
+    options.angle_offset_rad = deg_to_rad(
+        configuration.value("angle_offset_deg", 90.0)
+    );
+    options.safety_debug =
+        configuration.value("safety_debug", options.safety_debug);
+    options.http_host = configuration.value("http_host", options.http_host);
+    options.http_port = configuration.value("http_port", options.http_port);
+    options.http_timeout_ms =
+        configuration.value("http_timeout_ms", options.http_timeout_ms);
+    options.safety_zones_topic = configuration.value(
+        "safety_zones_topic", options.safety_zones_topic
+    );
+    options.safety_status_topic = configuration.value(
+        "safety_zones_status_topic", options.safety_status_topic
+    );
+    options.safety_debug_period_s = configuration.value(
+        "safety_debug_period_s", options.safety_debug_period_s
+    );
+    return options;
+}
+
 CliOptions parse_cli(int argc, char* argv[]) {
     CliOptions options;
 
@@ -135,6 +167,9 @@ CliOptions parse_cli(int argc, char* argv[]) {
 
         if (is_ros_arg(arg)) {
             continue;
+        }
+        if (arg == "--ros-args") {
+            break;
         }
         if (is_arg(argv[i], "-h", "--help")) {
             options.help = true;
@@ -378,14 +413,23 @@ void log_help() {
 }
 
 json get_configuration(const CliOptions& options) {
+    std::string path = options.config_path;
     if (!options.config_provided) {
         std::cout << "Config does not provided" << std::endl;
         std::cout << "Use default config otherwise" << std::endl;
 
-        return json::parse(std::ifstream{DEFAULT_DRIVER_CONFIG});
+        path = DEFAULT_DRIVER_CONFIG;
     }
 
-    return json::parse(std::ifstream{options.config_path});
+    std::ifstream input(path);
+    if (!input) {
+        throw std::runtime_error("Failed to open config file: " + path);
+    }
+    if (input.peek() == std::ifstream::traits_type::eof()) {
+        throw std::runtime_error("Config file is empty: " + path);
+    }
+
+    return json::parse(input);
 }
 
 int run_http_command(const CliOptions& options) {
@@ -482,6 +526,8 @@ int main(int argc, char* argv[]) {
 
         // init configuration
         json configuration = get_configuration(options);
+        dephan_ros::DriverRuntimeOptions runtime_options =
+            get_runtime_options(configuration);
 
         // init ROS
         rclcpp::init(argc, argv);
@@ -508,7 +554,7 @@ int main(int argc, char* argv[]) {
                 auto driver = std::make_shared<dephan_ros::Driver>(
                     configuration.value("pcap_path", "/root/test.pcap"),
                     configuration.value("topic", "point_cloud2_pcap"), true,
-                    configuration.value("pointcloud_topic", "")
+                    runtime_options
                 );
 
                 // polling via driver
@@ -520,7 +566,7 @@ int main(int argc, char* argv[]) {
                 auto driver = std::make_shared<dephan_ros::Driver>(
                     configuration.value("pcap_path", "/root/test.pcap"),
                     configuration.value("topic", "point_cloud2_pcap"), false,
-                    configuration.value("pointcloud_topic", "")
+                    runtime_options
                 );
 
                 // polling via driver
@@ -544,7 +590,7 @@ int main(int argc, char* argv[]) {
                     configuration.value("ip", "0.0.0.0"),
                     configuration.value("port", 3000),
                     configuration.value("topic", "point_cloud2_udp"), true,
-                    configuration.value("pointcloud_topic", "")
+                    runtime_options
                 );
 
                 // polling via driver
@@ -557,7 +603,7 @@ int main(int argc, char* argv[]) {
                     configuration.value("ip", "0.0.0.0"),
                     configuration.value("port", 3000),
                     configuration.value("topic", "point_cloud2_udp"), false,
-                    configuration.value("pointcloud_topic", "")
+                    runtime_options
                 );
 
                 // polling via driver

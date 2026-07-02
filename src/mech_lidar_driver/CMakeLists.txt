@@ -5,11 +5,13 @@ project(mech_lidar_driver)
 add_compile_options(-std=c++17)
 
 find_package(ament_cmake_ros REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(pcl_ros REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 find_package(nlohmann_json 3.2.0 REQUIRED)
 
 find_library(LIBTINS tins)
@@ -25,10 +27,12 @@ add_executable(mech_driver
 
 ament_target_dependencies(mech_driver
   rclcpp
+  geometry_msgs
   std_msgs
   pcl_conversions
   pcl_ros
   sensor_msgs
+  visualization_msgs
 )
 
 target_include_directories(mech_driver PUBLIC
