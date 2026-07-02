@@ -4,5 +4,6 @@
     "ip": "192.168.0.120",
     "port": 50007,
     "topic": "laserscan_data_udp",
+    "pointcloud_topic": "pointcloud_data_udp",
     "capture_type": "FULL"
 }

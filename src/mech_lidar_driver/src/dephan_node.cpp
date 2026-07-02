@@ -507,7 +507,8 @@ int main(int argc, char* argv[]) {
             if (configuration["capture_type"] == "FULL") {
                 auto driver = std::make_shared<dephan_ros::Driver>(
                     configuration.value("pcap_path", "/root/test.pcap"),
-                    configuration.value("topic", "point_cloud2_pcap"), true
+                    configuration.value("topic", "point_cloud2_pcap"), true,
+                    configuration.value("pointcloud_topic", "")
                 );
 
                 // polling via driver
@@ -518,7 +519,8 @@ int main(int argc, char* argv[]) {
             else if (configuration["capture_type"] == "SINGLE") {
                 auto driver = std::make_shared<dephan_ros::Driver>(
                     configuration.value("pcap_path", "/root/test.pcap"),
-                    configuration.value("topic", "point_cloud2_pcap")
+                    configuration.value("topic", "point_cloud2_pcap"), false,
+                    configuration.value("pointcloud_topic", "")
                 );
 
                 // polling via driver
@@ -541,7 +543,8 @@ int main(int argc, char* argv[]) {
                 auto driver = std::make_shared<dephan_ros::Driver>(
                     configuration.value("ip", "0.0.0.0"),
                     configuration.value("port", 3000),
-                    configuration.value("topic", "point_cloud2_udp"), true
+                    configuration.value("topic", "point_cloud2_udp"), true,
+                    configuration.value("pointcloud_topic", "")
                 );
 
                 // polling via driver
@@ -553,7 +556,8 @@ int main(int argc, char* argv[]) {
                 auto driver = std::make_shared<dephan_ros::Driver>(
                     configuration.value("ip", "0.0.0.0"),
                     configuration.value("port", 3000),
-                    configuration.value("topic", "point_cloud2_udp")
+                    configuration.value("topic", "point_cloud2_udp"), false,
+                    configuration.value("pointcloud_topic", "")
                 );
 
                 // polling via driver

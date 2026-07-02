@@ -78,6 +78,12 @@ private:
         laserscan_publisher;
 
     /**
+     * Ros topic publisher for point cloud data derived from LaserScan points.
+     */
+    rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
+        pointcloud_publisher;
+
+    /**
      * Ros timer for polling operation.
      */
     rclcpp::TimerBase::SharedPtr timer;
@@ -119,7 +125,7 @@ public:
      */
     Driver(
         std::string ip_addr, unsigned port, std::string topic_name,
-        bool is_full = false
+        bool is_full = false, std::string pointcloud_topic = ""
     );
 
     /**
@@ -130,7 +136,10 @@ public:
      * @param[in] is_full Flag for LiDar angle (true for 2 pi rad segment
      * per packet, false for 2 pi / 18 rad segment per packet).
      */
-    Driver(std::string pcap_path, std::string topic_name, bool is_full = false);
+    Driver(
+        std::string pcap_path, std::string topic_name, bool is_full = false,
+        std::string pointcloud_topic = ""
+    );
 
     /**
      * Polling function for the one packet from the LiDar.
@@ -138,7 +147,7 @@ public:
     void poll();
 
     /**
-     * Polling function for the 18 packets from the LiDar.
+     * Polling function for the full revolution from the LiDar.
      */
     void poll_full();
 
