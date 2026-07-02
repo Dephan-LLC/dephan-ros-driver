@@ -166,6 +166,11 @@ CliOptions parse_cli(int argc, char* argv[]) {
             options.http_command = HttpCommandType::Get;
             options.http_path    = "/status.json";
         }
+        else if (arg == "--get-features") {
+            ensure_no_http_command(options);
+            options.http_command = HttpCommandType::Get;
+            options.http_path    = "/features.json";
+        }
         else if (arg == "--get-version") {
             ensure_no_http_command(options);
             options.http_command = HttpCommandType::Get;
@@ -180,6 +185,16 @@ CliOptions parse_cli(int argc, char* argv[]) {
             ensure_no_http_command(options);
             options.http_command = HttpCommandType::Get;
             options.http_path    = "/log.txt";
+        }
+        else if (arg == "--get-timestamp") {
+            ensure_no_http_command(options);
+            options.http_command = HttpCommandType::Get;
+            options.http_path    = "/timestamp.txt";
+        }
+        else if (arg == "--log-events") {
+            ensure_no_http_command(options);
+            options.http_command = HttpCommandType::Stream;
+            options.http_path    = "/log_events";
         }
         else if (arg == "--get-zones") {
             ensure_no_http_command(options);
@@ -264,6 +279,13 @@ CliOptions parse_cli(int argc, char* argv[]) {
                 throw std::runtime_error("Invalid config parameter name");
             }
         }
+        else if (arg == "--set-config-json") {
+            ensure_no_http_command(options);
+            require_value(argc, i, arg);
+            options.http_command = HttpCommandType::Post;
+            options.http_path    = "/config.json";
+            options.http_body    = read_body_argument(argv[++i]);
+        }
         else if (arg == "--save-preset") {
             ensure_no_http_command(options);
             options.http_command = HttpCommandType::Post;
@@ -301,10 +323,13 @@ void log_help() {
         << "HTTP read commands:" << std::endl
         << "  --get-config                 GET /config.json" << std::endl
         << "  --get-status                 GET /status.json" << std::endl
+        << "  --get-features               GET /features.json" << std::endl
         << "  --get-version                GET /version.txt" << std::endl
         << "  --get-version-string         GET /version_string.txt"
         << std::endl
         << "  --get-log                    GET /log.txt" << std::endl
+        << "  --get-timestamp              GET /timestamp.txt" << std::endl
+        << "  --log-events                 GET /log_events" << std::endl
         << std::endl
         << "Safety zones commands:" << std::endl
         << "  --get-zones                  GET /zones.json" << std::endl
@@ -329,6 +354,8 @@ void log_help() {
         << "HTTP write commands:" << std::endl
         << "  --set-config <name> <json-token>"
         << "  POST /config/{name}" << std::endl
+        << "  --set-config-json <json|@file>"
+        << "  POST /config.json" << std::endl
         << "  --save-preset                POST /save_preset.cgi"
         << std::endl
         << "  --jump-to-bootloader         POST /jump_to_bootloader.cgi"
@@ -341,6 +368,8 @@ void log_help() {
         << " --set-config motor_speed 10" << std::endl
         << "  ros2 run mech_lidar_driver mech_driver --set-config preemptive_conns"
         << " true" << std::endl
+        << "  ros2 run mech_lidar_driver mech_driver --set-config-json"
+        << " '{\"motor_speed\":10}'" << std::endl
         << "  ros2 run mech_lidar_driver mech_driver --add-zone @zone.json"
         << std::endl
         << "  ros2 run mech_lidar_driver mech_driver --get-zones-lut /tmp/zones_lut.bin"
