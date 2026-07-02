@@ -57,6 +57,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#configuration-writes">Configuration writes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#service-commands">Service commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#safety-zones">Safety zones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#log-events">Log events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#exit-status-and-output">Exit status and output</a></li>
 </ul>
 </li>
@@ -121,18 +122,22 @@ requiring authorization return an HTTP error such as <code class="docutils liter
 <h2>Read commands<a class="headerlink" href="#read-commands" title="Link to this heading"></a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-config
 ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-status
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-features
 ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-version
 ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-version-string
 ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-log
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-timestamp
 </pre></div>
 </div>
 <p>These commands call:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/config.json</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/status.json</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/features.json</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/version.txt</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/version_string.txt</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/log.txt</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/timestamp.txt</span></code></p></li>
 </ul>
 </section>
 <section id="configuration-writes">
@@ -147,6 +152,14 @@ ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span cl
 <p>The third argument to <code class="docutils literal notranslate"><span class="pre">--set-config</span></code> is sent as the raw JSON token body for
 <code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/config/{name}</span></code>. Strings must include JSON quotes, for example
 <code class="docutils literal notranslate"><span class="pre">'&quot;INFO&quot;'</span></code>.</p>
+<p>Change several configuration parameters with one request:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-config-json<span class="w"> </span><span class="s1">&#39;{&quot;motor_speed&quot;:10,&quot;udp_dest_port&quot;:50007}&#39;</span>
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-config-json<span class="w"> </span>@config_patch.json
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--set-config-json</span></code> sends a flat JSON object to <code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/config.json</span></code>.
+Parameters are applied one by one by the device firmware; the operation is not
+atomic.</p>
 </section>
 <section id="service-commands">
 <h2>Service commands<a class="headerlink" href="#service-commands" title="Link to this heading"></a></h2>
@@ -190,6 +203,22 @@ ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span cl
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">--safety-events</span></code> opens <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/safety_events</span></code> and prints the server-sent
 event stream until the connection closes or the command is interrupted.</p>
+<p>Zone JSON accepted by <code class="docutils literal notranslate"><span class="pre">--set-zones</span></code> and <code class="docutils literal notranslate"><span class="pre">--add-zone</span></code> follows the firmware
+contract. Each zone must include <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">monitoring_case</span></code> and
+<code class="docutils literal notranslate"><span class="pre">zone_type</span></code>. <code class="docutils literal notranslate"><span class="pre">monitoring_case</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code> for no active monitoring case or
+<code class="docutils literal notranslate"><span class="pre">1..8</span></code> for a concrete case. <code class="docutils literal notranslate"><span class="pre">zone_type</span></code> is <code class="docutils literal notranslate"><span class="pre">INFO</span></code>, <code class="docutils literal notranslate"><span class="pre">WARNING</span></code> or
+<code class="docutils literal notranslate"><span class="pre">PROTECTIVE</span></code>. Global zone settings may include <code class="docutils literal notranslate"><span class="pre">zone_confirm_scans</span></code>,
+<code class="docutils literal notranslate"><span class="pre">zone_restart_delay_ms</span></code>, <code class="docutils literal notranslate"><span class="pre">zone_restart_mode</span></code> and <code class="docutils literal notranslate"><span class="pre">zone_current_case</span></code>.
+Segments can be <code class="docutils literal notranslate"><span class="pre">sector</span></code>, <code class="docutils literal notranslate"><span class="pre">polygon</span></code> or <code class="docutils literal notranslate"><span class="pre">two_points</span></code>.</p>
+</section>
+<section id="log-events">
+<h2>Log events<a class="headerlink" href="#log-events" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--log-events
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--log-events</span></code> opens <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/log_events</span></code> and prints new log server-sent
+events until the connection closes or the command is interrupted. Use
+<code class="docutils literal notranslate"><span class="pre">--get-log</span></code> first if an initial log snapshot is required.</p>
 </section>
 <section id="exit-status-and-output">
 <h2>Exit status and output<a class="headerlink" href="#exit-status-and-output" title="Link to this heading"></a></h2>

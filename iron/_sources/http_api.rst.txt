@@ -33,17 +33,21 @@ Read commands
 
     ros2 run mech_lidar_driver mech_driver --get-config
     ros2 run mech_lidar_driver mech_driver --get-status
+    ros2 run mech_lidar_driver mech_driver --get-features
     ros2 run mech_lidar_driver mech_driver --get-version
     ros2 run mech_lidar_driver mech_driver --get-version-string
     ros2 run mech_lidar_driver mech_driver --get-log
+    ros2 run mech_lidar_driver mech_driver --get-timestamp
 
 These commands call:
 
 * ``GET /config.json``
 * ``GET /status.json``
+* ``GET /features.json``
 * ``GET /version.txt``
 * ``GET /version_string.txt``
 * ``GET /log.txt``
+* ``GET /timestamp.txt``
 
 Configuration writes
 --------------------
@@ -60,6 +64,17 @@ Change one configuration parameter:
 The third argument to ``--set-config`` is sent as the raw JSON token body for
 ``POST /config/{name}``. Strings must include JSON quotes, for example
 ``'"INFO"'``.
+
+Change several configuration parameters with one request:
+
+.. code-block:: shell
+
+    ros2 run mech_lidar_driver mech_driver --set-config-json '{"motor_speed":10,"udp_dest_port":50007}'
+    ros2 run mech_lidar_driver mech_driver --set-config-json @config_patch.json
+
+``--set-config-json`` sends a flat JSON object to ``POST /config.json``.
+Parameters are applied one by one by the device firmware; the operation is not
+atomic.
 
 Service commands
 ----------------
@@ -114,6 +129,25 @@ Download LUT and stream status events:
 
 ``--safety-events`` opens ``GET /safety_events`` and prints the server-sent
 event stream until the connection closes or the command is interrupted.
+
+Zone JSON accepted by ``--set-zones`` and ``--add-zone`` follows the firmware
+contract. Each zone must include ``name``, ``monitoring_case`` and
+``zone_type``. ``monitoring_case`` is ``0`` for no active monitoring case or
+``1..8`` for a concrete case. ``zone_type`` is ``INFO``, ``WARNING`` or
+``PROTECTIVE``. Global zone settings may include ``zone_confirm_scans``,
+``zone_restart_delay_ms``, ``zone_restart_mode`` and ``zone_current_case``.
+Segments can be ``sector``, ``polygon`` or ``two_points``.
+
+Log events
+----------
+
+.. code-block:: shell
+
+    ros2 run mech_lidar_driver mech_driver --log-events
+
+``--log-events`` opens ``GET /log_events`` and prints new log server-sent
+events until the connection closes or the command is interrupted. Use
+``--get-log`` first if an initial log snapshot is required.
 
 Exit status and output
 ----------------------
