@@ -37,4 +37,12 @@ pkt_hdl_Mech::pkt_hdl_Mech(raw_packet_t pkt) : raw_pkt(std::move(pkt)) {
         angles[chnl] = (enc_signal + chnl) * RAD_RESOLUTION;
     }
 }
+
+uint16_t pkt_hdl_Mech::first_point_index() const {
+    return enc_signal;
+}
+
+uint16_t pkt_hdl_Mech::point_index(size_t chnl) const {
+    return static_cast<uint16_t>((enc_signal + chnl) % POINTS_PER_REV);
+}
 } // namespace dephan_ros

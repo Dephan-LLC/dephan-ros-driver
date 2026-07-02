@@ -225,3 +225,9 @@ target_link_libraries(mech_driver
   ${PCL_LIBRARIES}
   ${LIBTINS}
 )
+
+install(DIRECTORY
+  configs
+  launch
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)

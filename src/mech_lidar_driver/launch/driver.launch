@@ -1,0 +1,10 @@
+<launch>
+  <arg name="config" default="$(find mech_lidar_driver)/configs/default_udp_config.json" />
+
+  <node
+    pkg="mech_lidar_driver"
+    type="mech_driver"
+    name="lidar_driver"
+    output="screen"
+    args="--config $(arg config)" />
+</launch>

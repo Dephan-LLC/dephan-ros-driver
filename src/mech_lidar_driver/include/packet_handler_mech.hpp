@@ -46,6 +46,11 @@ public:
     static const int CHANELLS = 115;
 
     /**
+     * Number of points in one full revolution.
+     */
+    static const int POINTS_PER_REV = 2300;
+
+    /**
      * Version of the communications protocol.
      */
     static const uint8_t protocol_version = 0x00;
@@ -53,7 +58,17 @@ public:
     /**
      * Angle resolution of the photodetection unit.
      */
-    static constexpr float RAD_RESOLUTION = 2 * 3.1415 / 2300;
+    static constexpr float RAD_RESOLUTION = 2 * 3.1415 / POINTS_PER_REV;
+
+    /**
+     * First encoder point index contained in this packet.
+     */
+    uint16_t first_point_index() const;
+
+    /**
+     * Encoder point index for a packet channel.
+     */
+    uint16_t point_index(size_t chnl) const;
 
     /**
      * Ranges to the points within one scan packet.

@@ -508,7 +508,8 @@ int main(int argc, char* argv[]) {
             // initialize driver instance
             dephan_ros::Driver driver(
                 nh, configuration.value("pcap_path", "/root/test.pcap"),
-                configuration.value("topic", "point_cloud2_data")
+                configuration.value("topic", "point_cloud2_data"),
+                configuration.value("pointcloud_topic", "")
             );
 
             // is driver capture type FULL?
@@ -543,7 +544,8 @@ int main(int argc, char* argv[]) {
             dephan_ros::Driver driver(
                 nh, configuration.value("ip", "0.0.0.0"),
                 configuration.value("port", 3000),
-                configuration.value("topic", "point_cloud2_data")
+                configuration.value("topic", "point_cloud2_data"),
+                configuration.value("pointcloud_topic", "")
             );
 
             // is driver capture type FULL?
