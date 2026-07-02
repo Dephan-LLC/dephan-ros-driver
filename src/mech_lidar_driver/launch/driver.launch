@@ -1,10 +1,34 @@
 <launch>
   <arg name="config" default="$(find mech_lidar_driver)/configs/default_udp_config.json" />
+  <arg name="frame_id" default="base_link" />
+  <arg name="angle_offset_deg" default="90.0" />
+  <arg name="safety_debug" default="false" />
+  <arg name="http_host" default="192.168.0.120" />
+  <arg name="http_port" default="80" />
+  <arg name="http_timeout_ms" default="3000" />
+  <arg name="safety_zones_topic" default="safety_zones_markers" />
+  <arg name="safety_zones_status_topic" default="safety_zones_status" />
+  <arg name="safety_debug_period_s" default="1.0" />
 
   <node
     pkg="mech_lidar_driver"
     type="mech_driver"
     name="lidar_driver"
     output="screen"
-    args="--config $(arg config)" />
+    args="--config $(arg config)">
+    <param name="frame_id" value="$(arg frame_id)" />
+    <param name="angle_offset_deg" value="$(arg angle_offset_deg)" type="double" />
+    <param name="safety_debug" value="$(arg safety_debug)" type="bool" />
+    <param name="http_host" value="$(arg http_host)" />
+    <param name="http_port" value="$(arg http_port)" type="int" />
+    <param name="http_timeout_ms" value="$(arg http_timeout_ms)" type="int" />
+    <param name="safety_zones_topic" value="$(arg safety_zones_topic)" />
+    <param
+      name="safety_zones_status_topic"
+      value="$(arg safety_zones_status_topic)" />
+    <param
+      name="safety_debug_period_s"
+      value="$(arg safety_debug_period_s)"
+      type="double" />
+  </node>
 </launch>

@@ -9,6 +9,7 @@
  */
 
 #include <cstring>
+#include <cmath>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -27,6 +28,7 @@ namespace {
 const char* DEFAULT_DRIVER_CONFIG =
     "./src/mech_lidar_driver/configs/default_udp_config.json";
 const char* DEFAULT_HTTP_HOST = "192.168.0.120";
+const double PI = 3.14159265358979323846;
 
 enum class HttpCommandType {
     None,
@@ -124,6 +126,75 @@ void write_binary_file(const std::string& path, const std::string& data) {
     if (!output) {
         throw std::runtime_error("Failed to write output file: " + path);
     }
+}
+
+double deg_to_rad(double degrees) {
+    return degrees * PI / 180.0;
+}
+
+dephan_ros::DriverRuntimeOptions get_runtime_options(
+    const json& configuration, ros::NodeHandle& nh,
+    ros::NodeHandle& private_nh
+) {
+    dephan_ros::DriverRuntimeOptions options;
+    options.pointcloud_topic =
+        configuration.value("pointcloud_topic", options.pointcloud_topic);
+    options.frame_id = configuration.value("frame_id", options.frame_id);
+    options.angle_offset_rad = deg_to_rad(
+        configuration.value("angle_offset_deg", 90.0)
+    );
+    options.safety_debug =
+        configuration.value("safety_debug", options.safety_debug);
+    options.http_host = configuration.value("http_host", options.http_host);
+    options.http_port = configuration.value("http_port", options.http_port);
+    options.http_timeout_ms =
+        configuration.value("http_timeout_ms", options.http_timeout_ms);
+    options.safety_zones_topic = configuration.value(
+        "safety_zones_topic", options.safety_zones_topic
+    );
+    options.safety_status_topic = configuration.value(
+        "safety_zones_status_topic", options.safety_status_topic
+    );
+    options.safety_debug_period_s = configuration.value(
+        "safety_debug_period_s", options.safety_debug_period_s
+    );
+
+    std::string frame_id = options.frame_id;
+    nh.param("frame_id", frame_id, frame_id);
+    private_nh.param("frame_id", frame_id, frame_id);
+    options.frame_id = frame_id;
+
+    double angle_offset_deg = options.angle_offset_rad * 180.0 / PI;
+    nh.param("angle_offset_deg", angle_offset_deg, angle_offset_deg);
+    private_nh.param("angle_offset_deg", angle_offset_deg, angle_offset_deg);
+    options.angle_offset_rad = deg_to_rad(angle_offset_deg);
+
+    private_nh.param(
+        "pointcloud_topic", options.pointcloud_topic,
+        options.pointcloud_topic
+    );
+    private_nh.param(
+        "safety_debug", options.safety_debug, options.safety_debug
+    );
+    private_nh.param("http_host", options.http_host, options.http_host);
+    private_nh.param("http_port", options.http_port, options.http_port);
+    private_nh.param(
+        "http_timeout_ms", options.http_timeout_ms, options.http_timeout_ms
+    );
+    private_nh.param(
+        "safety_zones_topic", options.safety_zones_topic,
+        options.safety_zones_topic
+    );
+    private_nh.param(
+        "safety_zones_status_topic", options.safety_status_topic,
+        options.safety_status_topic
+    );
+    private_nh.param(
+        "safety_debug_period_s", options.safety_debug_period_s,
+        options.safety_debug_period_s
+    );
+
+    return options;
 }
 
 CliOptions parse_cli(int argc, char* argv[]) {
@@ -377,14 +448,23 @@ void log_help() {
 }
 
 json get_configuration(const CliOptions& options) {
+    std::string path = options.config_path;
     if (!options.config_provided) {
         std::cout << "Config does not provided" << std::endl;
         std::cout << "Use default config otherwise" << std::endl;
 
-        return json::parse(std::ifstream{DEFAULT_DRIVER_CONFIG});
+        path = DEFAULT_DRIVER_CONFIG;
     }
 
-    return json::parse(std::ifstream{options.config_path});
+    std::ifstream input(path);
+    if (!input) {
+        throw std::runtime_error("Failed to open config file: " + path);
+    }
+    if (input.peek() == std::ifstream::traits_type::eof()) {
+        throw std::runtime_error("Config file is empty: " + path);
+    }
+
+    return json::parse(input);
 }
 
 int run_http_command(const CliOptions& options) {
@@ -487,6 +567,10 @@ int main(int argc, char* argv[]) {
 
         // init ros handle node
         ros::NodeHandle nh;
+        ros::NodeHandle private_nh("~");
+
+        dephan_ros::DriverRuntimeOptions runtime_options =
+            get_runtime_options(configuration, nh, private_nh);
 
         // log starting info
         std::cout << std::endl
@@ -509,7 +593,7 @@ int main(int argc, char* argv[]) {
             dephan_ros::Driver driver(
                 nh, configuration.value("pcap_path", "/root/test.pcap"),
                 configuration.value("topic", "point_cloud2_data"),
-                configuration.value("pointcloud_topic", "")
+                runtime_options
             );
 
             // is driver capture type FULL?
@@ -545,7 +629,7 @@ int main(int argc, char* argv[]) {
                 nh, configuration.value("ip", "0.0.0.0"),
                 configuration.value("port", 3000),
                 configuration.value("topic", "point_cloud2_data"),
-                configuration.value("pointcloud_topic", "")
+                runtime_options
             );
 
             // is driver capture type FULL?

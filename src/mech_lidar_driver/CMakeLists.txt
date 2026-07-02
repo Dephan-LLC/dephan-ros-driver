@@ -8,11 +8,13 @@ add_compile_options(-std=c++17)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  geometry_msgs
   roscpp
   std_msgs
   pcl_conversions
   pcl_ros
   sensor_msgs
+  visualization_msgs
 )
 
 find_library(LIBTINS tins)
