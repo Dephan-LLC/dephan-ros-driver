@@ -9,15 +9,18 @@
  */
 
 #include "ros_driver.hpp"
+#include "driver_diagnostics.hpp"
+#include "full_scan_assembler.hpp"
 #include "http_client.hpp"
+#include "safety_zone_markers.hpp"
 #include <algorithm>
 #include <chrono>
 #include <cmath>
-#include <geometry_msgs/Point.h>
 #include <limits>
 #include <nlohmann/json.hpp>
 #include <sensor_msgs/point_cloud2_iterator.h>
 #include <std_msgs/UInt8MultiArray.h>
+#include <system_error>
 #include <utility>
 #include <vector>
 
@@ -27,7 +30,6 @@ using json = nlohmann::json;
 
 const float PI = 3.14159265358979323846f;
 const int POINTS_PER_REV = pkt_hdl_Mech::POINTS_PER_REV;
-const int PACKETS_PER_REV = POINTS_PER_REV / pkt_hdl_Mech::CHANELLS;
 
 std::string default_pointcloud_topic(const std::string& laserscan_topic) {
     std::string result = laserscan_topic;
@@ -95,160 +97,6 @@ sensor_msgs::PointCloud2 make_pointcloud_msg(
     return cloud;
 }
 
-geometry_msgs::Point make_point(double x, double y, double angle_offset_rad) {
-    geometry_msgs::Point point;
-    point.x = x * std::cos(angle_offset_rad) - y * std::sin(angle_offset_rad);
-    point.y = x * std::sin(angle_offset_rad) + y * std::cos(angle_offset_rad);
-    point.z = 0.0;
-    return point;
-}
-
-bool zone_is_enabled(const json& zone) {
-    return !zone.contains("enabled") || zone.value("enabled", true);
-}
-
-bool zone_status_known(const json& status, const std::string& name) {
-    return status.is_object() && status.contains(name) && status[name].is_boolean();
-}
-
-bool zone_is_triggered(const json& status, const std::string& name) {
-    return zone_status_known(status, name) && status[name].get<bool>();
-}
-
-void set_marker_color(
-    visualization_msgs::Marker& marker, bool enabled, bool status_known,
-    bool triggered
-) {
-    marker.color.a = enabled ? 0.95f : 0.35f;
-    if (!enabled) {
-        marker.color.r = 0.5f;
-        marker.color.g = 0.5f;
-        marker.color.b = 0.5f;
-    }
-    else if (!status_known) {
-        marker.color.r = 1.0f;
-        marker.color.g = 0.8f;
-        marker.color.b = 0.1f;
-    }
-    else if (triggered) {
-        marker.color.r = 1.0f;
-        marker.color.g = 0.1f;
-        marker.color.b = 0.1f;
-    }
-    else {
-        marker.color.r = 0.1f;
-        marker.color.g = 0.8f;
-        marker.color.b = 0.2f;
-    }
-}
-
-void append_sector_points(
-    visualization_msgs::Marker& marker, const json& segment,
-    double angle_offset_rad
-) {
-    double start = segment.value("angle_start_deg", 0.0) * PI / 180.0;
-    double end   = segment.value("angle_end_deg", 0.0) * PI / 180.0;
-    double span  = end - start;
-    while (span < 0.0) {
-        span += 2.0 * PI;
-    }
-
-    double radius = segment.value("dist_max_m", 0.0);
-    int steps = std::max(8, static_cast<int>(std::ceil(span / (PI / 36.0))));
-    marker.points.push_back(make_point(0.0, 0.0, angle_offset_rad));
-    for (int i = 0; i <= steps; ++i) {
-        double angle = start + span * static_cast<double>(i) /
-                                   static_cast<double>(steps);
-        marker.points.push_back(make_point(
-            radius * std::cos(angle), radius * std::sin(angle),
-            angle_offset_rad
-        ));
-    }
-    marker.points.push_back(make_point(0.0, 0.0, angle_offset_rad));
-}
-
-void append_polygon_points(
-    visualization_msgs::Marker& marker, const json& segment,
-    double angle_offset_rad
-) {
-    if (!segment.contains("vertices") || !segment["vertices"].is_array()) {
-        return;
-    }
-
-    for (const auto& vertex : segment["vertices"]) {
-        if (vertex.is_array() && vertex.size() >= 2) {
-            marker.points.push_back(make_point(
-                vertex[0].get<double>(), vertex[1].get<double>(),
-                angle_offset_rad
-            ));
-        }
-    }
-    if (!marker.points.empty()) {
-        marker.points.push_back(marker.points.front());
-    }
-}
-
-visualization_msgs::MarkerArray build_safety_zone_markers(
-    const json& zones, const json& status, const std::string& frame_id,
-    double angle_offset_rad
-) {
-    visualization_msgs::MarkerArray markers;
-
-    visualization_msgs::Marker clear_marker;
-    clear_marker.action = visualization_msgs::Marker::DELETEALL;
-    markers.markers.push_back(clear_marker);
-
-    if (!zones.is_object() || !zones.contains("zones") ||
-        !zones["zones"].is_array()) {
-        return markers;
-    }
-
-    int marker_id = 1;
-    for (const auto& zone : zones["zones"]) {
-        if (!zone.is_object() || !zone.contains("segments") ||
-            !zone["segments"].is_array()) {
-            continue;
-        }
-
-        std::string name = zone.value("name", "zone");
-        bool enabled = zone_is_enabled(zone);
-        bool status_known = zone_status_known(status, name);
-        bool triggered = zone_is_triggered(status, name);
-
-        for (const auto& segment : zone["segments"]) {
-            if (!segment.is_object()) {
-                continue;
-            }
-
-            visualization_msgs::Marker marker;
-            marker.header.frame_id = frame_id;
-            marker.header.stamp = ros::Time::now();
-            marker.ns = "safety_zones";
-            marker.id = marker_id++;
-            marker.type = visualization_msgs::Marker::LINE_STRIP;
-            marker.action = visualization_msgs::Marker::ADD;
-            marker.pose.orientation.w = 1.0;
-            marker.scale.x = 0.03;
-            marker.lifetime = ros::Duration(2.0);
-            set_marker_color(marker, enabled, status_known, triggered);
-
-            std::string type = segment.value("type", "");
-            if (type == "sector") {
-                append_sector_points(marker, segment, angle_offset_rad);
-            }
-            else if (type == "polygon") {
-                append_polygon_points(marker, segment, angle_offset_rad);
-            }
-
-            if (marker.points.size() >= 2) {
-                markers.markers.push_back(marker);
-            }
-        }
-    }
-
-    return markers;
-}
-
 void publish_scan_and_cloud(
     ros::Publisher& scan_publisher, ros::Publisher& cloud_publisher,
     const sensor_msgs::LaserScan::Ptr& scan
@@ -262,7 +110,8 @@ void publish_scan_and_cloud(
 Driver::Driver(
     ros::NodeHandle nh, std::string ip_addr, unsigned port,
     std::string cloud_topic, DriverRuntimeOptions options
-) : ip_addr(ip_addr), port(port), runtime_options(std::move(options)) {
+) : ip_addr(ip_addr), port(port), runtime_options(std::move(options)),
+    started_at(std::chrono::steady_clock::now()) {
 
     // setup socket for receiving data
     socket.reset(new receiver_socket(ip_addr, port));
@@ -291,12 +140,25 @@ Driver::Driver(
             }
         });
     }
+    if (runtime_options.diagnostics_enabled) {
+        diagnostics_publisher = nh.advertise<diagnostic_msgs::DiagnosticArray>(
+            runtime_options.diagnostics_topic, 1, true
+        );
+        diagnostics_running = true;
+        diagnostics_thread = std::thread([this]() {
+            while (ros::ok() && diagnostics_running.load()) {
+                publish_diagnostics();
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
+        });
+    }
 }
 
 Driver::Driver(
     ros::NodeHandle nh, std::string pcap_path, std::string cloud_topic,
     DriverRuntimeOptions options
-) : pcap_path(pcap_path), runtime_options(std::move(options)) {
+) : pcap_path(pcap_path), runtime_options(std::move(options)),
+    started_at(std::chrono::steady_clock::now()) {
 
     // setup libtins sniffer for reading data
     pcap_sniffer.reset(new Tins::FileSniffer{pcap_path});
@@ -329,12 +191,28 @@ Driver::Driver(
             }
         });
     }
+    if (runtime_options.diagnostics_enabled) {
+        diagnostics_publisher = nh.advertise<diagnostic_msgs::DiagnosticArray>(
+            runtime_options.diagnostics_topic, 1, true
+        );
+        diagnostics_running = true;
+        diagnostics_thread = std::thread([this]() {
+            while (ros::ok() && diagnostics_running.load()) {
+                publish_diagnostics();
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
+        });
+    }
 }
 
 Driver::~Driver() {
     safety_debug_running = false;
+    diagnostics_running = false;
     if (safety_debug_thread.joinable()) {
         safety_debug_thread.join();
+    }
+    if (diagnostics_thread.joinable()) {
+        diagnostics_thread.join();
     }
 }
 
@@ -400,7 +278,8 @@ void Driver::publish_safety_debug() {
             zones_response.status_code < 300 && !zones_response.body.empty()) {
             visualization_msgs::MarkerArray markers = build_safety_zone_markers(
                 json::parse(zones_response.body), status_json,
-                runtime_options.frame_id, runtime_options.angle_offset_rad
+                runtime_options.frame_id, runtime_options.angle_offset_rad,
+                ros::Time::now()
             );
             safety_zones_publisher.publish(markers);
         }
@@ -412,126 +291,281 @@ void Driver::publish_safety_debug() {
     }
 }
 
-void Driver::_poll_full_udp() {
+void Driver::record_published_message() {
+    ++messages_published;
+    last_publish_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
+        std::chrono::steady_clock::now().time_since_epoch()
+    ).count();
+}
 
-    // initialzie ros pointcloud v2 message
-    sensor_msgs::LaserScan::Ptr msg(new sensor_msgs::LaserScan);
+void Driver::record_socket_error(const std::string& message) {
+    ++socket_errors;
+    std::lock_guard<std::mutex> lock(socket_error_mutex);
+    last_socket_error = message;
+}
 
-    msg->ranges.assign(POINTS_PER_REV, std::numeric_limits<float>::infinity());
-    msg->intensities.assign(POINTS_PER_REV, 0.0f);
-
-    // wait until one full revolution is received
-    for (size_t i = 0; i < PACKETS_PER_REV; i++) {
-
-        // initialize raw packet collection
-        packet::raw_packet_t raw_pkt(new uint8_t[packet::PKT_LEN]);
-
-        // wait until we are receive data
-        while (socket->get_packet(raw_pkt.get(), packet::PKT_LEN)) {
-            if (!ros::ok()) {
-                return;
+bool Driver::receive_udp_packet(uint8_t* buffer, int length) {
+    while (ros::ok()) {
+        try {
+            if (socket->get_packet(buffer, length) == 0) {
+                return true;
             }
         }
+        catch (const std::system_error& ex) {
+            socket_recovering = true;
+            record_socket_error(ex.what());
+            ROS_ERROR_STREAM_THROTTLE(
+                5.0, "UDP socket failed; starting recovery: " << ex.what()
+            );
 
-        // transform raw packet to handled packet
-        pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
+            int retry_delay_ms = std::max(
+                1, runtime_options.udp_reconnect_initial_ms
+            );
+            const int max_delay_ms = std::max(
+                retry_delay_ms, runtime_options.udp_reconnect_max_ms
+            );
+            while (ros::ok()) {
+                socket_retry_delay_ms = retry_delay_ms;
+                int remaining_ms = retry_delay_ms;
+                while (remaining_ms > 0 && ros::ok()) {
+                    const int step_ms = std::min(remaining_ms, 100);
+                    std::this_thread::sleep_for(
+                        std::chrono::milliseconds(step_ms)
+                    );
+                    remaining_ms -= step_ms;
+                }
+                if (!ros::ok()) {
+                    return false;
+                }
 
-        // fill ros message by encoder point index
-        for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
-            uint16_t point_idx = hdl_pkt.point_index(chnl);
-            msg->ranges[point_idx] = hdl_pkt.ranges[chnl] / 1000;
-            msg->intensities[point_idx] = hdl_pkt.intensities[chnl];
+                try {
+                    socket->reopen();
+                    ++socket_reconnects;
+                    socket_recovering = false;
+                    socket_retry_delay_ms = 0;
+                    ROS_INFO("UDP socket recovered");
+                    break;
+                }
+                catch (const std::exception& reopen_error) {
+                    record_socket_error(reopen_error.what());
+                    ROS_ERROR_STREAM_THROTTLE(
+                        5.0, "UDP socket reopen failed: "
+                                 << reopen_error.what()
+                    );
+                    retry_delay_ms += std::min(
+                        retry_delay_ms, max_delay_ms - retry_delay_ms
+                    );
+                }
+            }
         }
     }
-    // fill ros message by constant data
+    return false;
+}
+
+void Driver::publish_diagnostics() {
+    const auto now = std::chrono::steady_clock::now();
+    const double period_s = std::max(0.1, runtime_options.diagnostics_period_s);
+    if (last_diagnostics_publish.time_since_epoch().count() != 0 &&
+        std::chrono::duration<double>(
+            now - last_diagnostics_publish
+        ).count() < period_s) {
+        return;
+    }
+    last_diagnostics_publish = now;
+
+    diagnostic_msgs::DiagnosticArray message;
+    message.header.stamp = ros::Time::now();
+
+    diagnostic_msgs::DiagnosticStatus status;
+    status.name = ros::this_node::getName() + "/data_stream";
+    status.hardware_id = diagnostic_hardware_id(
+        ip_addr, pcap_path, runtime_options.http_host
+    );
+
+    const int64_t now_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
+        now.time_since_epoch()
+    ).count();
+    const int64_t published_ns = last_publish_ns.load();
+    const double age_s = published_ns == 0
+        ? std::chrono::duration<double>(now - started_at).count()
+        : static_cast<double>(now_ns - published_ns) / 1.0e9;
+
+    if (socket_recovering.load()) {
+        status.level = diagnostic_msgs::DiagnosticStatus::ERROR;
+        status.message = "UDP socket recovering";
+    }
+    else if (age_s > runtime_options.no_data_timeout_s) {
+        status.level = diagnostic_msgs::DiagnosticStatus::WARN;
+        status.message = "No scan data";
+    }
+    else if (messages_published.load() == 0) {
+        status.level = diagnostic_msgs::DiagnosticStatus::OK;
+        status.message = "Waiting for first scan";
+    }
+    else {
+        status.level = diagnostic_msgs::DiagnosticStatus::OK;
+        status.message = "Streaming";
+    }
+
+    auto add_value = [&](const std::string& key, const std::string& value) {
+        diagnostic_msgs::KeyValue item;
+        item.key = key;
+        item.value = value;
+        status.values.push_back(item);
+    };
+    add_value("transport", runtime_options.transport);
+    add_value("last_scan_age_s", std::to_string(age_s));
+    add_value("packets_received", std::to_string(packets_received.load()));
+    add_value("messages_published", std::to_string(messages_published.load()));
+    add_value("invalid_packets", std::to_string(invalid_packets.load()));
+    add_value(
+        "discarded_revolutions",
+        std::to_string(discarded_revolutions.load())
+    );
+    add_value(
+        "socket_state",
+        socket ? (socket_recovering.load() ? "recovering" : "ready")
+               : "not_applicable"
+    );
+    add_value("socket_errors", std::to_string(socket_errors.load()));
+    add_value("socket_reconnects", std::to_string(socket_reconnects.load()));
+    add_value(
+        "socket_retry_delay_ms", std::to_string(socket_retry_delay_ms.load())
+    );
+    {
+        std::lock_guard<std::mutex> lock(socket_error_mutex);
+        add_value("socket_last_error", last_socket_error);
+    }
+    message.status.push_back(status);
+    diagnostics_publisher.publish(message);
+}
+
+void Driver::_poll_full_udp() {
+    sensor_msgs::LaserScan::Ptr msg(new sensor_msgs::LaserScan);
+    FullScanAssembler assembler;
+
+    while (ros::ok() && !assembler.complete()) {
+        packet::raw_packet_t raw_pkt(new uint8_t[packet::PKT_LEN]);
+        if (!receive_udp_packet(raw_pkt.get(), packet::PKT_LEN)) {
+            return;
+        }
+
+        try {
+            pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
+            ++packets_received;
+            assembler.add_packet(hdl_pkt);
+        }
+        catch (const std::exception& ex) {
+            ++invalid_packets;
+            ROS_WARN_STREAM_THROTTLE(5.0, "Invalid LiDAR packet: " << ex.what());
+        }
+    }
+
+    msg->ranges.resize(POINTS_PER_REV);
+    msg->intensities.resize(POINTS_PER_REV);
+    for (size_t index = 0; index < POINTS_PER_REV; ++index) {
+        msg->ranges[index] = assembler.ranges_mm()[index] / 1000.0F;
+        msg->intensities[index] = assembler.intensities()[index];
+    }
+
     msg->angle_min       = runtime_options.angle_offset_rad;
     msg->angle_max       = runtime_options.angle_offset_rad + 2 * PI;
     msg->angle_increment = 2 * PI / POINTS_PER_REV;
-    msg->scan_time       = 0.1;
+    msg->scan_time = assembler.rotation_frequency_hz() > 0
+                         ? 1.0 / assembler.rotation_frequency_hz()
+                         : 0.1;
     msg->time_increment  = msg->scan_time / POINTS_PER_REV;
     msg->range_min       = range_min_or_default(msg->ranges);
     msg->range_max       = range_max_or_default(msg->ranges);
-
-    // add timestamp to ros message
     msg->header.stamp = ros::Time::now();
-
-    // add frame id to ros message
     msg->header.frame_id = runtime_options.frame_id;
 
-    // publish ros messages to topics
+    if (assembler.discarded_revolutions() > 0) {
+        discarded_revolutions += assembler.discarded_revolutions();
+        ROS_WARN_STREAM_THROTTLE(
+            5.0, "Discarded " << assembler.discarded_revolutions()
+                               << " incomplete LiDAR revolution(s)"
+        );
+    }
+
     publish_scan_and_cloud(laserscan_publisher, pointcloud_publisher, msg);
+    record_published_message();
 }
 
 void Driver::_poll_full_pcap() {
-
-    // initialzie ros pointcloud v2 message
     sensor_msgs::LaserScan::Ptr msg(new sensor_msgs::LaserScan);
+    FullScanAssembler assembler;
 
-    msg->ranges.assign(POINTS_PER_REV, std::numeric_limits<float>::infinity());
-    msg->intensities.assign(POINTS_PER_REV, 0.0f);
-
-    // wait until one full revolution is read from the target PCAP file
-    for (size_t i = 0; i < PACKETS_PER_REV; i++) {
-
-        // get the next packet from the target PCAP file
+    while (ros::ok() && !assembler.complete()) {
         Tins::Packet pkt(pcap_sniffer->next_packet());
-
-        // is packet extracted with problems?
         if (!pkt) {
             ROS_INFO("Starting over...");
             pcap_sniffer.reset(new Tins::FileSniffer{pcap_path});
-            Tins::Packet _pkt(pcap_sniffer->next_packet());
-            _prev_pkt_tmstmp = _pkt.timestamp().microseconds();
+            _prev_pkt_tmstmp = 0;
+            continue;
         }
 
-        // normal operation otherwise
-        else {
-
-            // sleep for time-correct packets reading
-            auto _cur_pkt_tmstmp = pkt.timestamp().microseconds();
+        const auto current_timestamp = pkt.timestamp().microseconds();
+        if (_prev_pkt_tmstmp > 0 && current_timestamp >= _prev_pkt_tmstmp) {
             std::this_thread::sleep_for(
-                std::chrono::microseconds(_cur_pkt_tmstmp - _prev_pkt_tmstmp)
+                std::chrono::microseconds(current_timestamp - _prev_pkt_tmstmp)
             );
-            _prev_pkt_tmstmp = _cur_pkt_tmstmp;
+        }
+        _prev_pkt_tmstmp = current_timestamp;
 
-            // create raw-pdu collection
-            std::vector<uint8_t> raw_pdu =
-                pkt.pdu()->rfind_pdu<Tins::RawPDU>().payload();
+        std::vector<uint8_t> raw_pdu =
+            pkt.pdu()->rfind_pdu<Tins::RawPDU>().payload();
+        if (raw_pdu.size() != packet::PKT_LEN) {
+            ++invalid_packets;
+            ROS_WARN_STREAM_THROTTLE(
+                5.0, "Ignoring PCAP payload with " << raw_pdu.size()
+                                                    << " bytes"
+            );
+            continue;
+        }
 
-            // initialize raw packet collection
-            packet::raw_packet_t raw_pkt(new uint8_t[raw_pdu.size()]);
-
-            // fill raw_pkt with raw-pdu
-            std::copy(raw_pdu.begin(), raw_pdu.end(), raw_pkt.get());
-
-            // transform raw packet to handled packet
+        packet::raw_packet_t raw_pkt(new uint8_t[packet::PKT_LEN]);
+        std::copy(raw_pdu.begin(), raw_pdu.end(), raw_pkt.get());
+        try {
             pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
-
-            // fill ros message by encoder point index
-            for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
-                uint16_t point_idx = hdl_pkt.point_index(chnl);
-                msg->ranges[point_idx] = hdl_pkt.ranges[chnl] / 1000;
-                msg->intensities[point_idx] = hdl_pkt.intensities[chnl];
-            }
+            ++packets_received;
+            assembler.add_packet(hdl_pkt);
+        }
+        catch (const std::exception& ex) {
+            ++invalid_packets;
+            ROS_WARN_STREAM_THROTTLE(5.0, "Invalid LiDAR packet: " << ex.what());
         }
     }
-    // fill ros message by constant data
+
+    msg->ranges.resize(POINTS_PER_REV);
+    msg->intensities.resize(POINTS_PER_REV);
+    for (size_t index = 0; index < POINTS_PER_REV; ++index) {
+        msg->ranges[index] = assembler.ranges_mm()[index] / 1000.0F;
+        msg->intensities[index] = assembler.intensities()[index];
+    }
+
     msg->angle_min       = runtime_options.angle_offset_rad;
     msg->angle_max       = runtime_options.angle_offset_rad + 2 * PI;
     msg->angle_increment = 2 * PI / POINTS_PER_REV;
-    msg->scan_time       = 0.1;
+    msg->scan_time = assembler.rotation_frequency_hz() > 0
+                         ? 1.0 / assembler.rotation_frequency_hz()
+                         : 0.1;
     msg->time_increment  = msg->scan_time / POINTS_PER_REV;
     msg->range_min       = range_min_or_default(msg->ranges);
     msg->range_max       = range_max_or_default(msg->ranges);
-
-    // add timestamp to ros message
     msg->header.stamp = ros::Time::now();
-
-    // add frame id to ros message
     msg->header.frame_id = runtime_options.frame_id;
 
-    // publish ros messages to topics
+    if (assembler.discarded_revolutions() > 0) {
+        discarded_revolutions += assembler.discarded_revolutions();
+        ROS_WARN_STREAM_THROTTLE(
+            5.0, "Discarded " << assembler.discarded_revolutions()
+                               << " incomplete LiDAR revolution(s)"
+        );
+    }
+
     publish_scan_and_cloud(laserscan_publisher, pointcloud_publisher, msg);
+    record_published_message();
 }
 
 std::pair<std::string, unsigned> Driver::get_network_params() {
@@ -547,25 +581,33 @@ void Driver::_poll_udp() {
     packet::raw_packet_t raw_pkt(new uint8_t[packet::PKT_LEN]);
 
     // wait until we are receive data
-    while (socket->get_packet(raw_pkt.get(), packet::PKT_LEN)) {
-        if (!ros::ok()) {
-            return;
-        }
+    if (!receive_udp_packet(raw_pkt.get(), packet::PKT_LEN)) {
+        return;
     }
 
-    // transform raw packet to handled packet
-    pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
+    std::unique_ptr<pkt_hdl_Mech> hdl_pkt;
+    try {
+        hdl_pkt = std::make_unique<pkt_hdl_Mech>(std::move(raw_pkt));
+        ++packets_received;
+    }
+    catch (const std::exception& ex) {
+        ++invalid_packets;
+        ROS_WARN_STREAM_THROTTLE(5.0, "Invalid LiDAR packet: " << ex.what());
+        return;
+    }
 
     // fill ros message by data from the handled packet
-    msg->angle_min       = hdl_pkt.angles[0] + runtime_options.angle_offset_rad;
-    msg->angle_max       = hdl_pkt.angles[hdl_pkt.CHANELLS - 1] +
+    msg->angle_min       = hdl_pkt->angles[0] + runtime_options.angle_offset_rad;
+    msg->angle_max       = hdl_pkt->angles[hdl_pkt->CHANELLS - 1] +
                            runtime_options.angle_offset_rad;
-    msg->angle_increment = hdl_pkt.RAD_RESOLUTION;
-    msg->scan_time       = 0.1;
+    msg->angle_increment = hdl_pkt->RAD_RESOLUTION;
+    msg->scan_time = hdl_pkt->rotation_frequency_hz() > 0
+                         ? 1.0 / hdl_pkt->rotation_frequency_hz()
+                         : 0.1;
     msg->time_increment  = msg->scan_time / POINTS_PER_REV;
-    for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
-        msg->ranges.push_back(hdl_pkt.ranges[chnl] / 1000);
-        msg->intensities.push_back(hdl_pkt.intensities[chnl]);
+    for (size_t chnl = 0; chnl < hdl_pkt->CHANELLS; ++chnl) {
+        msg->ranges.push_back(hdl_pkt->ranges[chnl] / 1000);
+        msg->intensities.push_back(hdl_pkt->intensities[chnl]);
     }
     msg->range_min = range_min_or_default(msg->ranges);
     msg->range_max = range_max_or_default(msg->ranges);
@@ -578,6 +620,7 @@ void Driver::_poll_udp() {
 
     // publish ros messages to topics
     publish_scan_and_cloud(laserscan_publisher, pointcloud_publisher, msg);
+    record_published_message();
 }
 
 void Driver::_poll_pcap() {
@@ -594,6 +637,7 @@ void Driver::_poll_pcap() {
         pcap_sniffer.reset(new Tins::FileSniffer{pcap_path});
         Tins::Packet _pkt(pcap_sniffer->next_packet());
         _prev_pkt_tmstmp = _pkt.timestamp().microseconds();
+        return;
     }
 
     // normal operation otherwise
@@ -609,6 +653,14 @@ void Driver::_poll_pcap() {
         // create raw-pdu collection
         std::vector<uint8_t> raw_pdu =
             pkt.pdu()->rfind_pdu<Tins::RawPDU>().payload();
+        if (raw_pdu.size() != packet::PKT_LEN) {
+            ++invalid_packets;
+            ROS_WARN_STREAM_THROTTLE(
+                5.0, "Ignoring PCAP payload with " << raw_pdu.size()
+                                                    << " bytes"
+            );
+            return;
+        }
 
         // initialize raw packet collection
         packet::raw_packet_t raw_pkt(new uint8_t[raw_pdu.size()]);
@@ -617,18 +669,31 @@ void Driver::_poll_pcap() {
         std::copy(raw_pdu.begin(), raw_pdu.end(), raw_pkt.get());
 
         // transform raw packet to handled packet
-        pkt_hdl_Mech hdl_pkt(std::move(raw_pkt));
+        std::unique_ptr<pkt_hdl_Mech> hdl_pkt;
+        try {
+            hdl_pkt = std::make_unique<pkt_hdl_Mech>(std::move(raw_pkt));
+            ++packets_received;
+        }
+        catch (const std::exception& ex) {
+            ++invalid_packets;
+            ROS_WARN_STREAM_THROTTLE(
+                5.0, "Invalid LiDAR packet: " << ex.what()
+            );
+            return;
+        }
 
         // fill ros message by data from the handled packet
-        msg->angle_min = hdl_pkt.angles[0] + runtime_options.angle_offset_rad;
-        msg->angle_max = hdl_pkt.angles[hdl_pkt.CHANELLS - 1] +
+        msg->angle_min = hdl_pkt->angles[0] + runtime_options.angle_offset_rad;
+        msg->angle_max = hdl_pkt->angles[hdl_pkt->CHANELLS - 1] +
                          runtime_options.angle_offset_rad;
-        msg->angle_increment = hdl_pkt.RAD_RESOLUTION;
-        msg->scan_time       = 0.1;
+        msg->angle_increment = hdl_pkt->RAD_RESOLUTION;
+        msg->scan_time = hdl_pkt->rotation_frequency_hz() > 0
+                             ? 1.0 / hdl_pkt->rotation_frequency_hz()
+                             : 0.1;
         msg->time_increment  = msg->scan_time / POINTS_PER_REV;
-        for (size_t chnl = 0; chnl < hdl_pkt.CHANELLS; ++chnl) {
-            msg->ranges.push_back(hdl_pkt.ranges[chnl] / 1000);
-            msg->intensities.push_back(hdl_pkt.intensities[chnl]);
+        for (size_t chnl = 0; chnl < hdl_pkt->CHANELLS; ++chnl) {
+            msg->ranges.push_back(hdl_pkt->ranges[chnl] / 1000);
+            msg->intensities.push_back(hdl_pkt->intensities[chnl]);
         }
         msg->range_min = range_min_or_default(msg->ranges);
         msg->range_max = range_max_or_default(msg->ranges);
@@ -642,5 +707,6 @@ void Driver::_poll_pcap() {
 
     // publish ros messages to topics
     publish_scan_and_cloud(laserscan_publisher, pointcloud_publisher, msg);
+    record_published_message();
 }
 } // namespace dephan_ros

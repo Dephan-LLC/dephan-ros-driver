@@ -1,5 +1,13 @@
 <launch>
   <arg name="config" default="$(find mech_lidar_driver)/configs/default_udp_config.json" />
+  <arg name="node_name" default="lidar_driver" />
+  <arg name="namespace" default="" />
+  <arg name="capture_type" default="FULL" />
+  <arg name="source_ip" default="192.168.0.120" />
+  <arg name="udp_port" default="50007" />
+  <arg name="pcap_path" default="/root/test.pcap" />
+  <arg name="scan_topic" default="laserscan_data_udp" />
+  <arg name="pointcloud_topic" default="pointcloud_data_udp" />
   <arg name="frame_id" default="base_link" />
   <arg name="angle_offset_deg" default="90.0" />
   <arg name="safety_debug" default="false" />
@@ -9,26 +17,41 @@
   <arg name="safety_zones_topic" default="safety_zones_markers" />
   <arg name="safety_zones_status_topic" default="safety_zones_status" />
   <arg name="safety_debug_period_s" default="1.0" />
+  <arg name="diagnostics_enabled" default="true" />
+  <arg name="diagnostics_topic" default="diagnostics" />
+  <arg name="diagnostics_period_s" default="1.0" />
+  <arg name="no_data_timeout_s" default="2.0" />
+  <arg name="udp_reconnect_initial_ms" default="250" />
+  <arg name="udp_reconnect_max_ms" default="5000" />
 
-  <node
-    pkg="mech_lidar_driver"
-    type="mech_driver"
-    name="lidar_driver"
-    output="screen"
-    args="--config $(arg config)">
-    <param name="frame_id" value="$(arg frame_id)" />
-    <param name="angle_offset_deg" value="$(arg angle_offset_deg)" type="double" />
-    <param name="safety_debug" value="$(arg safety_debug)" type="bool" />
-    <param name="http_host" value="$(arg http_host)" />
-    <param name="http_port" value="$(arg http_port)" type="int" />
-    <param name="http_timeout_ms" value="$(arg http_timeout_ms)" type="int" />
-    <param name="safety_zones_topic" value="$(arg safety_zones_topic)" />
-    <param
-      name="safety_zones_status_topic"
-      value="$(arg safety_zones_status_topic)" />
-    <param
-      name="safety_debug_period_s"
-      value="$(arg safety_debug_period_s)"
-      type="double" />
-  </node>
+  <group ns="$(arg namespace)">
+    <node
+      pkg="mech_lidar_driver"
+      type="mech_driver"
+      name="$(arg node_name)"
+      output="screen"
+      args="--config $(arg config)">
+      <param name="capture_type" value="$(arg capture_type)" />
+      <param name="source_ip" value="$(arg source_ip)" />
+      <param name="udp_port" value="$(arg udp_port)" type="int" />
+      <param name="pcap_path" value="$(arg pcap_path)" />
+      <param name="scan_topic" value="$(arg scan_topic)" />
+      <param name="pointcloud_topic" value="$(arg pointcloud_topic)" />
+      <param name="frame_id" value="$(arg frame_id)" />
+      <param name="angle_offset_deg" value="$(arg angle_offset_deg)" type="double" />
+      <param name="safety_debug" value="$(arg safety_debug)" type="bool" />
+      <param name="http_host" value="$(arg http_host)" />
+      <param name="http_port" value="$(arg http_port)" type="int" />
+      <param name="http_timeout_ms" value="$(arg http_timeout_ms)" type="int" />
+      <param name="safety_zones_topic" value="$(arg safety_zones_topic)" />
+      <param name="safety_zones_status_topic" value="$(arg safety_zones_status_topic)" />
+      <param name="safety_debug_period_s" value="$(arg safety_debug_period_s)" type="double" />
+      <param name="diagnostics_enabled" value="$(arg diagnostics_enabled)" type="bool" />
+      <param name="diagnostics_topic" value="$(arg diagnostics_topic)" />
+      <param name="diagnostics_period_s" value="$(arg diagnostics_period_s)" type="double" />
+      <param name="no_data_timeout_s" value="$(arg no_data_timeout_s)" type="double" />
+      <param name="udp_reconnect_initial_ms" value="$(arg udp_reconnect_initial_ms)" type="int" />
+      <param name="udp_reconnect_max_ms" value="$(arg udp_reconnect_max_ms)" type="int" />
+    </node>
+  </group>
 </launch>

@@ -8,6 +8,7 @@ add_compile_options(-std=c++17)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  diagnostic_msgs
   geometry_msgs
   roscpp
   std_msgs
@@ -211,12 +212,85 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
+if(CATKIN_ENABLE_TESTING)
+  catkin_add_gtest(packet_handler_mech_test
+    test/packet_handler_mech_test.cpp
+    src/packet_handler_mech.cpp
+    src/full_scan_assembler.cpp
+  )
+  if(TARGET packet_handler_mech_test)
+    target_include_directories(packet_handler_mech_test PRIVATE include)
+    target_link_libraries(packet_handler_mech_test gtest_main)
+  endif()
+
+  catkin_add_gtest(driver_config_test
+    test/driver_config_test.cpp
+    src/driver_config.cpp
+  )
+  if(TARGET driver_config_test)
+    target_include_directories(driver_config_test PRIVATE include)
+    target_link_libraries(driver_config_test gtest_main)
+  endif()
+
+  catkin_add_gtest(driver_cli_test
+    test/driver_cli_test.cpp
+    src/driver_cli.cpp
+    src/http_client.cpp
+  )
+  if(TARGET driver_cli_test)
+    target_include_directories(driver_cli_test PRIVATE include)
+    target_link_libraries(driver_cli_test gtest_main)
+  endif()
+
+  catkin_add_gtest(http_client_test
+    test/http_client_test.cpp
+    src/http_client.cpp
+  )
+  if(TARGET http_client_test)
+    target_include_directories(http_client_test PRIVATE include)
+    target_link_libraries(http_client_test gtest_main)
+  endif()
+
+  catkin_add_gtest(receiver_socket_test
+    test/receiver_socket_test.cpp
+    src/reciever_socket.cpp
+  )
+  if(TARGET receiver_socket_test)
+    target_include_directories(receiver_socket_test PRIVATE include)
+    target_link_libraries(receiver_socket_test gtest_main)
+  endif()
+
+  catkin_add_gtest(driver_diagnostics_test
+    test/driver_diagnostics_test.cpp
+    src/driver_diagnostics.cpp
+  )
+  if(TARGET driver_diagnostics_test)
+    target_include_directories(driver_diagnostics_test PRIVATE include)
+    target_link_libraries(driver_diagnostics_test gtest_main)
+  endif()
+
+  catkin_add_gtest(safety_zone_markers_test
+    test/safety_zone_markers_test.cpp
+    src/safety_zone_markers.cpp
+  )
+  if(TARGET safety_zone_markers_test)
+    target_include_directories(safety_zone_markers_test PRIVATE include)
+    target_link_libraries(safety_zone_markers_test ${catkin_LIBRARIES} gtest_main)
+  endif()
+endif()
+
 # add_subdirectory(dephan-driver)
 
 add_executable(mech_driver 
   src/dephan_node.cpp 
+  src/driver_cli.cpp
+  src/driver_runtime.cpp
   src/ros_driver.cpp
   src/packet_handler_mech.cpp
+  src/full_scan_assembler.cpp
+  src/driver_config.cpp
+  src/driver_diagnostics.cpp
+  src/safety_zone_markers.cpp
   src/reciever_socket.cpp
   src/http_client.cpp
 )

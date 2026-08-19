@@ -1,0 +1,49 @@
+<launch>
+  <arg name="config" default="$(find mech_lidar_driver)/configs/default_pcap_config.json" />
+  <arg name="node_name" default="lidar_driver_pcap" />
+  <arg name="namespace" default="" />
+  <arg name="capture_type" default="FULL" />
+  <arg name="pcap_path" default="/root/test.pcap" />
+  <arg name="scan_topic" default="scan" />
+  <arg name="pointcloud_topic" default="points" />
+  <arg name="frame_id" default="base_link" />
+  <arg name="angle_offset_deg" default="90.0" />
+  <arg name="safety_debug" default="false" />
+  <arg name="http_host" default="192.168.0.120" />
+  <arg name="http_port" default="80" />
+  <arg name="http_timeout_ms" default="3000" />
+  <arg name="safety_zones_topic" default="safety_zones_markers" />
+  <arg name="safety_zones_status_topic" default="safety_zones_status" />
+  <arg name="safety_debug_period_s" default="1.0" />
+  <arg name="diagnostics_enabled" default="true" />
+  <arg name="diagnostics_topic" default="diagnostics" />
+  <arg name="diagnostics_period_s" default="1.0" />
+  <arg name="no_data_timeout_s" default="2.0" />
+  <arg name="udp_reconnect_initial_ms" default="250" />
+  <arg name="udp_reconnect_max_ms" default="5000" />
+
+  <include file="$(find mech_lidar_driver)/launch/driver.launch">
+    <arg name="config" value="$(arg config)" />
+    <arg name="node_name" value="$(arg node_name)" />
+    <arg name="namespace" value="$(arg namespace)" />
+    <arg name="capture_type" value="$(arg capture_type)" />
+    <arg name="pcap_path" value="$(arg pcap_path)" />
+    <arg name="scan_topic" value="$(arg scan_topic)" />
+    <arg name="pointcloud_topic" value="$(arg pointcloud_topic)" />
+    <arg name="frame_id" value="$(arg frame_id)" />
+    <arg name="angle_offset_deg" value="$(arg angle_offset_deg)" />
+    <arg name="safety_debug" value="$(arg safety_debug)" />
+    <arg name="http_host" value="$(arg http_host)" />
+    <arg name="http_port" value="$(arg http_port)" />
+    <arg name="http_timeout_ms" value="$(arg http_timeout_ms)" />
+    <arg name="safety_zones_topic" value="$(arg safety_zones_topic)" />
+    <arg name="safety_zones_status_topic" value="$(arg safety_zones_status_topic)" />
+    <arg name="safety_debug_period_s" value="$(arg safety_debug_period_s)" />
+    <arg name="diagnostics_enabled" value="$(arg diagnostics_enabled)" />
+    <arg name="diagnostics_topic" value="$(arg diagnostics_topic)" />
+    <arg name="diagnostics_period_s" value="$(arg diagnostics_period_s)" />
+    <arg name="no_data_timeout_s" value="$(arg no_data_timeout_s)" />
+    <arg name="udp_reconnect_initial_ms" value="$(arg udp_reconnect_initial_ms)" />
+    <arg name="udp_reconnect_max_ms" value="$(arg udp_reconnect_max_ms)" />
+  </include>
+</launch>
