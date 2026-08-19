@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class HttpClient &mdash; Dephan ROS driver 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Driver CLI" href="driver_cli.html" />
+    <link rel="prev" title="Class receiver_socket" href="reciever_socket.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Dephan ROS driver
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dephan_node.html">DEPHAN ROS node howto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../http_api.html">LiDAR HTTP API CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ros_driver.html">Class Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reciever_socket.html">Class receiver_socket</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Class HttpClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_cli.html">Driver CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_runtime.html">Driver runtime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_config.html">Driver Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_diagnostics.html">Driver diagnostics helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="full_scan_assembler.html">Class FullScanAssembler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="safety_zone_markers.html">Safety zone marker helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packet_handler_mech.html">Class pkt_hdl_Mech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packet_raw.html">Struct packet</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Dephan ROS driver</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Class HttpClient</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/cpp_src/http_client.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-httpclient">
+<h1>Class HttpClient<a class="headerlink" href="#class-httpclient" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <code class="docutils literal notranslate"><span class="pre">mech_lidar_driver/include/http_client.hpp</span></code></p></li>
+</ul>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros10HttpClientE">
+<span id="_CPPv3N10dephan_ros10HttpClientE"></span><span id="_CPPv2N10dephan_ros10HttpClientE"></span><span id="dephan_ros::HttpClient"></span><span class="target" id="classdephan__ros_1_1HttpClient"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HttpClient</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros10HttpClientE" title="Link to this definition"></a><br /></dt>
+<dd><p>Small blocking HTTP/1.0 client used by LiDAR web API CLI commands. </p>
+<p><a class="reference internal" href="#classdephan__ros_1_1HttpClient"><span class="std std-ref">HttpClient</span></a> intentionally implements only the subset needed by the driver command-line interface: GET, POST with a JSON body, and streaming GET for server-sent events or binary downloads. It does not handle authentication, redirects, TLS, chunked transfer encoding or persistent connections. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros10HttpClient10HttpClientENSt6stringEii">
+<span id="_CPPv3N10dephan_ros10HttpClient10HttpClientENSt6stringEii"></span><span id="_CPPv2N10dephan_ros10HttpClient10HttpClientENSt6stringEii"></span><span id="dephan_ros::HttpClient::HttpClient__ss.i.i"></span><span class="target" id="classdephan__ros_1_1HttpClient_1aba9eac69c209726c1d9adf04e171b451"></span><span class="sig-name descname"><span class="n"><span class="pre">HttpClient</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">host</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">port</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">80</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">timeout_ms</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">3000</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros10HttpClient10HttpClientENSt6stringEii" title="Link to this definition"></a><br /></dt>
+<dd><p>Create a client for a LiDAR HTTP endpoint. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> – LiDAR host name or IP address. </p></li>
+<li><p><strong>port</strong> – TCP port of the LiDAR HTTP server. </p></li>
+<li><p><strong>timeout_ms</strong> – Socket connect, send and receive timeout in milliseconds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">invalid_argument</span></span></span> – if host is empty, port is outside the TCP range or timeout_ms is not positive. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10dephan_ros10HttpClient3getERKNSt6stringE">
+<span id="_CPPv3NK10dephan_ros10HttpClient3getERKNSt6stringE"></span><span id="_CPPv2NK10dephan_ros10HttpClient3getERKNSt6stringE"></span><span id="dephan_ros::HttpClient::get__ssCRC"></span><span class="target" id="classdephan__ros_1_1HttpClient_1a1680d3613037afeb9c69dbcca1c42322"></span><a class="reference internal" href="#_CPPv4N10dephan_ros12HttpResponseE" title="dephan_ros::HttpResponse"><span class="n"><span class="pre">HttpResponse</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">path</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK10dephan_ros10HttpClient3getERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Execute a blocking HTTP GET request. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Absolute request path beginning with ‘/’, for example “/config.json”. </p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">invalid_argument</span></span></span> – if path is not absolute. </p></li>
+<li><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">runtime_error</span></span></span> – or std::system_error on transport or response parsing errors. </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Parsed HTTP response.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10dephan_ros10HttpClient4postERKNSt6stringERKNSt6stringE">
+<span id="_CPPv3NK10dephan_ros10HttpClient4postERKNSt6stringERKNSt6stringE"></span><span id="_CPPv2NK10dephan_ros10HttpClient4postERKNSt6stringERKNSt6stringE"></span><span id="dephan_ros::HttpClient::post__ssCR.ssCRC"></span><span class="target" id="classdephan__ros_1_1HttpClient_1a3a7b2c50c2880c51a3e3b9d1ade5a6f0"></span><a class="reference internal" href="#_CPPv4N10dephan_ros12HttpResponseE" title="dephan_ros::HttpResponse"><span class="n"><span class="pre">HttpResponse</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">post</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">body</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK10dephan_ros10HttpClient4postERKNSt6stringERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Execute a blocking HTTP POST request with a JSON body. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – Absolute request path beginning with ‘/’, for example “/config/motor_speed”. </p></li>
+<li><p><strong>body</strong> – Raw request body. For configuration writes this must already be a valid JSON token such as “10”, “true” or “&quot;INFO””. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">invalid_argument</span></span></span> – if path is not absolute. </p></li>
+<li><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">runtime_error</span></span></span> – or std::system_error on transport or response parsing errors. </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Parsed HTTP response.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK10dephan_ros10HttpClient10stream_getERKNSt6stringERNSt7ostreamEPNSt7ostreamE">
+<span id="_CPPv3NK10dephan_ros10HttpClient10stream_getERKNSt6stringERNSt7ostreamEPNSt7ostreamE"></span><span id="_CPPv2NK10dephan_ros10HttpClient10stream_getERKNSt6stringERNSt7ostreamEPNSt7ostreamE"></span><span id="dephan_ros::HttpClient::stream_get__ssCR.osR.osPC"></span><span class="target" id="classdephan__ros_1_1HttpClient_1a0073c8a5be5a96762e9590686fa1832f"></span><a class="reference internal" href="#_CPPv4N10dephan_ros12HttpResponseE" title="dephan_ros::HttpResponse"><span class="n"><span class="pre">HttpResponse</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stream_get</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">path</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">body_stream</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">status_stream</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK10dephan_ros10HttpClient10stream_getERKNSt6stringERNSt7ostreamEPNSt7ostreamE" title="Link to this definition"></a><br /></dt>
+<dd><p>Execute a GET request and write the body as it is received. </p>
+<p>This method is used for endpoints where buffering the complete response is undesirable, such as the Safety zones SSE stream and LUT binary download.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – Absolute request path beginning with ‘/’. </p></li>
+<li><p><strong>body_stream</strong> – Stream that receives response body bytes. </p></li>
+<li><p><strong>status_stream</strong> – Optional stream for printing the HTTP status line. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">invalid_argument</span></span></span> – if path is not absolute. </p></li>
+<li><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">runtime_error</span></span></span> – or std::system_error on transport or response parsing errors. </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Parsed HTTP status and headers. The body field is empty because bytes are forwarded to body_stream.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12HttpResponseE">
+<span id="_CPPv3N10dephan_ros12HttpResponseE"></span><span id="_CPPv2N10dephan_ros12HttpResponseE"></span><span id="dephan_ros::HttpResponse"></span><span class="target" id="structdephan__ros_1_1HttpResponse"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HttpResponse</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12HttpResponseE" title="Link to this definition"></a><br /></dt>
+<dd><p>Parsed HTTP response returned by <a class="reference internal" href="#classdephan__ros_1_1HttpClient"><span class="std std-ref">HttpClient</span></a> requests. </p>
+<p>The client stores the status code, reason phrase, raw response headers and response body separately. The status line is normalized into status_code and reason; headers do not include the trailing CRLF separator. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12HttpResponse11status_codeE">
+<span id="_CPPv3N10dephan_ros12HttpResponse11status_codeE"></span><span id="_CPPv2N10dephan_ros12HttpResponse11status_codeE"></span><span id="dephan_ros::HttpResponse::status_code__i"></span><span class="target" id="structdephan__ros_1_1HttpResponse_1a13598b8b654d058752bf2c59c486467d"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">status_code</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12HttpResponse11status_codeE" title="Link to this definition"></a><br /></dt>
+<dd><p>Numeric HTTP status code, for example 200 or 404. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12HttpResponse6reasonE">
+<span id="_CPPv3N10dephan_ros12HttpResponse6reasonE"></span><span id="_CPPv2N10dephan_ros12HttpResponse6reasonE"></span><span id="dephan_ros::HttpResponse::reason__ss"></span><span class="target" id="structdephan__ros_1_1HttpResponse_1a2f37539315b30631cce1abe706422d13"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reason</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12HttpResponse6reasonE" title="Link to this definition"></a><br /></dt>
+<dd><p>HTTP reason phrase from the status line, for example “OK”. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12HttpResponse7headersE">
+<span id="_CPPv3N10dephan_ros12HttpResponse7headersE"></span><span id="_CPPv2N10dephan_ros12HttpResponse7headersE"></span><span id="dephan_ros::HttpResponse::headers__ss"></span><span class="target" id="structdephan__ros_1_1HttpResponse_1a1d91cff061de796d515766fa5bcba35e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">headers</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12HttpResponse7headersE" title="Link to this definition"></a><br /></dt>
+<dd><p>Raw HTTP response headers without the body. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros12HttpResponse4bodyE">
+<span id="_CPPv3N10dephan_ros12HttpResponse4bodyE"></span><span id="_CPPv2N10dephan_ros12HttpResponse4bodyE"></span><span id="dephan_ros::HttpResponse::body__ss"></span><span class="target" id="structdephan__ros_1_1HttpResponse_1a08ef59adab9de735e91738f3e5377653"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">body</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros12HttpResponse4bodyE" title="Link to this definition"></a><br /></dt>
+<dd><p>Response body bytes represented as a string. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="reciever_socket.html" class="btn btn-neutral float-left" title="Class receiver_socket" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="driver_cli.html" class="btn btn-neutral float-right" title="Driver CLI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Anton Ledrov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        Version: ROS:jazzy
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Versions</dt>
+            
+            <dd><a href="https://dephan-llc.github.io/dephan-ros-driver/docs/index.html">docs</a></dd>
+            
+            <dd><a href="https://dephan-llc.github.io/dephan-ros-driver/noetic/index.html">ROS:noetic</a></dd>
+            
+            <dd><a href="https://dephan-llc.github.io/dephan-ros-driver/iron/index.html">ROS:iron</a></dd>
+            
+        </dl>
+        <br>
+        </dl>
+    </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

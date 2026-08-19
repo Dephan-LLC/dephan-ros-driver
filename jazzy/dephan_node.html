@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DEPHAN ROS node howto &mdash; Dephan ROS driver 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LiDAR HTTP API CLI" href="http_api.html" />
+    <link rel="prev" title="Docker" href="docker.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Dephan ROS driver
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">DEPHAN ROS node howto</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#description">Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#udp-operation">UDP operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-validation">Configuration validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pcap-based-operation">PCAP-based operation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage-scenarios">Usage scenarios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launch-files">Launch files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#runtime-parameters">Runtime parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#diagnostics">Diagnostics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#operation-testing">Operation testing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http_api.html">LiDAR HTTP API CLI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/ros_driver.html">Class Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/reciever_socket.html">Class receiver_socket</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/http_client.html">Class HttpClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/driver_cli.html">Driver CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/driver_runtime.html">Driver runtime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/driver_config.html">Driver Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/driver_diagnostics.html">Driver diagnostics helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/full_scan_assembler.html">Class FullScanAssembler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/safety_zone_markers.html">Safety zone marker helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/packet_handler_mech.html">Class pkt_hdl_Mech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/packet_raw.html">Struct packet</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Dephan ROS driver</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">DEPHAN ROS node howto</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/dephan_node.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dephan-ros-node-howto">
+<h1>DEPHAN ROS node howto<a class="headerlink" href="#dephan-ros-node-howto" title="Link to this heading"></a></h1>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h2>
+<p>The best way to use driver as you want is specify json configuration file for the driver operation.</p>
+<p>There are two types of configuration files: for <em>udp operation</em> and for <em>pcap-based operation</em>.</p>
+<p>For both types there is a <code class="docutils literal notranslate"><span class="pre">&quot;capture</span> <span class="pre">type&quot;</span></code> parameter which can take only two values: <code class="docutils literal notranslate"><span class="pre">&quot;FULL&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;SINGLE&quot;</span></code>.</p>
+<p>When using the <code class="docutils literal notranslate"><span class="pre">&quot;FULL&quot;</span></code> type, 360-degree view packets will be captured, whereas in the <code class="docutils literal notranslate"><span class="pre">&quot;SINGLE&quot;</span></code> mode, packets will be captured singly.</p>
+<section id="udp-operation">
+<h3>UDP operation<a class="headerlink" href="#udp-operation" title="Link to this heading"></a></h3>
+<p>It is used to work with a real lidar device connected to the ROS node via UDP.</p>
+<p>You can find default configurations for UDP mode by <code class="docutils literal notranslate"><span class="pre">src/mech_lidar_driver/configs/default_udp_config.json</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"mode"</span><span class="o">:</span><span class="w"> </span><span class="s2">"UDP"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"name"</span><span class="o">:</span><span class="w"> </span><span class="s2">"test_UDP"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ip"</span><span class="o">:</span><span class="w"> </span><span class="s2">"192.168.0.120"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"port"</span><span class="o">:</span><span class="w"> </span><span class="mf">50007</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"topic"</span><span class="o">:</span><span class="w"> </span><span class="s2">"laserscan_data_udp"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"capture_type"</span><span class="o">:</span><span class="w"> </span><span class="s2">"FULL"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can change the last 5 fields according to your preferences.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ip</span></code> field is used as a source-IP filter for incoming UDP packets.
+Use <code class="docutils literal notranslate"><span class="pre">&quot;0.0.0.0&quot;</span></code> or an empty string to accept packets from any source.
+This is useful in Docker Desktop/NAT environments where the visible source
+address may differ from the LiDAR address.</p>
+</section>
+<section id="configuration-validation">
+<h3>Configuration validation<a class="headerlink" href="#configuration-validation" title="Link to this heading"></a></h3>
+<p>The configuration is validated before ROS polling starts. <code class="docutils literal notranslate"><span class="pre">mode</span></code>,
+<code class="docutils literal notranslate"><span class="pre">capture_type</span></code> and <code class="docutils literal notranslate"><span class="pre">topic</span></code> are always required. UDP mode also requires
+<code class="docutils literal notranslate"><span class="pre">ip</span></code> and <code class="docutils literal notranslate"><span class="pre">port</span></code>; PCAP mode requires <code class="docutils literal notranslate"><span class="pre">pcap_path</span></code>. Ports must be in the
+<code class="docutils literal notranslate"><span class="pre">1..65535</span></code> range, timeout and polling periods must be positive, and unknown
+JSON keys are rejected to expose spelling errors.</p>
+<p>JSON values provide defaults for runtime options. ROS 2 parameters declared by
+the node override those runtime values. Command-line HTTP connection options
+apply only when an HTTP CLI command is executed.</p>
+<p>The ROS 2 executor handles ROS callbacks while UDP or PCAP polling runs in a
+dedicated worker thread. Polling exceptions shut down the ROS context and make
+the process return a non-zero result.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">FULL</span></code> capture mode the driver groups packets by the firmware <code class="docutils literal notranslate"><span class="pre">ROT</span></code>
+counter and publishes only after all 20 unique <code class="docutils literal notranslate"><span class="pre">ENC</span></code> positions are present.
+An incomplete revolution is discarded when a newer counter arrives.</p>
+</section>
+<section id="pcap-based-operation">
+<h3>PCAP-based operation<a class="headerlink" href="#pcap-based-operation" title="Link to this heading"></a></h3>
+<p>It is used when there is no real device at hand, but there is a file with recorded traffic from it.</p>
+<p>You can find default configurations for UDP mode by <code class="docutils literal notranslate"><span class="pre">src/mech_lidar_driver/configs/default_pcap_config.json</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"mode"</span><span class="o">:</span><span class="w"> </span><span class="s2">"PCAP"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"name"</span><span class="o">:</span><span class="w"> </span><span class="s2">"test_PCAP"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"pcap_path"</span><span class="o">:</span><span class="w"> </span><span class="s2">"/root/test.pcap"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"topic"</span><span class="o">:</span><span class="w"> </span><span class="s2">"laserscan_data_pcap"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"capture_type"</span><span class="o">:</span><span class="w"> </span><span class="s2">"FULL"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can change the last 4 fields according to your preferences.</p>
+</section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<section id="usage-scenarios">
+<h3>Usage scenarios<a class="headerlink" href="#usage-scenarios" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Show help information:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--help
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Run node with default configuration by <code class="docutils literal notranslate"><span class="pre">src/mech_lidar_driver/configs/default_udp_config.json</span></code>:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Run node with user-specified configuration:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--config<span class="w"> </span>&lt;RELATIVE_PATH_TO_JSON_CONFIG&gt;
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Run HTTP API command without starting ROS polling:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--lidar-ip<span class="w"> </span><span class="m">192</span>.168.0.120<span class="w"> </span>--get-config
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="http_api.html"><span class="doc">LiDAR HTTP API CLI</span></a> for the full command list.</p>
+</section>
+<section id="launch-files">
+<h3>Launch files<a class="headerlink" href="#launch-files" title="Link to this heading"></a></h3>
+<p>The package provides three launch files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">driver.launch.py</span></code> exposes all parameters and remains the generic entry point;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">udp.launch.py</span></code> selects the default UDP configuration;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pcap.launch.py</span></code> selects the default PCAP configuration.</p></li>
+</ul>
+<p>Start a full UDP scan:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>mech_lidar_driver<span class="w"> </span>udp.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>source_ip:<span class="o">=</span><span class="m">192</span>.168.0.120<span class="w"> </span>udp_port:<span class="o">=</span><span class="m">50007</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>scan_topic:<span class="o">=</span>scan<span class="w"> </span>pointcloud_topic:<span class="o">=</span>points<span class="w"> </span>frame_id:<span class="o">=</span>base_link
+</pre></div>
+</div>
+<p>Publish each 115-point packet instead of a complete revolution:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>mech_lidar_driver<span class="w"> </span>udp.launch.py<span class="w"> </span>capture_type:<span class="o">=</span>SINGLE
+</pre></div>
+</div>
+<p>Replay a PCAP file:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>mech_lidar_driver<span class="w"> </span>pcap.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>pcap_path:<span class="o">=</span>/data/lidar.pcap<span class="w"> </span>capture_type:<span class="o">=</span>FULL
+</pre></div>
+</div>
+<p>For two lidars, each instance must use a unique node name, namespace, UDP port
+and output topics:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>mech_lidar_driver<span class="w"> </span>udp.launch.py<span class="w"> </span>namespace:<span class="o">=</span>front<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>node_name:<span class="o">=</span>front_driver<span class="w"> </span>source_ip:<span class="o">=</span><span class="m">192</span>.168.0.120<span class="w"> </span>udp_port:<span class="o">=</span><span class="m">50007</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>scan_topic:<span class="o">=</span>scan<span class="w"> </span>pointcloud_topic:<span class="o">=</span>points
+ros2<span class="w"> </span>launch<span class="w"> </span>mech_lidar_driver<span class="w"> </span>udp.launch.py<span class="w"> </span>namespace:<span class="o">=</span>rear<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>node_name:<span class="o">=</span>rear_driver<span class="w"> </span>source_ip:<span class="o">=</span><span class="m">192</span>.168.0.121<span class="w"> </span>udp_port:<span class="o">=</span><span class="m">50008</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>scan_topic:<span class="o">=</span>scan<span class="w"> </span>pointcloud_topic:<span class="o">=</span>points
+</pre></div>
+</div>
+</section>
+<section id="runtime-parameters">
+<h3>Runtime parameters<a class="headerlink" href="#runtime-parameters" title="Link to this heading"></a></h3>
+<p>Declared ROS 2 parameters override values loaded from JSON. The generic launch
+file exposes <code class="docutils literal notranslate"><span class="pre">capture_type</span></code>, <code class="docutils literal notranslate"><span class="pre">source_ip</span></code>,
+<code class="docutils literal notranslate"><span class="pre">udp_port</span></code>, <code class="docutils literal notranslate"><span class="pre">pcap_path</span></code>, <code class="docutils literal notranslate"><span class="pre">scan_topic</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pointcloud_topic</span></code>, <code class="docutils literal notranslate"><span class="pre">frame_id</span></code>, <code class="docutils literal notranslate"><span class="pre">angle_offset_deg</span></code>,
+<code class="docutils literal notranslate"><span class="pre">udp_reconnect_initial_ms</span></code>, <code class="docutils literal notranslate"><span class="pre">udp_reconnect_max_ms</span></code> and the HTTP/Safety
+Zones settings. This ordering makes a validated JSON file
+the base configuration while launch arguments configure a specific deployment.</p>
+</section>
+<section id="diagnostics">
+<h3>Diagnostics<a class="headerlink" href="#diagnostics" title="Link to this heading"></a></h3>
+<p>Diagnostics are enabled by default and published as
+<code class="docutils literal notranslate"><span class="pre">diagnostic_msgs/msg/DiagnosticArray</span></code> on <code class="docutils literal notranslate"><span class="pre">diagnostics</span></code>. The status
+contains the transport, age of the last scan, valid packet count, published
+message count, invalid packet count, discarded incomplete revolutions and UDP
+socket recovery state/counters. It
+changes to <code class="docutils literal notranslate"><span class="pre">WARN</span></code> with <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">scan</span> <span class="pre">data</span></code> after
+<code class="docutils literal notranslate"><span class="pre">no_data_timeout_s</span></code> (default 2 seconds). Use
+<code class="docutils literal notranslate"><span class="pre">diagnostics_enabled</span></code>, <code class="docutils literal notranslate"><span class="pre">diagnostics_topic</span></code>,
+<code class="docutils literal notranslate"><span class="pre">diagnostics_period_s</span></code> and <code class="docutils literal notranslate"><span class="pre">no_data_timeout_s</span></code> to configure
+monitoring.</p>
+<p>After a system error from <code class="docutils literal notranslate"><span class="pre">poll</span></code> or <code class="docutils literal notranslate"><span class="pre">recvfrom</span></code>, the UDP socket is recreated
+without stopping the node. Diagnostics changes to <code class="docutils literal notranslate"><span class="pre">ERROR</span></code> with
+<code class="docutils literal notranslate"><span class="pre">UDP</span> <span class="pre">socket</span> <span class="pre">recovering</span></code> while retries use exponential backoff from
+<code class="docutils literal notranslate"><span class="pre">udp_reconnect_initial_ms</span></code> (250 ms) up to <code class="docutils literal notranslate"><span class="pre">udp_reconnect_max_ms</span></code> (5 s).
+Normal receive timeouts while the motor is stopped do not trigger recovery.</p>
+<p>For UDP, <code class="docutils literal notranslate"><span class="pre">hardware_id</span></code> uses the configured source IP. When the source filter
+is disabled with <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code> for Docker/NAT, it uses <code class="docutils literal notranslate"><span class="pre">http_host</span></code> instead so
+multiple devices remain distinguishable.</p>
+</section>
+<section id="operation-testing">
+<h3>Operation testing<a class="headerlink" href="#operation-testing" title="Link to this heading"></a></h3>
+<p>To ensure that driver works correctly you can capture publishing data.</p>
+<ol class="arabic simple">
+<li><p>For default configuration:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>--once<span class="w"> </span>/scan
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>--once<span class="w"> </span>/points
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>--once<span class="w"> </span>/diagnostics
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>For user-specified configuration:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>&lt;JSON_CONFIG<span class="o">[</span><span class="s2">"topic"</span><span class="o">]</span>&gt;
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="docker.html" class="btn btn-neutral float-left" title="Docker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="http_api.html" class="btn btn-neutral float-right" title="LiDAR HTTP API CLI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Anton Ledrov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        Version: ROS:jazzy
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Versions</dt>
+            
+            <dd><a href="https://dephan-llc.github.io/dephan-ros-driver/docs/index.html">docs</a></dd>
+            
+            <dd><a href="https://dephan-llc.github.io/dephan-ros-driver/noetic/index.html">ROS:noetic</a></dd>
+            
+            <dd><a href="https://dephan-llc.github.io/dephan-ros-driver/iron/index.html">ROS:iron</a></dd>
+            
+        </dl>
+        <br>
+        </dl>
+    </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

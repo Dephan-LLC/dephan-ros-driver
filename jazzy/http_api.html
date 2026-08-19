@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LiDAR HTTP API CLI &mdash; Dephan ROS driver 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Class Driver" href="cpp_src/ros_driver.html" />
+    <link rel="prev" title="DEPHAN ROS node howto" href="dephan_node.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Dephan ROS driver
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="dephan_node.html">DEPHAN ROS node howto</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LiDAR HTTP API CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#connection-options">Connection options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-commands">Read commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-writes">Configuration writes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#service-commands">Service commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#safety-zones">Safety zones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#log-events">Log events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contamination-analysis">Contamination analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exit-status-and-output">Exit status and output</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/ros_driver.html">Class Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/reciever_socket.html">Class receiver_socket</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/http_client.html">Class HttpClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/driver_cli.html">Driver CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/driver_runtime.html">Driver runtime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/driver_config.html">Driver Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/driver_diagnostics.html">Driver diagnostics helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/full_scan_assembler.html">Class FullScanAssembler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/safety_zone_markers.html">Safety zone marker helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/packet_handler_mech.html">Class pkt_hdl_Mech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/packet_raw.html">Struct packet</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Dephan ROS driver</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">LiDAR HTTP API CLI</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/http_api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="lidar-http-api-cli">
+<h1>LiDAR HTTP API CLI<a class="headerlink" href="#lidar-http-api-cli" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">mech_driver</span></code> executable can run one HTTP command and exit without
+starting UDP or PCAP polling. These commands are intended for LiDAR
+configuration, diagnostics and Safety zones maintenance.</p>
+<section id="connection-options">
+<h2>Connection options<a class="headerlink" href="#connection-options" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--lidar-ip<span class="w"> </span><span class="m">192</span>.168.0.120<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--http-port<span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--http-timeout-ms<span class="w"> </span><span class="m">3000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&lt;command&gt;
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--lidar-ip</span></code> is an alias for <code class="docutils literal notranslate"><span class="pre">--http-host</span></code>. Defaults are:</p>
+<ul class="simple">
+<li><p>host: <code class="docutils literal notranslate"><span class="pre">192.168.0.120</span></code></p></li>
+<li><p>port: <code class="docutils literal notranslate"><span class="pre">80</span></code></p></li>
+<li><p>timeout: <code class="docutils literal notranslate"><span class="pre">3000</span> <span class="pre">ms</span></code></p></li>
+</ul>
+<p>The driver does not send Basic Auth credentials. Endpoints or parameters
+requiring authorization return an HTTP error such as <code class="docutils literal notranslate"><span class="pre">401</span> <span class="pre">Unauthorized</span></code>.</p>
+</section>
+<section id="read-commands">
+<h2>Read commands<a class="headerlink" href="#read-commands" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-config
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-status
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-features
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-version
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-version-string
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-log
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-timestamp
+</pre></div>
+</div>
+<p>These commands call:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/config.json</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/status.json</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/features.json</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/version.txt</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/version_string.txt</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/log.txt</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/timestamp.txt</span></code></p></li>
+</ul>
+</section>
+<section id="configuration-writes">
+<h2>Configuration writes<a class="headerlink" href="#configuration-writes" title="Link to this heading"></a></h2>
+<p>Change one configuration parameter:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-config<span class="w"> </span>motor_speed<span class="w"> </span><span class="m">10</span>
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-config<span class="w"> </span>motor_speed<span class="w"> </span><span class="m">0</span>
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-config<span class="w"> </span>preemptive_conns<span class="w"> </span><span class="nb">true</span>
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-config<span class="w"> </span>logger_level<span class="w"> </span><span class="s1">'"INFO"'</span>
+</pre></div>
+</div>
+<p>The third argument to <code class="docutils literal notranslate"><span class="pre">--set-config</span></code> is sent as the raw JSON token body for
+<code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/config/{name}</span></code>. Strings must include JSON quotes, for example
+<code class="docutils literal notranslate"><span class="pre">'&quot;INFO&quot;'</span></code>.</p>
+<p>Change several configuration parameters with one request:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-config-json<span class="w"> </span><span class="s1">'{"motor_speed":10,"udp_dest_port":50007}'</span>
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-config-json<span class="w"> </span>@config_patch.json
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--set-config-json</span></code> sends a flat JSON object to <code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/config.json</span></code>.
+Parameters are applied one by one by the device firmware; the operation is not
+atomic.</p>
+</section>
+<section id="service-commands">
+<h2>Service commands<a class="headerlink" href="#service-commands" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--save-preset
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--jump-to-bootloader
+</pre></div>
+</div>
+<p>These commands call:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/save_preset.cgi</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/jump_to_bootloader.cgi</span></code></p></li>
+</ul>
+</section>
+<section id="safety-zones">
+<h2>Safety zones<a class="headerlink" href="#safety-zones" title="Link to this heading"></a></h2>
+<p>Safety zones commands are available only on firmware built with
+<code class="docutils literal notranslate"><span class="pre">FEATURE_SAFETY_ZONES</span></code>.</p>
+<p>Read current zones, settings and status:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-zones
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-zone-settings
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-zone-status
+</pre></div>
+</div>
+<p>Write zones and settings. JSON bodies can be passed inline or with <code class="docutils literal notranslate"><span class="pre">&#64;file</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-zones<span class="w"> </span>@zones.json
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--add-zone<span class="w"> </span>@zone.json
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-zone-settings<span class="w"> </span>@zone_settings.json
+</pre></div>
+</div>
+<p>Delete, reset and save:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--delete-zone<span class="w"> </span>front_sector
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--reset-zones
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--reset-zones<span class="w"> </span>front_sector
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--save-zones
+</pre></div>
+</div>
+<p>Download LUT and stream status events:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-zones-lut<span class="w"> </span>/tmp/zones_lut.bin
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--safety-events
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--safety-events</span></code> opens <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/safety_events</span></code> and prints the server-sent
+event stream until the connection closes or the command is interrupted. A
+<code class="docutils literal notranslate"><span class="pre">zone_status</span></code> event contains <code class="docutils literal notranslate"><span class="pre">{&quot;&lt;zone_name&gt;&quot;:</span> <span class="pre">boolean}</span></code> for zones in the
+current monitoring case. Zones assigned to monitoring case <code class="docutils literal notranslate"><span class="pre">0</span></code> are omitted.</p>
+<p>Zone JSON accepted by <code class="docutils literal notranslate"><span class="pre">--set-zones</span></code> and <code class="docutils literal notranslate"><span class="pre">--add-zone</span></code> follows the firmware
+contract. Each zone must include <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">monitoring_case</span></code> and
+<code class="docutils literal notranslate"><span class="pre">zone_type</span></code>. <code class="docutils literal notranslate"><span class="pre">monitoring_case</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code> for no active monitoring case or
+<code class="docutils literal notranslate"><span class="pre">1..8</span></code> for a concrete case. <code class="docutils literal notranslate"><span class="pre">zone_type</span></code> is <code class="docutils literal notranslate"><span class="pre">INFO</span></code>, <code class="docutils literal notranslate"><span class="pre">WARNING</span></code> or
+<code class="docutils literal notranslate"><span class="pre">PROTECTIVE</span></code>. Global zone settings may include <code class="docutils literal notranslate"><span class="pre">zone_confirm_scans</span></code>,
+<code class="docutils literal notranslate"><span class="pre">zone_restart_delay_ms</span></code>, <code class="docutils literal notranslate"><span class="pre">zone_restart_mode</span></code> and <code class="docutils literal notranslate"><span class="pre">zone_current_case</span></code>.
+Segments can be <code class="docutils literal notranslate"><span class="pre">sector</span></code>, <code class="docutils literal notranslate"><span class="pre">polygon</span></code> or <code class="docutils literal notranslate"><span class="pre">two_points</span></code>.
+The firmware accepts at most 16 zones in total and at most 8 zones in each
+non-zero monitoring case. Zone names are limited to 47 bytes plus a terminating
+null byte.</p>
+<p>The LUT file starts with a one-byte zone count for the current monitoring case.
+Each zone then occupies 48 bytes for its null-padded name followed by 2300
+little-endian <code class="docutils literal notranslate"><span class="pre">uint32</span></code> distance thresholds in millimetres. Its total size is
+<code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">zone_count</span> <span class="pre">*</span> <span class="pre">(48</span> <span class="pre">+</span> <span class="pre">2300</span> <span class="pre">*</span> <span class="pre">4)</span></code> bytes; it is not a triggered-state
+snapshot.</p>
+</section>
+<section id="log-events">
+<h2>Log events<a class="headerlink" href="#log-events" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--log-events
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--log-events</span></code> opens <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/log_events</span></code> and prints new log server-sent
+events until the connection closes or the command is interrupted. Use
+<code class="docutils literal notranslate"><span class="pre">--get-log</span></code> first if an initial log snapshot is required.</p>
+</section>
+<section id="contamination-analysis">
+<h2>Contamination analysis<a class="headerlink" href="#contamination-analysis" title="Link to this heading"></a></h2>
+<p>These commands are available only on firmware built with
+<code class="docutils literal notranslate"><span class="pre">FEATURE_CONTAMINATION_ANALYSIS</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--get-contamination-status
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--contamination-events
+</pre></div>
+</div>
+<p>The first command reads <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/contamination/status.json</span></code>. The second opens
+the <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/contamination_events</span></code> server-sent event stream until it is closed
+or interrupted. A <code class="docutils literal notranslate"><span class="pre">contamination_status</span></code> event carries
+<code class="docutils literal notranslate"><span class="pre">{&quot;contaminated&quot;:boolean,&quot;percent&quot;:number}</span></code> and is also repeated as a
+status snapshot approximately every two seconds. Firmware without this feature
+returns <code class="docutils literal notranslate"><span class="pre">404</span> <span class="pre">Not</span> <span class="pre">Found</span></code>.</p>
+<p>The analysis sector and threshold use the regular configuration commands:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-config<span class="w"> </span>contamination_angle_start_deg<span class="w"> </span><span class="m">0</span>.0
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-config<span class="w"> </span>contamination_angle_end_deg<span class="w"> </span><span class="m">90</span>.0
+ros2<span class="w"> </span>run<span class="w"> </span>mech_lidar_driver<span class="w"> </span>mech_driver<span class="w"> </span>--set-config<span class="w"> </span>contamination_threshold_percent<span class="w"> </span><span class="m">30</span>
+</pre></div>
+</div>
+<p>Angles must be in the <code class="docutils literal notranslate"><span class="pre">0..359.9</span></code> degree range. The threshold is an integer
+percentage in the <code class="docutils literal notranslate"><span class="pre">0..100</span></code> range.</p>
+</section>
+<section id="exit-status-and-output">
+<h2>Exit status and output<a class="headerlink" href="#exit-status-and-output" title="Link to this heading"></a></h2>
+<p>Every HTTP command prints the HTTP status line and the response body. The
+process returns <code class="docutils literal notranslate"><span class="pre">0</span></code> for <code class="docutils literal notranslate"><span class="pre">2xx</span></code> responses and non-zero for HTTP errors or
+transport errors.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dephan_node.html" class="btn btn-neutral float-left" title="DEPHAN ROS node howto" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cpp_src/ros_driver.html" class="btn btn-neutral float-right" title="Class Driver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Anton Ledrov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        Version: ROS:jazzy
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Versions</dt>
+            
+            <dd><a href="https://dephan-llc.github.io/dephan-ros-driver/docs/index.html">docs</a></dd>
+            
+            <dd><a href="https://dephan-llc.github.io/dephan-ros-driver/noetic/index.html">ROS:noetic</a></dd>
+            
+            <dd><a href="https://dephan-llc.github.io/dephan-ros-driver/iron/index.html">ROS:iron</a></dd>
+            
+        </dl>
+        <br>
+        </dl>
+    </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
