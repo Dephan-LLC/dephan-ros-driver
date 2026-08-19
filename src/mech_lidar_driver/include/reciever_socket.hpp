@@ -4,7 +4,7 @@
  */
 
 /**
- * @file receiver_socket.hpp
+ * @file reciever_socket.hpp
  * @brief UDP socket for receiving data packets from lidar
  */
 
@@ -18,12 +18,14 @@
 #include <cstdint>
 
 namespace dephan_ros {
+/** UDP receiver with optional source filtering and explicit socket recovery. */
 class receiver_socket {
 public:
     /**
      * Constructs and opens a socket with specific IP address and port.
      *
-     * @param[in] config device configuration (include ip and port).
+     * @param[in] ip_addr Expected packet source address, or wildcard address.
+     * @param[in] port Local UDP port to bind.
      */
     receiver_socket(std::string ip_addr, int port);
 
@@ -40,6 +42,9 @@ public:
      */
     int get_packet(uint8_t* buf, int len);
 
+    /** Close and recreate the UDP socket with the original settings. */
+    void reopen();
+
 private:
     // Disabled copy constructor
     receiver_socket(const receiver_socket&);
@@ -51,7 +56,7 @@ private:
     in_addr m_expected_addr{};
     bool m_filter_by_source;
     int m_sock_port;
-    int udp_socket;
+    int udp_socket = -1;
 
     // contains info about source, destination address and port
     struct sockaddr_in si_me, si_from;
@@ -59,6 +64,9 @@ private:
 
     const int POLL_TIMEOUT = 500; // in milliseconds
     struct pollfd m_fds[1];
+
+    void open_socket();
+    void close_socket() noexcept;
 };
 } // namespace dephan_ros
 

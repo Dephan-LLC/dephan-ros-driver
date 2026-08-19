@@ -13,9 +13,12 @@
 
 #include "packet_raw.hpp"
 
+#include <cstddef>
+#include <cstdint>
+
 namespace dephan_ros {
 /**
- * Class for handle raw packet derived from base packet class.
+ * Decodes one 936-byte M360 UDP packet according to the firmware contract.
  */
 class pkt_hdl_Mech : public packet {
 
@@ -41,7 +44,7 @@ public:
     static const uint8_t magic = 0x68;
 
     /**
-     * Number of chanells of the photodetection unit.
+     * Number of channels in one UDP packet.
      */
     static const int CHANELLS = 115;
 
@@ -58,7 +61,14 @@ public:
     /**
      * Angle resolution of the photodetection unit.
      */
-    static constexpr float RAD_RESOLUTION = 2 * 3.1415 / POINTS_PER_REV;
+    static constexpr float RAD_RESOLUTION =
+        6.28318530717958647692f / POINTS_PER_REV;
+
+    /** Revolution counter copied from the ROT packet field. */
+    uint16_t rotation_counter() const;
+
+    /** Target rotation frequency in hertz copied from the HZ packet field. */
+    uint16_t rotation_frequency_hz() const;
 
     /**
      * First encoder point index contained in this packet.
@@ -67,8 +77,19 @@ public:
 
     /**
      * Encoder point index for a packet channel.
+     *
+     * @throws std::out_of_range when the channel is outside this packet.
      */
     uint16_t point_index(size_t chnl) const;
+
+    /** Whole seconds from the TS_SEC packet field. */
+    uint32_t timestamp_seconds() const;
+
+    /** Fractional seconds in 2^-32 units from the TS_FRAC packet field. */
+    uint32_t timestamp_fraction() const;
+
+    /** Packet timestamp represented as seconds with a fractional part. */
+    double timestamp() const;
 
     /**
      * Ranges to the points within one scan packet.
@@ -91,8 +112,11 @@ public:
     raw_packet_t raw_pkt;
 
 private:
-    // Signal from the LiDar's motor encoder.
+    uint16_t rotation_counter_ = 0;
+    uint16_t rotation_frequency_hz_ = 0;
     uint16_t enc_signal = 0;
+    uint32_t timestamp_fraction_ = 0;
+    uint32_t timestamp_seconds_ = 0;
 };
 } // namespace dephan_ros
 

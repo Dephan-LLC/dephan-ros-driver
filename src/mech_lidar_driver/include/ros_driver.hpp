@@ -13,11 +13,14 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <atomic>
+#include <cstdint>
+#include <diagnostic_msgs/msg/diagnostic_array.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 #include <sensor_msgs/msg/laser_scan.hpp>
 #include <std_msgs/msg/string.hpp>
 #include <visualization_msgs/msg/marker_array.hpp>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -69,6 +72,15 @@ struct DriverRuntimeOptions {
     std::string safety_zones_topic  = "safety_zones_markers";
     std::string safety_status_topic = "safety_zones_status";
     double safety_debug_period_s    = 1.0;
+
+    /** Standard diagnostics topic and no-data monitoring thresholds. */
+    bool diagnostics_enabled = true;
+    std::string diagnostics_topic = "diagnostics";
+    double diagnostics_period_s = 1.0;
+    double no_data_timeout_s = 2.0;
+    int udp_reconnect_initial_ms = 250;
+    int udp_reconnect_max_ms = 5000;
+    std::string transport;
 };
 
 /**
@@ -137,6 +149,10 @@ private:
     rclcpp::Publisher<std_msgs::msg::String>::SharedPtr
         safety_status_publisher;
 
+    /** Standard DiagnosticArray publisher for stream health. */
+    rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticArray>::SharedPtr
+        diagnostics_publisher;
+
     /**
      * Runtime ROS and optional debug settings.
      */
@@ -153,38 +169,57 @@ private:
     std::atomic_bool safety_debug_running{false};
     std::thread safety_debug_thread;
 
-    /**
-     * Ros timer for polling operation.
-     */
-    rclcpp::TimerBase::SharedPtr timer;
-
-    /**
-     * Timer callback for polling operation.
-     */
-    void timer_callback();
+    /** Background diagnostics state and stream counters. */
+    std::atomic_bool diagnostics_running{false};
+    std::thread diagnostics_thread;
+    std::chrono::steady_clock::time_point started_at;
+    std::chrono::steady_clock::time_point last_diagnostics_publish;
+    std::atomic<int64_t> last_publish_ns{0};
+    std::atomic<uint64_t> packets_received{0};
+    std::atomic<uint64_t> messages_published{0};
+    std::atomic<uint64_t> invalid_packets{0};
+    std::atomic<uint64_t> discarded_revolutions{0};
+    std::atomic_bool socket_recovering{false};
+    std::atomic<uint64_t> socket_errors{0};
+    std::atomic<uint64_t> socket_reconnects{0};
+    std::atomic<int> socket_retry_delay_ms{0};
+    mutable std::mutex socket_error_mutex;
+    std::string last_socket_error;
 
     /**
      * Publish safety zone markers and status JSON when debug mode is enabled.
      */
     void publish_safety_debug();
 
+    /** Publish current stream counters and no-data health state. */
+    void publish_diagnostics();
+
+    /** Record one successfully published LaserScan/PointCloud2 pair. */
+    void record_published_message();
+
+    /** Receive a UDP packet and recreate the socket after system errors. */
+    bool receive_udp_packet(uint8_t* buffer, int length);
+
+    /** Store an error for diagnostics without racing the diagnostics thread. */
+    void record_socket_error(const std::string& message);
+
     /**
-     * Poll one packet (2 pi / 18 rad segment per packet) in UDP mode.
+     * Poll one 115-point packet in UDP mode.
      */
     void _poll_udp();
 
     /**
-     * Poll one packet (2 pi / 18 rad segment per packet) in PCAP mode.
+     * Poll one 115-point packet in PCAP mode.
      */
     void _poll_pcap();
 
     /**
-     * Poll 18 packets (2 pi rad segment per packet) in UPD mode.
+     * Poll the 20 packets of one complete revolution in UDP mode.
      */
     void _poll_full_udp();
 
     /**
-     * Pill 18 packets (2 pi rad segment per packet) in PCAP mode.
+     * Poll the 20 packets of one complete revolution in PCAP mode.
      */
     void _poll_full_pcap();
 

@@ -6,13 +6,13 @@ Dephan ROS driver installation
 Supported platfrorms
 --------------------
 
-This driver was developed and tested under the ``ROS:iron`` distribution. 
+This driver is developed and tested under the ``ROS:jazzy`` distribution.
 
 
 Requirements
 ------------
 
-1. Install `ROS:iron <https://docs.ros.org/en/iron/Installation.html>`_ packages.
+1. Install `ROS:jazzy <https://docs.ros.org/en/jazzy/Installation.html>`_ packages.
 
 2. Install ``pcl`` and ``pcl-ros``: 
 
@@ -20,7 +20,7 @@ Requirements
 
     sudo apt update
 
-    sudo apt install libpcl-dev ros-iron-pcl-conversions ros-iron-pcl-ros
+    sudo apt install libpcl-dev ros-jazzy-pcl-conversions ros-jazzy-pcl-ros
 
 
 3. Install ``tins``:
@@ -40,13 +40,13 @@ Requirements
 Docker alternative
 ------------------
 
-The repository contains a Docker setup for repeatable ROS:iron builds:
+The repository contains a Docker setup for repeatable ROS:jazzy builds:
 
 .. code-block:: shell
 
     cd docker
-    docker compose build ros2-iron
-    docker compose run --rm ros2-iron
+    docker compose build ros2-jazzy
+    docker compose run --rm ros2-jazzy
 
 See :doc:`Docker <docker>` for details.
 

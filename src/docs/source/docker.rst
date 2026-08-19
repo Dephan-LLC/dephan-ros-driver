@@ -2,7 +2,7 @@
 Docker
 ======
 
-Docker files are provided for repeatable ROS:iron builds.
+Docker files are provided for repeatable ROS:jazzy builds.
 
 Build image
 -----------
@@ -10,7 +10,7 @@ Build image
 .. code-block:: shell
 
     cd docker
-    docker compose build ros2-iron
+    docker compose build ros2-jazzy
 
 Run shell
 ---------
@@ -18,14 +18,14 @@ Run shell
 .. code-block:: shell
 
     cd docker
-    docker compose run --rm ros2-iron
+    docker compose run --rm ros2-jazzy
 
 Build driver inside container
 -----------------------------
 
 .. code-block:: shell
 
-    source /opt/ros/iron/setup.bash
+    source /opt/ros/jazzy/setup.bash
     rm -rf /tmp/dephan_ros2_ws
     mkdir -p /tmp/dephan_ros2_ws/src
     ln -s /workspace/src/mech_lidar_driver /tmp/dephan_ros2_ws/src/mech_lidar_driver

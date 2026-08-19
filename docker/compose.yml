@@ -1,9 +1,9 @@
 services:
-  ros2-iron:
+  ros2-jazzy:
     build:
       context: .
-      dockerfile: ros2-iron.Dockerfile
-    image: dephan-ros-driver:ros2-iron
+      dockerfile: ros2-jazzy.Dockerfile
+    image: dephan-ros-driver:ros2-jazzy
     stdin_open: true
     tty: true
     ports:

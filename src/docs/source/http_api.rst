@@ -128,7 +128,9 @@ Download LUT and stream status events:
     ros2 run mech_lidar_driver mech_driver --safety-events
 
 ``--safety-events`` opens ``GET /safety_events`` and prints the server-sent
-event stream until the connection closes or the command is interrupted.
+event stream until the connection closes or the command is interrupted. A
+``zone_status`` event contains ``{"<zone_name>": boolean}`` for zones in the
+current monitoring case. Zones assigned to monitoring case ``0`` are omitted.
 
 Zone JSON accepted by ``--set-zones`` and ``--add-zone`` follows the firmware
 contract. Each zone must include ``name``, ``monitoring_case`` and
@@ -137,6 +139,15 @@ contract. Each zone must include ``name``, ``monitoring_case`` and
 ``PROTECTIVE``. Global zone settings may include ``zone_confirm_scans``,
 ``zone_restart_delay_ms``, ``zone_restart_mode`` and ``zone_current_case``.
 Segments can be ``sector``, ``polygon`` or ``two_points``.
+The firmware accepts at most 16 zones in total and at most 8 zones in each
+non-zero monitoring case. Zone names are limited to 47 bytes plus a terminating
+null byte.
+
+The LUT file starts with a one-byte zone count for the current monitoring case.
+Each zone then occupies 48 bytes for its null-padded name followed by 2300
+little-endian ``uint32`` distance thresholds in millimetres. Its total size is
+``1 + zone_count * (48 + 2300 * 4)`` bytes; it is not a triggered-state
+snapshot.
 
 Log events
 ----------
@@ -148,6 +159,35 @@ Log events
 ``--log-events`` opens ``GET /log_events`` and prints new log server-sent
 events until the connection closes or the command is interrupted. Use
 ``--get-log`` first if an initial log snapshot is required.
+
+Contamination analysis
+----------------------
+
+These commands are available only on firmware built with
+``FEATURE_CONTAMINATION_ANALYSIS``:
+
+.. code-block:: shell
+
+    ros2 run mech_lidar_driver mech_driver --get-contamination-status
+    ros2 run mech_lidar_driver mech_driver --contamination-events
+
+The first command reads ``GET /contamination/status.json``. The second opens
+the ``GET /contamination_events`` server-sent event stream until it is closed
+or interrupted. A ``contamination_status`` event carries
+``{"contaminated":boolean,"percent":number}`` and is also repeated as a
+status snapshot approximately every two seconds. Firmware without this feature
+returns ``404 Not Found``.
+
+The analysis sector and threshold use the regular configuration commands:
+
+.. code-block:: shell
+
+    ros2 run mech_lidar_driver mech_driver --set-config contamination_angle_start_deg 0.0
+    ros2 run mech_lidar_driver mech_driver --set-config contamination_angle_end_deg 90.0
+    ros2 run mech_lidar_driver mech_driver --set-config contamination_threshold_percent 30
+
+Angles must be in the ``0..359.9`` degree range. The threshold is an integer
+percentage in the ``0..100`` range.
 
 Exit status and output
 ----------------------

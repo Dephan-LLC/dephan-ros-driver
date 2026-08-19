@@ -1,4 +1,4 @@
-FROM ros:iron-perception
+FROM ros:jazzy-perception
 
 ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-c"]
@@ -27,7 +27,7 @@ RUN set -eux; \
       if [ -e "$f" ]; then mv "$f" "${f%.disabled}"; fi; \
     done
 
-RUN source /opt/ros/iron/setup.bash \
+RUN source /opt/ros/jazzy/setup.bash \
     && ros2 pkg prefix pcl_ros \
     && ros2 pkg prefix pcl_conversions \
     && ros2 pkg prefix sensor_msgs \

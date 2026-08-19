@@ -1,0 +1,18 @@
+{
+  "name": "two_points_front_line",
+  "monitoring_case": 1,
+  "zone_type": "INFO",
+  "gpio_output": null,
+  "segments": [
+    {
+      "type": "two_points",
+      "angle_start_deg": null,
+      "angle_end_deg": null,
+      "dist_max_m": null,
+      "vertices": [
+        [-0.5, -1.0],
+        [0.5, -1.0]
+      ]
+    }
+  ]
+}

@@ -37,7 +37,7 @@ jobs:
         working-directory: ./src/docs
         if: ${{ github.ref == 'refs/heads/ros2' }}
         run: |
-          export CURRENT_VERSION=ROS:iron
+          export CURRENT_VERSION=ROS:jazzy
           git fetch origin main:main
           git checkout main -- source/conf.py
           make html 
@@ -62,13 +62,13 @@ jobs:
           destination_dir: noetic
           enable_jekyll: false
 
-      - name: Deploy ROS:iron version to GitHub Pages
+      - name: Deploy ROS:jazzy version to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/ros2'}}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./src/docs/build/html
-          destination_dir: iron
+          destination_dir: jazzy
           enable_jekyll: false
 
