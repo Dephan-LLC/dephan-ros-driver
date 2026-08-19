@@ -58,6 +58,12 @@
 <li class="toctree-l1"><a class="reference internal" href="ros_driver.html">Class Driver</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Class receiver_socket</a></li>
 <li class="toctree-l1"><a class="reference internal" href="http_client.html">Class HttpClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_cli.html">Driver CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_runtime.html">Driver runtime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_config.html">Driver Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_diagnostics.html">Driver diagnostics helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="full_scan_assembler.html">Class FullScanAssembler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="safety_zone_markers.html">Safety zone marker helpers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="packet_handler_mech.html">Class pkt_hdl_Mech</a></li>
 <li class="toctree-l1"><a class="reference internal" href="packet_raw.html">Struct packet</a></li>
 </ul>
@@ -96,7 +102,8 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros15receiver_socketE">
 <span id="_CPPv3N10dephan_ros15receiver_socketE"></span><span id="_CPPv2N10dephan_ros15receiver_socketE"></span><span id="dephan_ros::receiver_socket"></span><span class="target" id="classdephan__ros_1_1receiver__socket"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">receiver_socket</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros15receiver_socketE" title="Link to this definition"></a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
+<dd><p>UDP receiver with optional source filtering and explicit socket recovery. </p>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros15receiver_socket15receiver_socketENSt6stringEi">
@@ -104,7 +111,10 @@
 <dd><p>Constructs and opens a socket with specific IP address and port.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>config</strong> – <strong>[in]</strong> device configuration (include ip and port). </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip_addr</strong> – <strong>[in]</strong> Expected packet source address, or wildcard address. </p></li>
+<li><p><strong>port</strong> – <strong>[in]</strong> Local UDP port to bind. </p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -127,6 +137,12 @@
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros15receiver_socket6reopenEv">
+<span id="_CPPv3N10dephan_ros15receiver_socket6reopenEv"></span><span id="_CPPv2N10dephan_ros15receiver_socket6reopenEv"></span><span id="dephan_ros::receiver_socket::reopen"></span><span class="target" id="classdephan__ros_1_1receiver__socket_1a38f2d5c6558ec2267a1d098ed33c515b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reopen</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros15receiver_socket6reopenEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Close and recreate the UDP socket with the original settings. </p>
 </dd></dl>
 
 </div>

@@ -53,12 +53,16 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">DEPHAN ROS node howto</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#description">Description</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#udp-operation">UDP operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-validation">Configuration validation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pcap-based-operation">PCAP-based operation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#preparation">Preparation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#usage-scenarios">Usage scenarios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launch-files">Launch files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#runtime-parameters">Runtime parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#diagnostics">Diagnostics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#operation-testing">Operation testing</a></li>
 </ul>
 </li>
@@ -71,6 +75,12 @@
 <li class="toctree-l1"><a class="reference internal" href="cpp_src/ros_driver.html">Class Driver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpp_src/reciever_socket.html">Class receiver_socket</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpp_src/http_client.html">Class HttpClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/driver_cli.html">Driver CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/driver_runtime.html">Driver runtime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/driver_config.html">Driver Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/driver_diagnostics.html">Driver diagnostics helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/full_scan_assembler.html">Class FullScanAssembler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_src/safety_zone_markers.html">Safety zone marker helpers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpp_src/packet_handler_mech.html">Class pkt_hdl_Mech</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cpp_src/packet_raw.html">Struct packet</a></li>
 </ul>
@@ -112,12 +122,12 @@
 <p>It is used to work with a real lidar device connected to the ROS node via UDP.</p>
 <p>You can find default configurations for UDP mode by <code class="docutils literal notranslate"><span class="pre">src/mech_lidar_driver/configs/default_udp_config.json</span></code>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;mode&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;UDP&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;test_UDP&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ip&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;192.168.0.120&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;port&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">50001</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;topic&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;laserscan_data_udp&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;capture_type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;FULL&quot;</span>
+<span class="w">    </span><span class="s2">"mode"</span><span class="o">:</span><span class="w"> </span><span class="s2">"UDP"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"name"</span><span class="o">:</span><span class="w"> </span><span class="s2">"test_UDP"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ip"</span><span class="o">:</span><span class="w"> </span><span class="s2">"192.168.0.120"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"port"</span><span class="o">:</span><span class="w"> </span><span class="mf">50007</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"topic"</span><span class="o">:</span><span class="w"> </span><span class="s2">"laserscan_data_udp"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"capture_type"</span><span class="o">:</span><span class="w"> </span><span class="s2">"FULL"</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -127,16 +137,30 @@ Use <code class="docutils literal notranslate"><span class="pre">&quot;0.0.0.0&q
 This is useful in Docker Desktop/NAT environments where the visible source
 address may differ from the LiDAR address.</p>
 </section>
+<section id="configuration-validation">
+<h3>Configuration validation<a class="headerlink" href="#configuration-validation" title="Link to this heading"></a></h3>
+<p>The configuration is validated before ROS polling starts. <code class="docutils literal notranslate"><span class="pre">mode</span></code>,
+<code class="docutils literal notranslate"><span class="pre">capture_type</span></code> and <code class="docutils literal notranslate"><span class="pre">topic</span></code> are always required. UDP mode also requires
+<code class="docutils literal notranslate"><span class="pre">ip</span></code> and <code class="docutils literal notranslate"><span class="pre">port</span></code>; PCAP mode requires <code class="docutils literal notranslate"><span class="pre">pcap_path</span></code>. Ports must be in the
+<code class="docutils literal notranslate"><span class="pre">1..65535</span></code> range, timeout and polling periods must be positive, and unknown
+JSON keys are rejected to expose spelling errors.</p>
+<p>JSON values provide defaults for runtime options. ROS parameters override
+those runtime values after ROS initialization. Command-line HTTP connection
+options apply only when an HTTP CLI command is executed.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">FULL</span></code> capture mode the driver groups packets by the firmware <code class="docutils literal notranslate"><span class="pre">ROT</span></code>
+counter and publishes only after all 20 unique <code class="docutils literal notranslate"><span class="pre">ENC</span></code> positions are present.
+An incomplete revolution is discarded when a newer counter arrives.</p>
+</section>
 <section id="pcap-based-operation">
 <h3>PCAP-based operation<a class="headerlink" href="#pcap-based-operation" title="Link to this heading"></a></h3>
 <p>It is used when there is no real device at hand, but there is a file with recorded traffic from it.</p>
 <p>You can find default configurations for UDP mode by <code class="docutils literal notranslate"><span class="pre">src/mech_lidar_driver/configs/default_pcap_config.json</span></code>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;mode&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;PCAP&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;test_PCAP&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;pcap_path&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/root/test.pcap&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;topic&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;laserscan_data_pcap&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;capture_type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;FULL&quot;</span>
+<span class="w">    </span><span class="s2">"mode"</span><span class="o">:</span><span class="w"> </span><span class="s2">"PCAP"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"name"</span><span class="o">:</span><span class="w"> </span><span class="s2">"test_PCAP"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"pcap_path"</span><span class="o">:</span><span class="w"> </span><span class="s2">"/root/test.pcap"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"topic"</span><span class="o">:</span><span class="w"> </span><span class="s2">"laserscan_data_pcap"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"capture_type"</span><span class="o">:</span><span class="w"> </span><span class="s2">"FULL"</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -181,19 +205,86 @@ address may differ from the LiDAR address.</p>
 </div>
 <p>See <a class="reference internal" href="http_api.html"><span class="doc">LiDAR HTTP API CLI</span></a> for the full command list.</p>
 </section>
+<section id="launch-files">
+<h3>Launch files<a class="headerlink" href="#launch-files" title="Link to this heading"></a></h3>
+<p>The package provides three launch files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">driver.launch</span></code> exposes all parameters and remains the generic entry point;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">udp.launch</span></code> selects the default UDP configuration;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pcap.launch</span></code> selects the default PCAP configuration.</p></li>
+</ul>
+<p>Start a full UDP scan:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>mech_lidar_driver<span class="w"> </span>udp.launch<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>source_ip:<span class="o">=</span><span class="m">192</span>.168.0.120<span class="w"> </span>udp_port:<span class="o">=</span><span class="m">50007</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>scan_topic:<span class="o">=</span>scan<span class="w"> </span>pointcloud_topic:<span class="o">=</span>points<span class="w"> </span>frame_id:<span class="o">=</span>base_link
+</pre></div>
+</div>
+<p>Publish each 115-point packet instead of a complete revolution:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>mech_lidar_driver<span class="w"> </span>udp.launch<span class="w"> </span>capture_type:<span class="o">=</span>SINGLE
+</pre></div>
+</div>
+<p>Replay a PCAP file:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>mech_lidar_driver<span class="w"> </span>pcap.launch<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>pcap_path:<span class="o">=</span>/data/lidar.pcap<span class="w"> </span>capture_type:<span class="o">=</span>FULL
+</pre></div>
+</div>
+<p>For two lidars, each instance must use a unique node name, namespace, UDP port
+and output topics:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>mech_lidar_driver<span class="w"> </span>udp.launch<span class="w"> </span>namespace:<span class="o">=</span>front<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>node_name:<span class="o">=</span>front_driver<span class="w"> </span>source_ip:<span class="o">=</span><span class="m">192</span>.168.0.120<span class="w"> </span>udp_port:<span class="o">=</span><span class="m">50007</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>scan_topic:<span class="o">=</span>scan<span class="w"> </span>pointcloud_topic:<span class="o">=</span>points
+roslaunch<span class="w"> </span>mech_lidar_driver<span class="w"> </span>udp.launch<span class="w"> </span>namespace:<span class="o">=</span>rear<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>node_name:<span class="o">=</span>rear_driver<span class="w"> </span>source_ip:<span class="o">=</span><span class="m">192</span>.168.0.121<span class="w"> </span>udp_port:<span class="o">=</span><span class="m">50008</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>scan_topic:<span class="o">=</span>scan<span class="w"> </span>pointcloud_topic:<span class="o">=</span>points
+</pre></div>
+</div>
+</section>
+<section id="runtime-parameters">
+<h3>Runtime parameters<a class="headerlink" href="#runtime-parameters" title="Link to this heading"></a></h3>
+<p>ROS private parameters override values loaded from JSON. The generic launch
+file exposes <code class="docutils literal notranslate"><span class="pre">capture_type</span></code>, <code class="docutils literal notranslate"><span class="pre">source_ip</span></code>,
+<code class="docutils literal notranslate"><span class="pre">udp_port</span></code>, <code class="docutils literal notranslate"><span class="pre">pcap_path</span></code>, <code class="docutils literal notranslate"><span class="pre">scan_topic</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pointcloud_topic</span></code>, <code class="docutils literal notranslate"><span class="pre">frame_id</span></code>, <code class="docutils literal notranslate"><span class="pre">angle_offset_deg</span></code>,
+<code class="docutils literal notranslate"><span class="pre">udp_reconnect_initial_ms</span></code>, <code class="docutils literal notranslate"><span class="pre">udp_reconnect_max_ms</span></code> and the HTTP/Safety
+Zones settings. This ordering makes a validated JSON file
+the base configuration while launch arguments configure a specific deployment.</p>
+</section>
+<section id="diagnostics">
+<h3>Diagnostics<a class="headerlink" href="#diagnostics" title="Link to this heading"></a></h3>
+<p>Diagnostics are enabled by default and published as
+<code class="docutils literal notranslate"><span class="pre">diagnostic_msgs/DiagnosticArray</span></code> on <code class="docutils literal notranslate"><span class="pre">diagnostics</span></code>. The status
+contains the transport, age of the last scan, valid packet count, published
+message count, invalid packet count, discarded incomplete revolutions and UDP
+socket recovery state/counters. It
+changes to <code class="docutils literal notranslate"><span class="pre">WARN</span></code> with <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">scan</span> <span class="pre">data</span></code> after
+<code class="docutils literal notranslate"><span class="pre">no_data_timeout_s</span></code> (default 2 seconds). Use
+<code class="docutils literal notranslate"><span class="pre">diagnostics_enabled</span></code>, <code class="docutils literal notranslate"><span class="pre">diagnostics_topic</span></code>,
+<code class="docutils literal notranslate"><span class="pre">diagnostics_period_s</span></code> and <code class="docutils literal notranslate"><span class="pre">no_data_timeout_s</span></code> to configure
+monitoring.</p>
+<p>After a system error from <code class="docutils literal notranslate"><span class="pre">poll</span></code> or <code class="docutils literal notranslate"><span class="pre">recvfrom</span></code>, the UDP socket is recreated
+without stopping the node. Diagnostics changes to <code class="docutils literal notranslate"><span class="pre">ERROR</span></code> with
+<code class="docutils literal notranslate"><span class="pre">UDP</span> <span class="pre">socket</span> <span class="pre">recovering</span></code> while retries use exponential backoff from
+<code class="docutils literal notranslate"><span class="pre">udp_reconnect_initial_ms</span></code> (250 ms) up to <code class="docutils literal notranslate"><span class="pre">udp_reconnect_max_ms</span></code> (5 s).
+Normal receive timeouts while the motor is stopped do not trigger recovery.</p>
+<p>For UDP, <code class="docutils literal notranslate"><span class="pre">hardware_id</span></code> uses the configured source IP. When the source filter
+is disabled with <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code> for Docker/NAT, it uses <code class="docutils literal notranslate"><span class="pre">http_host</span></code> instead so
+multiple devices remain distinguishable.</p>
+</section>
 <section id="operation-testing">
 <h3>Operation testing<a class="headerlink" href="#operation-testing" title="Link to this heading"></a></h3>
 <p>To ensure that driver works correctly you can capture publishing data:</p>
 <ol class="arabic simple">
 <li><p>For default configuration:</p></li>
 </ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>laserscan_data_udp
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>/scan
+rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>/points
+rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>/diagnostics
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li><p>For user-specified configuration:</p></li>
 </ol>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>&lt;JSON_CONFIG<span class="o">[</span><span class="s2">&quot;topic&quot;</span><span class="o">]</span>&gt;
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>&lt;JSON_CONFIG<span class="o">[</span><span class="s2">"topic"</span><span class="o">]</span>&gt;
 </pre></div>
 </div>
 <p>If driver operates correctly you should see frequently updated data.</p>

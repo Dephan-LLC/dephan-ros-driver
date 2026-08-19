@@ -58,6 +58,12 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Class Driver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reciever_socket.html">Class receiver_socket</a></li>
 <li class="toctree-l1"><a class="reference internal" href="http_client.html">Class HttpClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_cli.html">Driver CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_runtime.html">Driver runtime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_config.html">Driver Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver_diagnostics.html">Driver diagnostics helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="full_scan_assembler.html">Class FullScanAssembler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="safety_zone_markers.html">Safety zone marker helpers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="packet_handler_mech.html">Class pkt_hdl_Mech</a></li>
 <li class="toctree-l1"><a class="reference internal" href="packet_raw.html">Struct packet</a></li>
 </ul>
@@ -166,27 +172,51 @@
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver19publish_diagnosticsEv">
+<span id="_CPPv3N10dephan_ros6Driver19publish_diagnosticsEv"></span><span id="_CPPv2N10dephan_ros6Driver19publish_diagnosticsEv"></span><span id="dephan_ros::Driver::publish_diagnostics"></span><span class="target" id="classdephan__ros_1_1Driver_1ab230f67edb20a53ba661b60e5be61efc"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">publish_diagnostics</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver19publish_diagnosticsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Publish current stream counters and no-data health state. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver24record_published_messageEv">
+<span id="_CPPv3N10dephan_ros6Driver24record_published_messageEv"></span><span id="_CPPv2N10dephan_ros6Driver24record_published_messageEv"></span><span id="dephan_ros::Driver::record_published_message"></span><span class="target" id="classdephan__ros_1_1Driver_1a4bfe7a80cb1ec38e67c696e0dd7b88c9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">record_published_message</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver24record_published_messageEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Record one successfully published LaserScan/PointCloud2 pair. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver18receive_udp_packetEP7uint8_ti">
+<span id="_CPPv3N10dephan_ros6Driver18receive_udp_packetEP7uint8_ti"></span><span id="_CPPv2N10dephan_ros6Driver18receive_udp_packetEP7uint8_ti"></span><span id="dephan_ros::Driver::receive_udp_packet__uint8_tP.i"></span><span class="target" id="classdephan__ros_1_1Driver_1aced9924219a321826b006af90899acc4"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">receive_udp_packet</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buffer</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">length</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver18receive_udp_packetEP7uint8_ti" title="Link to this definition"></a><br /></dt>
+<dd><p>Receive a UDP packet and recreate the socket after system errors. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver19record_socket_errorERKNSt6stringE">
+<span id="_CPPv3N10dephan_ros6Driver19record_socket_errorERKNSt6stringE"></span><span id="_CPPv2N10dephan_ros6Driver19record_socket_errorERKNSt6stringE"></span><span id="dephan_ros::Driver::record_socket_error__ssCR"></span><span class="target" id="classdephan__ros_1_1Driver_1aba96b6a5ae9f267c533b123d4e91ae6c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">record_socket_error</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">message</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver19record_socket_errorERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Store an error for diagnostics without racing the diagnostics thread. </p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver9_poll_udpEv">
 <span id="_CPPv3N10dephan_ros6Driver9_poll_udpEv"></span><span id="_CPPv2N10dephan_ros6Driver9_poll_udpEv"></span><span id="dephan_ros::Driver::_poll_udp"></span><span class="target" id="classdephan__ros_1_1Driver_1ab7a6ebeae633bb22c80ca10465eead71"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_poll_udp</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver9_poll_udpEv" title="Link to this definition"></a><br /></dt>
-<dd><p>Poll one packet (2 pi / 18 rad segment per packet) in UDP mode. </p>
+<dd><p>Poll one 115-point packet in UDP mode. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver10_poll_pcapEv">
 <span id="_CPPv3N10dephan_ros6Driver10_poll_pcapEv"></span><span id="_CPPv2N10dephan_ros6Driver10_poll_pcapEv"></span><span id="dephan_ros::Driver::_poll_pcap"></span><span class="target" id="classdephan__ros_1_1Driver_1a6b2251b92ee3664600ba6756315d5a3d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_poll_pcap</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver10_poll_pcapEv" title="Link to this definition"></a><br /></dt>
-<dd><p>Poll one packet (2 pi / 18 rad segment per packet) in PCAP mode. </p>
+<dd><p>Poll one 115-point packet in PCAP mode. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver14_poll_full_udpEv">
 <span id="_CPPv3N10dephan_ros6Driver14_poll_full_udpEv"></span><span id="_CPPv2N10dephan_ros6Driver14_poll_full_udpEv"></span><span id="dephan_ros::Driver::_poll_full_udp"></span><span class="target" id="classdephan__ros_1_1Driver_1ad4f2d43594008ad9880f80a6222ceee6"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_poll_full_udp</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver14_poll_full_udpEv" title="Link to this definition"></a><br /></dt>
-<dd><p>Poll 18 packets (2 pi rad segment per packet) in UPD mode. </p>
+<dd><p>Poll the 20 packets of one complete revolution in UDP mode. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver15_poll_full_pcapEv">
 <span id="_CPPv3N10dephan_ros6Driver15_poll_full_pcapEv"></span><span id="_CPPv2N10dephan_ros6Driver15_poll_full_pcapEv"></span><span id="dephan_ros::Driver::_poll_full_pcap"></span><span class="target" id="classdephan__ros_1_1Driver_1a754788757f3c0d88b24839bef6c5ffe6"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_poll_full_pcap</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver15_poll_full_pcapEv" title="Link to this definition"></a><br /></dt>
-<dd><p>Pill 18 packets (2 pi rad segment per packet) in PCAP mode. </p>
+<dd><p>Poll the 20 packets of one complete revolution in PCAP mode. </p>
 </dd></dl>
 
 </div>
@@ -253,6 +283,12 @@
 </dd></dl>
 
 <dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver21diagnostics_publisherE">
+<span id="_CPPv3N10dephan_ros6Driver21diagnostics_publisherE"></span><span id="_CPPv2N10dephan_ros6Driver21diagnostics_publisherE"></span><span id="dephan_ros::Driver::diagnostics_publisher__ros::Publisher"></span><span class="target" id="classdephan__ros_1_1Driver_1a1a93ec5d6294674e0486d27b0774d421"></span><span class="n"><span class="pre">ros</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Publisher</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">diagnostics_publisher</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver21diagnostics_publisherE" title="Link to this definition"></a><br /></dt>
+<dd><p>Standard DiagnosticArray publisher for stream health. </p>
+</dd></dl>
+
+<dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver15runtime_optionsE">
 <span id="_CPPv3N10dephan_ros6Driver15runtime_optionsE"></span><span id="_CPPv2N10dephan_ros6Driver15runtime_optionsE"></span><span id="dephan_ros::Driver::runtime_options__DriverRuntimeOptions"></span><span class="target" id="classdephan__ros_1_1Driver_1ac01f9f6a825b820e3286b5e63924583d"></span><span class="n"><span class="pre">DriverRuntimeOptions</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">runtime_options</span></span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver15runtime_optionsE" title="Link to this definition"></a><br /></dt>
 <dd><p>Runtime ROS and optional debug settings. </p>
@@ -268,6 +304,12 @@
 <dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver20safety_debug_runningE">
 <span id="_CPPv3N10dephan_ros6Driver20safety_debug_runningE"></span><span id="_CPPv2N10dephan_ros6Driver20safety_debug_runningE"></span><span id="dephan_ros::Driver::safety_debug_running__std::atomic_bool"></span><span class="target" id="classdephan__ros_1_1Driver_1abc33105d380689253a7fead3fc94e00d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">atomic_bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">safety_debug_running</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="k"><span class="pre">false</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver20safety_debug_runningE" title="Link to this definition"></a><br /></dt>
 <dd><p>Background worker for safety debug polling. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10dephan_ros6Driver19diagnostics_runningE">
+<span id="_CPPv3N10dephan_ros6Driver19diagnostics_runningE"></span><span id="_CPPv2N10dephan_ros6Driver19diagnostics_runningE"></span><span id="dephan_ros::Driver::diagnostics_running__std::atomic_bool"></span><span class="target" id="classdephan__ros_1_1Driver_1ac1ffa25a1ee1b56b3714616bc67897cc"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">atomic_bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">diagnostics_running</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="k"><span class="pre">false</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N10dephan_ros6Driver19diagnostics_runningE" title="Link to this definition"></a><br /></dt>
+<dd><p>Background diagnostics state and stream counters. </p>
 </dd></dl>
 
 </div>
